@@ -37,11 +37,100 @@ class Model_Reject extends Model
     public function approveReject()
     {
         $id = $_POST['id'];
+        $client_id = $_POST['client_id'];
         $sql = "UPDATE `leads_rejection`";
         $sql.= " SET approval='0'";
         $sql.= " WHERE lead_id='$id'";
         $con = $this->db();
         $res = $con->query($sql);
+        $this->action_autoreroute_lead($client_id);
+    }
+
+    public function action_autoreroute_lead($client_id) 
+    {
+        //getting all postcodes for our client
+        $con = $this->db();
+        $sql = "SELECT postcodes FROM clients_criteria WHERE id = $client_id";
+        $query = $con->query($sql);
+        $result = $query->fetch_array();
+        
+        $data = explode(",", $result[0]);
+        //var_dump($data);
+
+
+        //getting all leads
+        $sql = "SELECT postcode, id FROM leads_lead_fields_rel ORDER BY id DESC";
+        $query = $con->query($sql);
+        while($row = $query->fetch_array(MYSQLI_NUM)) {
+            $result2[] = $row;
+        }
+        //var_dump($result2);
+        //die;
+        
+        //getting all leads that fulfill our clients postcode criteria
+        foreach($result2 as $array) {
+            if(in_array($array[0], $data)) {
+                $seeking_lead[] = $array[1];
+            }             
+        }
+        //var_dump($seeking_lead);
+        //die;
+
+        //getting all leads that have been sent to client
+        $sql = "SELECT lead_id FROM leads_delivery WHERE client_id = $client_id ORDER BY lead_id DESC";
+        $query = $con->query($sql);
+        while($row = $query->fetch_array(MYSQLI_NUM)) {
+            $result3[] = $row;
+        }
+        //var_dump($result3);
+        //die;    
+
+        foreach($result3 as $array) {
+            foreach($seeking_lead as $lead) {
+                if($lead !== $array[0]) {
+                    $lead_id[] = $lead;
+                } else {
+                    $lead_repeat[] = $lead;
+                }
+            }
+        }
+
+        //var_dump($lead_repeat);
+
+        foreach($lead_id as $id) {
+            if(in_array($id, $lead_repeat)) {
+                //
+            } else {
+                $wanted_id[] = $id;
+            }
+        }
+
+        foreach($wanted_id as $id) {
+            $sql = "SELECT lead_id FROM leads_delivery WHERE lead_id = $id ORDER BY lead_id DESC";
+            $query = $con->query($sql);
+            while($row = $query->fetch_array(MYSQLI_NUM)) {
+                $result4[] = $row;                
+            }
+            if(count($result4) < 4) {
+                $reroute_id = $id;
+                break;
+            }
+        }
+
+        //var_dump($reroute_id);
+        //var_dump($client_id);        
+
+        if(is_null($reroute_id)) {
+            echo 'cannot send, all possible leads already sent!';
+        } else {
+            echo 'we can send';
+            include 'app/models/model_leads.php';
+            $model = new Model_leads();
+            $model->senOneLead($client_id, $reroute_id, $reroute = true);
+            echo 'done';
+        }
+
+        
     }
 
 
