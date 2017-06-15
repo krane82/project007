@@ -10,7 +10,7 @@ class Controller_Registration extends Controller {
 
     public function action_index()
     {
-        $data = ['somedata'];
+        $data = [''];
         $this->view->generate('registration/registration_view.php', 'registration/registration_template.php', $data);
     }
 
@@ -19,9 +19,12 @@ class Controller_Registration extends Controller {
         if (isset($_POST)){
             $register = $this->model->store_user($this->clear_post($_POST));
             $store = $this->model->store_client($this->clear_post($_POST), $register);
+            $user_email = $this->model->get_email_client($register);
+            $storeFile = $this->model->store_file($register, $user_email);
             if($store && $register){
                 session_start();
                 $_SESSION['user'] =  md5('user');
+                $_SESSION['user_id'] =  $register;
                 header('Location:/client/dashboard');
             }
         }

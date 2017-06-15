@@ -25,10 +25,4 @@ public function deleteFile()
   $res = $con->query($sql);
   return $sql;
 }
-  public function sendClientChanges($lead)
-  {
-    include_once "model_infusionsoft.php";
-    $infusionSoft=new Model_Infusionsoft();
-    $infusionSoft->sendLead($lead);
-  }
 }

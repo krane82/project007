@@ -28,7 +28,7 @@ class Model_Reject extends Model
     {
         $id = $_POST['id'];
         $sql = "UPDATE `leads_rejection`";
-        $sql.= " SET approval='2'";
+        $sql.= " SET approval='1'";
         $sql.= " WHERE lead_id='$id'";
         $con = $this->db();
         $res = $con->query($sql);

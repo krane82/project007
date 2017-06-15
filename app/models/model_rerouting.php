@@ -402,7 +402,7 @@ if(isset($_POST)){
     $now = time();
     $sqlM = "SELECT count(*) FROM `leads_delivery` WHERE client_id = $id AND (timedate BETWEEN $FirstOfMonth AND $now)";
     $sqlW = "SELECT count(*) FROM `leads_delivery` WHERE client_id = $id AND (timedate BETWEEN $Monday AND $now)";
-    $sqlCaps = "SELECT weekly, monthly  FROM `clients_criteria` WHERE id=$id";
+    $sqlCaps = "SELECT weekly FROM `clients_criteria` WHERE id=$id";
 
     $con = $this->db();
 

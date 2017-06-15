@@ -23,6 +23,9 @@
                                     </div>
                                     <div class="form-group-container col-md-8 col-md-offset-2">
                                         <div class="form-group">
+                                            
+                                        </div>
+                                        <div class="form-group">
                                             <label for="campaign_name">Company Name:</label>
                                             <input type="text" name="campaign_name" id="campaign_name" value="" class="form-control"/>
                                         </div>
@@ -42,7 +45,7 @@
                                             <label for="abn">ABN:</label>
                                             <input type="text" name="abn" id="abn" value="" class="form-control" />
                                         </div>
-                                    </div>
+                                        
                                 </section>
 
                                 <!------Contact Details------->
@@ -138,8 +141,7 @@
                                             </label><br>
                                         </div>
                                     </div>
-                                </section>
-
+                                </section>                               
 
                                 <!------Terms & Conditions------->
                                 <h3>Terms & Conditions</h3>
@@ -147,7 +149,7 @@
                                     <div class="section-title">
                                         <h4>Terms & Conditions</h4>
                                     </div>
-                                    <div class="tnc">
+                                    <div class="tnc" id="tncText">
                                         <h2>Agreement</h2>
                                         <p>This agreement is made between you (the Contractor) and The Quote Company (us or we). By completing and signing this agreement, you agree to the terms and conditions contained herein.</p>
                                         <p>On signing up, contractors are required to specify:</p>
@@ -212,27 +214,68 @@
                                             Registered Office</p>
                                         <p>Level 33, 264 George Street, Sydney, 2000 NSW</p>
                                     </div>
-                                    <div>
+                                    <div id="docusPermit">
                                         <p class="info-block">
                                             <span class="glyphicon glyphicon-info-sign"></span>
                                             <i>By completing the information below, and the required payment section, you have agreed to be an authorised representative for your company and agree to the terms and conditions outlined here within.</i>
                                         </p>
                                     </div>
-                                    <div class="form-group-container col-md-8">
+                                    <div class="form-group" id="docusPerson">
                                         <div class="form-group">
                                             <label for="authorised_person">Authorised Person:</label>
-                                            <input type="text" name="authorised_person" id="authorised_person" value="" class="form-control"/>
+                                            <input type="text" name="authorised_person" id="authorised_person" value="" class="form-control" pattern="^[a-zA-Z ]{3,}$"/>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="position">Position:</label>
-                                            <input type="text" name="position" id="position" value="" class="form-control"/>
+
+                                    </div>    
+                                    <div class="form-group-container">
+                                        <button type='button' id='submitDocus' class="btn-primary">Sign</button>
+                                    </div>
+                                    <div class="form-group-container col-md-8" id='docus'>
+                                        <div class="form-group" id="docusEvent">
                                         </div>
                                     </div>
+                                </section>
 
+                                 <!------Conditions------->
+                                <h3>Conditions</h3>
+                                <section data-step="4">
+                                    <div class="section-title">
+                                        <h4>Our Conditions</h4>
+                                    </div>
+                                    <h5>Please confirm all conditions</h5>
+                                    <div class="form-group-container col-md-8 col-md-offset-2">
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="lorem1" id="lorem1" value="1" checked required/>
+                                                Condition1
+                                            </label><br>
+                                            <label>
+                                                <input type="checkbox" name="lorem2" id="lorem2" value="1" checked required/>
+                                                Condition2
+                                            </label><br>
+                                            <label>
+                                                <input type="checkbox" name="lorem3" id="lorem3" value="1" checked required/>
+                                                Condition3
+                                            </label><br>
+                                            <label>
+                                                <input type="checkbox" name="lorem4" id="lorem4" value="1" checked required/>
+                                                Condition4
+                                            </label><br>
+                                            <label>
+                                                <input type="checkbox" name="lorem5" id="lorem5" value="1" checked required/>
+                                                Condition5
+                                            </label><br>
+                                            <label>
+                                                <input type="checkbox" name="lorem6" id="lorem6" value="1" checked required/>
+                                                Condition6
+                                            </label><br>
+                                        </div>
+                                    </div>
                                 </section>
 
                                 <h3>Payment Options</h3>
-                                <section data-step="4">
+                                <section data-step="5">
                                     <div class="section-title">
                                         <h4>Backup Payment Method</h4>
                                     </div>
@@ -714,7 +757,24 @@ Common
 {
     display: list-item;
 }
+#docus {
+  display: none; 
+}
+/*#docusFrame {
+    width: 800px;
+}*/
+#submitDocus {
+    background: #2184be;
+    color: #fff;
+    display: block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
 </style>
+
 
 
 

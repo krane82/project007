@@ -104,28 +104,28 @@ class Model_Profile extends Model {
       $con = $this->db();
       $res = $con->query($sql);
       while($row = $res->fetch_assoc()){
-          foreach ($row as $k => $v) {
-              if($k == "id"){
-                  $profile.= "<input type='hidden' name='$k' value='$v' />";
-              }elseif ($k == "password") {
-                  $profile.= "<input type='password' name='$k' value=''/>";
-              }elseif ($k == "postcodes") {
-                  $profile.= "<div class='form-group'>";
-                  $profile.= "<label for='$k'>".$this->form_keys["$k"]."</label>";
-                  $profile.=  "<textarea class='form-control' id='$k' readonly='readonly' name='postcodes' type='text'>$v</textarea>";
-                  $profile.= "</div>";
-              } elseif($k == "lead_cost" || $k == "xero_id" || $k == "xero_name" ) {
+        foreach ($row as $k => $v) {
+            if($k == "id"){
+                $profile.= "<input type='hidden' name='$k' value='$v' />";
+            }elseif ($k == "password") {
+                $profile.= "<input type='password' name='$k' value=''/>";
+            }elseif ($k == "postcodes") {
+                $profile.= "<div class='form-group'>";
+                $profile.= "<label for='$k'>".$this->form_keys["$k"]."</label>";
+                $profile.=  "<textarea class='form-control' id='$k' readonly='readonly' name='postcodes' type='text'>$v</textarea>";
+                $profile.= "</div>";
+            } elseif($k == "lead_cost" || $k == "xero_id" || $k == "xero_name" ) {
 
-              } else {
-                  $profile.= "<div class='form-group'>";
-                  $profile.= "<label for='$k'>".$this->form_keys["$k"]."</label>";
-                  $profile.= '<input class="form-control" type="text" name="'.$k.'" value="'.$v.'" readonly="readonly" > ' ;
-                  $profile.= "</div>";
-              }
-          }
+            } else {
+                $profile.= "<div class='form-group'>";
+                $profile.= "<label for='$k'>".$this->form_keys["$k"]."</label>";
+                $profile.= '<input class="form-control" type="text" name="'.$k.'" value="'.$v.'" readonly="readonly" > ' ;
+                $profile.= "</div>";
+            }
+        }
       }
       $profile .= "</div>";
-    return $profile;
+      return $profile;
   }
   public function checkdata($post){
     $p = array();

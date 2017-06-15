@@ -218,6 +218,7 @@ class SSP {
    */
   static function simple ( $request, $sql_details, $table, $primaryKey, $columns, $joinQuery = NULL, $extraWhere = '', $groupBy = '')
   {
+   
     $bindings = array();
     $db = SSP::sql_connect( $sql_details );
 

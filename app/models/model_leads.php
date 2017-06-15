@@ -129,7 +129,7 @@ class Model_Leads extends Model {
           print 'Error!';
         }
         $i++;
-        usleep(250000);
+        //usleep(250000); Chernitsov
       }
     }
     else {
@@ -140,7 +140,7 @@ class Model_Leads extends Model {
           print 'error!';
         }
         $i++;
-        usleep(250000);
+          //usleep(250000); Chernitsov
       }
     }
     print $i.' Leads done';
@@ -270,7 +270,7 @@ class Model_Leads extends Model {
   private function sendToClient($mail, $p, $client_name, $track_id)
   {
     if($mail) {
-      send_m($mail, $p, $client_name, $track_id);
+      send_m($mail, $p, $client_name, $track_id, '', '');
       return TRUE;
     }
     return FALSE;
