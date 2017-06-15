@@ -732,8 +732,10 @@ WHERE 1=1 AND (`l`.`datetime` BETWEEN 1488027600 AND 1488891600)";
     // $total_revenue = $distributednew["amount"]*$average;
     $total_revenue = $distributednew['client_cost'] - $rejected['client_cost'] - $resultrej['client_cost'];
 
-    $profit = $result['client_cost'];
+//    $profit = $result['client_cost'];
     // $profit = $total_revenue - $CoastLids['cost'] - ($rejected["amount"]*$average);
+    $profit = $total_revenue - $CoastLids['cost'];
+
 
     $ds =  $distributednew["amount"] . " leads <br>distributed";
     $acs = $approvednew['amount']. " leads <br>accepted";
