@@ -171,7 +171,7 @@ WHERE 1=1 AND (`l`.`datetime` BETWEEN 1488027600 AND 1488891600)";
         $prearr[] = $k;
       }
       $approved[] = $prearr;
-      $approved[] = $col;
+//      $approved[] = $col;
       while($line = $res->fetch_assoc()){
         $line['phone']='Ph: '.$line['phone'];
         $approved[] = $line;
@@ -224,7 +224,7 @@ WHERE 1=1 AND (`l`.`datetime` BETWEEN 1488027600 AND 1488891600)";
       }
 
       $distributed[] = $prearr;
-      $distributed[] = $col;
+//      $distributed[] = $col;
 
       while($line = $res->fetch_assoc()){
         if($line['Open time']=='1 Jan 1970') $line['Open time']='Still not open :(';
@@ -604,6 +604,8 @@ WHERE 1=1 AND (`l`.`datetime` BETWEEN 1488027600 AND 1488891600)";
     if($resultdis){
       $distributednew = $resultdis->fetch_assoc();
     }
+//    var_dump($sqlDistributednew);
+//    exit();
 
 
 
