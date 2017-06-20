@@ -69,11 +69,14 @@ WHERE 1=1 AND (`l`.`datetime` BETWEEN 1488027600 AND 1488891600)";
       $col = $res->fetch_assoc();
       $prearr = array();
       foreach($col as $k=>$v){
+
         $prearr[] = $k;
       }
       $approved[] = $prearr;
       $approved[] = $col;
       while($line = $res->fetch_assoc()){
+        $line['address'] = str_replace(array("\r","\n"), "", $line['address']);
+        $line['note'] = str_replace(array("\r","\n"), "", $line['note']);
         $line['phone']='Ph: '.$line['phone'];
         $approved[] = $line;
       }
@@ -123,6 +126,8 @@ WHERE 1=1 AND (`l`.`datetime` BETWEEN 1488027600 AND 1488891600)";
       $received[] = $prearr;
       $received[] = $col;
       while($line = $res->fetch_assoc()){
+        $line['address'] = str_replace(array("\r","\n"), "", $line['address']);
+        $line['note'] = str_replace(array("\r","\n"), "", $line['note']);
         $line['phone']='Ph: '.$line['phone'];
         $received[] = $line;
       }
@@ -173,6 +178,8 @@ WHERE 1=1 AND (`l`.`datetime` BETWEEN 1488027600 AND 1488891600)";
       $approved[] = $prearr;
 //      $approved[] = $col;
       while($line = $res->fetch_assoc()){
+        $line['address'] = str_replace(array("\r","\n"), "", $line['address']);
+        $line['note'] = str_replace(array("\r","\n"), "", $line['note']);
         $line['phone']='Ph: '.$line['phone'];
         $approved[] = $line;
       }
@@ -228,6 +235,8 @@ WHERE 1=1 AND (`l`.`datetime` BETWEEN 1488027600 AND 1488891600)";
 
       while($line = $res->fetch_assoc()){
         if($line['Open time']=='1 Jan 1970') $line['Open time']='Still not open :(';
+        $line['address'] = str_replace(array("\r","\n"), "", $line['address']);
+        $line['note'] = str_replace(array("\r","\n"), "", $line['note']);
         $line['phone']='Ph: '.$line['phone'];
         $line['Status']=formatReject($line['Status']);
         $distributed[] = $line;
@@ -512,6 +521,8 @@ WHERE 1=1 AND (`l`.`datetime` BETWEEN 1488027600 AND 1488891600)";
       $approved[] = $prearr;
       // $approved[] = $col;
       while($line = $res->fetch_assoc()){
+        $line['address'] = str_replace(array("\r","\n"), "", $line['address']);
+        $line['note'] = str_replace(array("\r","\n"), "", $line['note']);
         $line["Rejected/Accepted"] = formatReject($line["Rejected/Accepted"]);
         $approved[] = $line;
       }
