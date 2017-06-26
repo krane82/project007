@@ -6,8 +6,6 @@
   .container {
     width: 95%;
   }
-
-
 }
 
 
@@ -225,23 +223,5 @@ input.searchbox {
         margin-top: 143%;
     }
 }
-
-.reportsdate{
-    width:40%;
-}
-/*#client_leads tr td:last-child, #client_leads tr th:last-child {*/
-    /*text-align: center;*/
-/*}*/
-
-/*#client_leads tr td:last-child .btn {*/
-    /*min-width: 143px;*/
-    /*margin-bottom: 3px;*/
-/*}*/
-
-/*#client_leads .bg-warning {*/
-    /*padding: 5px;*/
-/*}*/
-
-
 
 

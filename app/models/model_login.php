@@ -20,8 +20,10 @@ class Model_Login extends Model {
     $password = mysqli_real_escape_string($con, $password);
     $password = md5($password);
     $query    = "SELECT * FROM `users` WHERE email='$login' and password='$password'";
+
     if( $result = $con->query($query) ) {
       $r  = $result->fetch_assoc();
+
       if($r){
         foreach($r as $k=>$v) {
           if($k !== 'password') {

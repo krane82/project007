@@ -51,7 +51,7 @@ class Controller_CLients extends Controller {
             ),
             array('db'=>'`a`.`id`', 'dt'=>7, 'formatter' => function($d, $row) {
                 $string = '<a href="#" class="edit-client" attr-id="'. $row[0] .'" attr-name="'. $row[1] .'" title="Edit campaign" data-toggle="modal" class="edit-button" data-target="#editClient"><i class="fa fa-pencil" aria-hidden="true"></i> </a>';
-                $string .= ' <a href="#" class="delete-client" attr-id="'. $row[0] .'" attr-name="'. $row[1] .'" title="Delete campaign"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
+//                $string .= ' <a href="#" class="delete-client" attr-id="'. $row[0] .'" attr-name="'. $row[1] .'" title="Delete campaign"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
                 return $string;
             }, 'field'=> 'id')
         );

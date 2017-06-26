@@ -10,10 +10,10 @@ class Controller_Login extends Controller {
 
 	function action_index() {
 
-        if(!isset($_POST['rem_sys'])){
-            setcookie("hash_sys", "", time() - 100);
+        // if(!isset($_POST['rem_sys'])){
+        //     setcookie("hash_sys", "", time() - 100);
 
-        }
+        // }
 
         if(isset($_COOKIE['hash_sys'])){
             $res = $this->model->rem_in_sys();
@@ -41,6 +41,7 @@ class Controller_Login extends Controller {
 			$login = $_POST['login'];
 			$password =$_POST['password'];
 			$login = $this->model->check_data($login, $password);
+
 			if($login){
 				if($login["level"] === "1") {
 					$_SESSION['admin'] = md5('admin');

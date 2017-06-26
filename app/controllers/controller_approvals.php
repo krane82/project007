@@ -37,7 +37,7 @@ class Controller_approvals extends Controller
     $client_id = $_POST["client_id"];
     if($id){
       $con = $this->db();
-      $sql = "UPDATE `leads_rejection` SET approval=3 WHERE lead_id=$id AND client_id=$client_id";
+      $sql = "UPDATE `leads_rejection` SET approval=1 WHERE lead_id=$id AND client_id=$client_id";
       $con->query($sql);
       $con->close();
     }
@@ -218,7 +218,7 @@ class Controller_approvals extends Controller
           unlink($result1['audiofile']);
         }
         //
-        $sql = "UPDATE `leads_rejection` SET approval=3, decline_reason='$decline'";
+        $sql = "UPDATE `leads_rejection` SET approval=1, decline_reason='$decline'";
         if($httpPath) $sql.=", audiofile='$destination'";
         $sql.="WHERE lead_id=$id AND client_id=$client_id";
         $res = $con->query($sql);

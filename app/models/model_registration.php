@@ -53,8 +53,8 @@ class Model_Registration extends Model {
         $result = $con->query($query);
         if( $result ) {
 
-            $xero_id = '999';
-            $xero_name = 'some data';
+            $xero_id = '';
+            $xero_name = '';
 
             $sql1 = 'INSERT INTO `clients_billing`';
             $sql1.= '(id, xero_id, xero_name)';
@@ -98,12 +98,13 @@ class Model_Registration extends Model {
 
             $last_id = $con->insert_id;
 
-            $states_filter = 'Some data';
-            $postcodes  = 'Some data';
+            $states_filter = '';
+            $postcodes  = '';
+            $weeekly = 10;
 
             $sql3 = 'INSERT INTO `clients_criteria`';
-            $sql3.= '(id, states_filter, postcodes )';
-            $sql3.= " VALUES ($last_id, '$states_filter', '$postcodes' )";
+            $sql3.= '(id, weeekly, states_filter, postcodes )';
+            $sql3.= " VALUES ($last_id, $weeekly, '$states_filter', '$postcodes' )";
 
             if($con->query($sql3)) $criteria_added = 1;
             return($last_id);
@@ -112,5 +113,49 @@ class Model_Registration extends Model {
             echo('Error');
             return FALSE;
         }
+    }
+
+    public function get_email_client($last_id)
+    {
+        $con = $this->db();
+
+        if ($con->connect_errno) {
+            printf("Connect failed: %s\n", $con->connect_error);
+            exit();
+        }
+        $query = "SELECT `email` FROM `users` 
+                    WHERE `id` = ".$last_id.";";
+        $result = $con->query($query);
+        if( $result ) {
+            while($row = $result->fetch_assoc()){
+                return trim($row['email']);
+            }
+
+        } else {
+            $con->close();
+            echo('Error email');
+            return FALSE;
+        }
+
+    }
+
+    public function store_file($id, $file_id)
+    {
+        $dir = _MAIN_DOC_ROOT_.'/app/api/tmp/E'.md5($file_id);
+        // echo $dir;
+        $filename1 = $dir.'/.pdf';
+        $filename2 = $dir.'/1.pdf';
+        $dirNew = _MAIN_DOC_ROOT_.'/docs/terms/'.$id;
+        if(! is_dir($dirNew))
+        {
+            mkdir ($dirNew, 0755);
+        }
+        $filename1New = $dirNew.'/signed_terms_info.pdf';
+        $filename2New = $dirNew.'/signed_terms.pdf';
+        copy($filename1, $filename1New); 
+        unlink($filename1); 
+        copy($filename2, $filename2New); 
+        unlink($filename2);
+        rmdir($dir);
     }
 }

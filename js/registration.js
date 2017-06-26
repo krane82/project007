@@ -7,6 +7,11 @@ $( document ).ready(function() {
             $iframe.height($body.height());
         }
     }
+    var signed = false;
+
+    // $('body').on('custom:event', '#docusFrame', function(){console.log('aaaa');});
+
+    
 
     //Init Step view
     $("#wizard").steps({
@@ -18,17 +23,30 @@ $( document ).ready(function() {
             // You don't need to care about it
             // It is for the specific demo
             adjustIframeHeight();
+
         },
         // Triggered when clicking the Previous/Next buttons
         onStepChanging: function(e, currentIndex, newIndex) {
+
+            // var signed = false;
             var fv         = $('#wizard').data('formValidation'), // FormValidation instance
                 // The current step container
                 $container = $('#wizard').find('section[data-step="' + currentIndex +'"]');
 
             // Validate the container
             fv.validateContainer($container);
+            document.getElementById("docusEvent").addEventListener('custom:event', function() {         
+                signed = true;
+            });
+
+            
 
             var isValidStep = fv.isValidContainer($container);
+            if (currentIndex == 3) {
+                console.log(signed);
+                if (!signed) return false;
+                else return true;
+            }
             if (isValidStep === false || isValidStep === null) {
                 // Do not jump to the next step
                 return false;
@@ -122,8 +140,19 @@ $( document ).ready(function() {
                     stringLength: {
                         min: 11,
                         max: 11,
-                        message: 'The State must be 11 characters long'
+                        message: 'The ABN be 11 characters long'
                     },
+                }
+            },
+            phone: {
+                validators: {
+                    notEmpty: {
+                        message: 'The phone number is required'
+                    },
+                    regexp: {
+                        regexp: /^[0-9]{10,10}$/,
+                        message: 'The phone consists from 10 numbers'
+                    }
                 }
             },
             email: {
@@ -144,6 +173,10 @@ $( document ).ready(function() {
                     different: {
                         field: 'username',
                         message: 'The password cannot be the same as username'
+                    },
+                    regexp: {
+                        regexp: /^[0-9A-Za-z]{6,10}$/,
+                        message: 'The password consists from letters, numbers and have 6-10 symbols'
                     }
                 }
             },
@@ -155,6 +188,21 @@ $( document ).ready(function() {
                     identical: {
                         field: 'password',
                         message: 'The confirm password must be the same as original one'
+                    }
+                }
+            },
+            authorised_person: {
+                validators: {
+                    notEmpty: {
+                        message: 'The signing terms and conditions is required'
+                    },
+                    stringLength: {
+                        min: 3,
+                        message: 'The authorised person name is less 3 symbols'
+                    },
+                    regexp: {
+                        regexp: /^[A-Za-z ]$/,
+                        message: 'The authorised person name can only consist of letters'
                     }
                 }
             },
@@ -234,6 +282,96 @@ $( document ).ready(function() {
                     }
                 }
             },
+            lorem1: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    },
+                }
+            },
+            lorem2: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    },
+                }
+            },
+            lorem3: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    },
+                }
+            },
+            lorem4: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    },
+                }
+            },
+            lorem5: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    },
+                }
+            },
+            lorem6: {
+                validators: {
+                    notEmpty: {
+                        message: ''
+                    },
+                }
+            },
         }
     });
+
+$('#authorised_person').change(function(){
+    var authorised_person = $(this).val();
+    var regExpInput = new RegExp(this.getAttribute('pattern'));
+    if (regExpInput.test(authorised_person)) {
+        $('#submitDocus').attr("disabled", false);
+    }    
+});
+
+$('#submitDocus').click(function(){
+
+    var email_docus = $('#email').val();
+    var authorised_person = $('#authorised_person').val();
+    $('#docusPerson').hide();
+    $('#submitDocus').hide();
+    $('#docusPermit').hide();
+    $('#tncText').hide();
+    $('#docus').show();
+    $.ajax({
+        type: "POST",
+        url: './app/api/docusign_embedded_sign_api.php',
+        data: ({recipientName: authorised_person, recipientEmail: email_docus}),
+        beforeSend: darkLoader,
+        success: function(res) {
+            $('#overlay').hide();
+            $('#docusEvent').html('<iframe src="' + res + '" id="docusFrame" width="1000" height="450" style="border-width:0px;"></iframe>');
+            console.log(window.parent.document.getElementById('docusFrame').parentNode);
+        }
+    });
+});    
+
+    function darkLoader() 
+    {
+        var docHeight = $(document).height();
+        $("body").append("<div id='overlay'></div>");
+        $("#overlay")
+        .height(docHeight)
+        .css({
+            'opacity' : 0.4,
+            'position': 'absolute',
+            'top': 0,
+            'left': 0,
+            'background-color': 'black',
+            'width': '100%',
+            'z-index': 5000
+        });
+    }
+
 });

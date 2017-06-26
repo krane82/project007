@@ -224,11 +224,13 @@
           <li><a href="<?php echo __HOST__; ?>/leads/csvUpload/">Upload Leads from CSV</a></li>
           </ul>
         </li>
-        <li><a href="<?php echo __HOST__; ?>/admin_reports/" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-stats"></span><p>Reports</p></a>
+        <li><a href="<?php echo __HOST__; ?>/admin_reports/" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-stats"></span><p>Reports</p></a></li>
 
-        <li><a href="<?php echo __HOST__; ?>/invoice/" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-list-alt"></span><p>Invoices</p></a>
+        <li><a href="<?php echo __HOST__; ?>/invoice/" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-list-alt"></span><p>Invoices</p></a></li>
+        
+        <li><a href="<?php echo __HOST__; ?>/terms/" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-file"></span><p>Terms</p></a></li>
 
-        <li><a href="<?php echo __HOST__; ?>/settings/" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-wrench"></span><p>Settings</p></a>
+        <li><a href="<?php echo __HOST__; ?>/settings/" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-wrench"></span><p>Settings</p></a></li>
 <!--          <ul class="sub-menu">-->
 <!--            <li><a href="charts-sparkline">Sparkline</a></li>-->
 <!--            <li><a href="charts-rickshaw">Rickshaw</a></li>-->
