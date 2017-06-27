@@ -29,6 +29,15 @@ class Controller_approvals extends Controller
       $con = $this->db();
       $sql = "UPDATE `leads_rejection` SET approval=0 WHERE lead_id=$id AND client_id=$client_id";
       $con->query($sql);
+
+      $sql1 = "select camp_id from leads_rejection where lead_id='$id'";
+      $res = $con->query($sql1);
+      if ($res) $result = $res->fetch_assoc();
+
+      include 'app/models/model_reject.php';
+      $model = new Model_Reject();
+      $model->action_autoreroute_lead($client_id, $result['camp_id']);
+      
       $con->close();
     }
   }
