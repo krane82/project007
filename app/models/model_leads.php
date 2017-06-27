@@ -177,7 +177,7 @@ class Model_Leads extends Model {
     if(in_array($client_id, $receivers )) return "This client already has this lead";
       $readyLeadInfo = prepareLeadInfo($leadInfo);
 
-      if($reroute) {
+      /*if($reroute) {
           $delivery_id = $this->getLastDeliveryID() + 1;
           $sent = $this->sendToClient($c["email"], $readyLeadInfo, $c["full_name"],$delivery_id);
           if($sent) {
@@ -186,9 +186,9 @@ class Model_Leads extends Model {
           } else {
               return "mail error: $sent";
           }
-      } else {
+      } else {*/
       $passedCaps = $this->checkClientsLimits($client_id);
-      if($passedCaps) {
+      if($passedCaps OR $reroute) {
         $delivery_id = $this->getLastDeliveryID() + 1;
         $sent = $this->sendToClient($c["email"], $readyLeadInfo, $c["full_name"],$delivery_id);
         if($sent) {
@@ -200,7 +200,7 @@ class Model_Leads extends Model {
       } else {
         return "Cannot send over client caps...";
       }
-    }
+
   }
   private function senLeadToAll($lead_id)
   {
