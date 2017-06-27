@@ -181,7 +181,6 @@ class Model_Leads extends Model {
 
       if (!$reroute) {
         $camp_id = $this->checkClientsLimits($client_id, $leadInfo);
-        echo $camp_id;
       }
 
       if($camp_id OR $reroute) {
@@ -189,7 +188,7 @@ class Model_Leads extends Model {
         $sent = $this->sendToClient($c["email"], $readyLeadInfo, $c["full_name"],$delivery_id);
         if($sent) {
           $this->addToDeliveredTable($client_id, $lead_id, $readyLeadInfo, $camp_id);
-          return "Lead sent.";
+          return "Lead $lead_id sent to ".$c['full_name'];
         } else {
           return "mail error: $sent";
         }
