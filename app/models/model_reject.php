@@ -43,19 +43,25 @@ class Model_Reject extends Model
         $sql.= " WHERE lead_id='$id'";
         $con = $this->db();
         $res = $con->query($sql);
-        $this->action_autoreroute_lead($client_id);
+        $sql1 = "select camp_id from leads_rejection where lead_id='$id'";
+        $res = $con->query($sql1);
+        if ($res) $result = $res->fetch_assoc();
+        // var_dump($result['camp_id']);die();
+        $this->action_autoreroute_lead($client_id, $result['camp_id']);
     }
 
-    public function action_autoreroute_lead($client_id) 
+    public function action_autoreroute_lead($client_id, $camp_id) 
     {
         //getting all postcodes for our client
         $con = $this->db();
-        $sql = "SELECT postcodes FROM clients_criteria WHERE id = $client_id";
+        $sql = "SELECT postcodes FROM client_campaigns WHERE id = $camp_id";
+        // var_dump($sql);die();
         $query = $con->query($sql);
+        // var_dump($query);die();
         $result = $query->fetch_array();
         
         $data = explode(",", $result[0]);
-        //var_dump($data);
+        // var_dump($data);die();
 
 
         //getting all leads
@@ -64,7 +70,7 @@ class Model_Reject extends Model
         while($row = $query->fetch_array(MYSQLI_NUM)) {
             $result2[] = $row;
         }
-        //var_dump($result2);
+        // var_dump($result2);die();
         //die;
         
         //getting all leads that fulfill our clients postcode criteria
@@ -73,8 +79,7 @@ class Model_Reject extends Model
                 $seeking_lead[] = $array[1];
             }             
         }
-        //var_dump($seeking_lead);
-        //die;
+        // var_dump($seeking_lead);       die;
 
         //getting all leads that have been sent to client
         $sql = "SELECT lead_id FROM leads_delivery WHERE client_id = $client_id ORDER BY lead_id DESC";
@@ -82,8 +87,7 @@ class Model_Reject extends Model
         while($row = $query->fetch_array(MYSQLI_NUM)) {
             $result3[] = $row;
         }
-        //var_dump($result3);
-        //die;    
+        // var_dump($result3);die;    
 
         foreach($result3 as $array) {
             foreach($seeking_lead as $lead) {
@@ -124,9 +128,10 @@ class Model_Reject extends Model
             echo 'cannot send, all possible leads already sent!';
         } else {
             echo 'we can send';
+            // var_dump($camp_id); die();
             include 'app/models/model_leads.php';
             $model = new Model_leads();
-            $model->senOneLead($client_id, $reroute_id, $reroute = true);
+            $model->senOneLead($client_id, $reroute_id, $camp_id, true);
             echo 'done';
         }
 

@@ -105,19 +105,19 @@ class Model_Client_Campaigns extends Model
         $con->close();
     }
 
-    public function send_leads($client_id, $camp_id)
-    {
-        $con = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-        if ($con->connect_errno) {printf("connect failed: %s\n", $con->connect_error);exit();}
+    // public function send_leads($client_id, $camp_id)
+    // {
+    //     $con = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    //     if ($con->connect_errno) {printf("connect failed: %s\n", $con->connect_error);exit();}
 
-        $query = "insert into `client_campaign_cron` (`camp_id`, `client_id`) values('" . $camp_id . "', '" . $client_id ."')";
-        if ($result = $con->query($query))
-        {
-            // return $result;
-        } 
-        else {die ("database access failed: " . $con->error);}
-        $con->close();
-    }
+    //     $query = "insert into `client_campaign_cron` (`camp_id`, `client_id`) values('" . $camp_id . "', '" . $client_id ."')";
+    //     if ($result = $con->query($query))
+    //     {
+    //         // return $result;
+    //     } 
+    //     else {die ("database access failed: " . $con->error);}
+    //     $con->close();
+    // }
 
     public function getAllClients()
     {

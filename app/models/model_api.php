@@ -39,8 +39,8 @@ class Model_Api extends Model {
 		foreach ($clients as $c ) {
 			$client_id = $c["id"];
 			//here will be checking if is already delivered to current client
-			// $clients = explode(',', $p['clients']);
-			// if (in_array($client_id, $clients)) continue;
+			 $clients = explode(',', $p['clients']);
+			 if (in_array($client_id, $clients)) continue;
 			$clCampId = $this->checkClientsLimits($client_id,$p);
 			if($clCampId AND $counter < 4) {
 				$readyLeadInfo = prepareLeadInfo($p);
@@ -58,19 +58,28 @@ class Model_Api extends Model {
 		return "Sent to $counter clients \n";// . $sended;
 	}
 
-	public function sendToClientCamp($client_id, $p){
+	public function sendToClientCamp($client_id, $p, $counter=0){
     $sended = '';
+        $con = $this->db();
+    $sql="SELECT count(client_id) FROM leads_delivery WHERE lead_id=".$p['id'];
+
+    $res=$con->query($sql);
+    if($row = $res->fetch_assoc()) $counter = $row["count(client_id)"];
     $con = $this->db();
     $sql="SELECT * from clients WHERE id=".$client_id;
     $res=$con->query($sql);
     if($row = $res->fetch_assoc()) $c = $row;
-    $clCampId = $this->checkClientsLimits($client_id,$p);
+    $clients = explode(',', $p['clients']);
+    if (in_array($client_id, $clients)) continue;
+        $clCampId = $this->checkClientsLimits($client_id,$p);
     if($clCampId AND $counter < 4) {
       $readyLeadInfo = prepareLeadInfo($p);
       $delivery_id = $this->getLastDeliveryID() + 1;
       $linkToReject=$this->formLink($client_id, $delivery_id);
       $sent = $this->sendToClient($c["email"], $readyLeadInfo, $c["full_name"], $delivery_id, $linkToReject);
+
       if($sent) {
+//          var_dump($p['id']);die;
         echo (int)$this->addToDeliveredTable($client_id, $p['id'], $p, $clCampId);
         $sended .= "$c[full_name] : $c[email] \n <br>";
       }
@@ -115,7 +124,7 @@ class Model_Api extends Model {
 		return FALSE;
 	}
 
-	public function checkClientsLimits($id)
+	public function checkClientsLimits($id, $p)
 	{
 		$con = $this->db();
     $monday = strtotime("Monday this week");
@@ -135,6 +144,7 @@ class Model_Api extends Model {
         {
           if($row['count(id)'] < (int)($camp['weekly']/5))
           {
+//              echo $camp['id'];
             return $camp['id'];
           }
           else {echo "day limits for this company is already done";continue;} 
@@ -394,9 +404,11 @@ class Model_Api extends Model {
     $settings=new Model_Settings();
     $data=$settings->getSettings();
     $con = $this->db();
-    $range = time() - ($data['days'] * 86400);
+    //$data['days']
+    $range = time() - (2 * 86400);
     $sql = "SELECT le_fi.*, count(led.lead_id) as 'count', group_concat(led.client_id) as 'clients' FROM leads lea left join leads_lead_fields_rel le_fi on lea.id=le_fi.id left join leads_delivery led on lea.id=led.lead_id where lea.datetime>'" . $range . "'
     group by(le_fi.id)";
+//    var_dump($sql);die;
     $res=$con->query($sql);
     $result = array();
     while ($row = $res->fetch_assoc()) {

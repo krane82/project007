@@ -67,6 +67,7 @@ class Controller_Client_Campaigns extends Controller {
     if (isset($_POST['client']))
       {
         $leads=$this->api->getSentLeads();
+
         $client = trim(strip_tags($_POST['client']));
         foreach ($leads as $lead) {
           $resp = $this->api->sendToClientCamp($client, $lead);
@@ -77,6 +78,7 @@ class Controller_Client_Campaigns extends Controller {
       else 
       {
         $leads=$this->api->getSentLeads();
+//          var_dump($leads);die;
         foreach ($leads as $lead) {
           $resp = $this->api->sendToClientCamp($_SESSION['user_id'], $lead);
           print $resp;

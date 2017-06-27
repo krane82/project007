@@ -145,7 +145,7 @@ class Model_Leads extends Model {
     }
     print $i.' Leads done';
   }
-  public function senOneLead($client_id,$lead_id, $reroute = false)
+  public function senOneLead($client_id,$lead_id, $camp_id=0, $reroute = false)
   {
     if($client_id!=0) {
       $c = $this->getClientById($client_id);
@@ -154,7 +154,7 @@ class Model_Leads extends Model {
       else {            print 'Error1!';
       }
     } else {
-          if ($x = $this->senLeadToCurrent($client_id, $lead_id, $c)) print $x;
+          if ($x = $this->senLeadToCurrent($client_id, $lead_id, $c, $camp_id)) print $x;
           else {
             print 'Error2!';
           }
@@ -166,7 +166,7 @@ class Model_Leads extends Model {
       }
     }
   }
-  private function senLeadToCurrent($client_id, $lead_id, $c, $reroute = false)
+  private function senLeadToCurrent($client_id, $lead_id, $c, $camp_id=0, $reroute = false)
   {
     $receivers=$this->getLeadFromDelivered($lead_id);
     $counter = count($receivers);
