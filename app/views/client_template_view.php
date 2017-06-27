@@ -199,6 +199,7 @@
         <!-- <li><a href="<?php // echo __HOST__; ?>/campaigns/" class="waves&#45;effect waves&#45;button"><span class="menu&#45;icon glyphicon glyphicon&#45;briefcase"></span><p>Campaigns</p></a> -->
         <!-- </li> -->
         <li><a href="<?php echo __HOST__; ?>/client_leads/" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-th"></span><p>Leads</p></a></li>
+        <li><a href="<?php echo __HOST__; ?>/client_campaigns/" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-th"></span><p>Campaigns</p></a></li>
         <li><a href="<?php echo __HOST__; ?>/invoice/" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-list-alt"></span><p>Invoices</p></a></li>
 
         <li><a href="<?php echo __HOST__; ?>/terms/" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-file"></span><p>Terms</p></a></li>
