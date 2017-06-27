@@ -224,6 +224,9 @@
           <li><a href="<?php echo __HOST__; ?>/leads/csvUpload/">Upload Leads from CSV</a></li>
           </ul>
         </li>
+
+        <li><a href="<?php echo __HOST__; ?>/client_campaigns/" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-list-alt"></span><p>Client Campaigns</p></a></li>
+        
         <li><a href="<?php echo __HOST__; ?>/admin_reports/" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-stats"></span><p>Reports</p></a></li>
 
         <li><a href="<?php echo __HOST__; ?>/invoice/" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-list-alt"></span><p>Invoices</p></a></li>
