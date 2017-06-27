@@ -50,7 +50,7 @@ class Controller_Profile extends Controller {
         'country' => 'Country',
         'lead_cost' => 'Lead cost',
         'coords' => 'coords',
-        'postcodes' => 'Postcodes',
+//        'postcodes' => 'Postcodes',
         'states_filter' => 'States filter',
         'xero_id' => 'Xero id',
         'xero_name' => 'Xero name',
@@ -83,13 +83,14 @@ class Controller_Profile extends Controller {
             echo "<input type='hidden' name='$k' value='$v'>";
           }
           elseif ($k == "postcodes") {
-            echo "<div class='form-group'>";
-            echo "<p>".$form_keys["$k"]."<button type=\"button\" style=\"float:right\" class=\"btn btn-sm btn-success\" data-toggle=\"collapse\" data-target=\"#map\">Select by radius</button></p></p>";
-            echo "<textarea class='form-control' name='postcodes' type='text'>$v</textarea>";
-            echo "<br><div id=\"map\" class=\"collapse\">
-              <iframe src=\"/app/map/map.php\" style=\"width:100%; height:400px\">Не работает</iframe>
-              </div>";
-            echo "</div>";
+              continue;
+//            echo "<div class='form-group'>";
+//            echo "<p>".$form_keys["$k"]."<button type=\"button\" style=\"float:right\" class=\"btn btn-sm btn-success\" data-toggle=\"collapse\" data-target=\"#map\">Select by radius</button></p></p>";
+//            echo "<textarea class='form-control' name='postcodes' type='text'>$v</textarea>";
+//            echo "<br><div id=\"map\" class=\"collapse\">
+//              <iframe src=\"/app/map/map.php\" style=\"width:100%; height:400px\">Не работает</iframe>
+//              </div>";
+//            echo "</div>";
           } else {
             echo "<div class='form-group'>";
             echo "<label for='$k'>".$form_keys["$k"]."</label>";
@@ -120,7 +121,7 @@ class Controller_Profile extends Controller {
     $state = $chekedPOST["state"];
     $country = $chekedPOST["country"];
     $coords = $chekedPOST["coords"];
-    $postcodes = postcodes_valid($chekedPOST["postcodes"]);
+//    $postcodes = '';//postcodes_valid($chekedPOST["postcodes"]);
     $country = $chekedPOST["country"];
     $states_filter = $chekedPOST["states_filter"];
     $weekly = (int)$chekedPOST["weekly"];
@@ -136,7 +137,7 @@ class Controller_Profile extends Controller {
     if($con->query($sql1)) $res1 = 1;
 
     $sql2 = "UPDATE `clients_criteria`";
-    $sql2.= " SET weekly = '$weekly', states_filter='$states_filter', coords='$coords', postcodes='$postcodes'";
+    $sql2.= " SET weekly = '$weekly', states_filter='$states_filter', coords='$coords'";
     $sql2.= " WHERE id='$id'";
 
     if($con->query($sql2)) $res2 = 1;

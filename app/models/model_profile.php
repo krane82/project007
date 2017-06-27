@@ -110,10 +110,11 @@ class Model_Profile extends Model {
             }elseif ($k == "password") {
                 $profile.= "<input type='password' name='$k' value=''/>";
             }elseif ($k == "postcodes") {
-                $profile.= "<div class='form-group'>";
-                $profile.= "<label for='$k'>".$this->form_keys["$k"]."</label>";
-                $profile.=  "<textarea class='form-control' id='$k' readonly='readonly' name='postcodes' type='text'>$v</textarea>";
-                $profile.= "</div>";
+                continue;
+//                $profile.= "<div class='form-group'>";
+//                $profile.= "<label for='$k'>".$this->form_keys["$k"]."</label>";
+//                $profile.=  "<textarea class='form-control' id='$k' readonly='readonly' name='postcodes' type='text'>$v</textarea>";
+//                $profile.= "</div>";
             } elseif($k == "lead_cost" || $k == "xero_id" || $k == "xero_name" ) {
 
             } else {

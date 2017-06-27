@@ -46,16 +46,16 @@ echo $table;
             <div class="form-group">
               <input class="form-control" placeholder="lead cost" type="text" id="lead_cost" name="lead_cost">
             </div>
-            <hr>
-            <div class="form-group">
-              <p>PostCodes<button type="button" style="float:right" class="btn btn-sm btn-success" data-toggle="collapse" data-target="#mapAddcl">Select by radius</button></p>
-              <input type="hidden" name="coords">
-              <textarea class="form-control" placeholder="Post codes" type="text" id="postcode" name="postcodes" ></textarea>
-              <div id="mapAddcl" class="collapse">
-                <br>
-                <iframe src="/app/map/map.php" style="width:100%; height:400px">Не работает</iframe>
-              </div>
-            </div>
+<!--            <hr>-->
+<!--            <div class="form-group">-->
+<!--              <p>PostCodes<button type="button" style="float:right" class="btn btn-sm btn-success" data-toggle="collapse" data-target="#mapAddcl">Select by radius</button></p>-->
+<!--              <input type="hidden" name="coords">-->
+<!--              <textarea class="form-control" placeholder="Post codes" type="text" id="postcode" name="postcodes" ></textarea>-->
+<!--              <div id="mapAddcl" class="collapse">-->
+<!--                <br>-->
+<!--                <iframe src="/app/map/map.php" style="width:100%; height:400px">Не работает</iframe>-->
+<!--              </div>-->
+<!--            </div>-->
             <div class="form-group">
               <input class="form-control" placeholder="States Filter - Ex: NSW,VIC,WA,QLD,SA,ACT,TAS" type="text" id="states_filter" name="states_filter">
               <label for="states_filter">
