@@ -161,14 +161,14 @@ class Model_Api extends Model {
 	public function getClients($post){
 		$clients = array();
 		$con = $this->db();
-		if( !empty($post["state"]) && !empty($post["postcode"]) ){
-			$sql = 'SELECT cc.id, c.email, c.full_name';
-			$sql.= ' FROM `clients_criteria` as cc';
-			$sql.= ' LEFT JOIN `clients` as c ON cc.id = c.id';
-			$sql .= ' WHERE ( cc.states_filter LIKE "%' . $post["state"] . '%" AND cc.postcodes LIKE "%'.$post["postcode"].'%" )';
-			$sql .= ' AND c.status = 1';
-			$sql .= ' ORDER BY c.lead_cost DESC';
-		} else {
+		if(!empty($post["postcode"]) ){
+	      $sql = 'SELECT cc.id, c.email, c.full_name';
+	      $sql.= ' FROM `clients_criteria` as cc';
+	      $sql.= ' LEFT JOIN `clients` as c ON cc.id = c.id';
+	      $sql .= ' WHERE ( cc.postcodes LIKE "%'.$post["postcode"].'%" )';
+	      $sql .= ' AND c.status = 1';
+	      $sql .= ' ORDER BY c.lead_cost DESC';
+	    } else {
 			return FALSE;
 		}
 
