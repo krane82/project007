@@ -51,7 +51,7 @@ class Controller_CLients extends Controller {
             ),
             array('db'=>'`a`.`id`', 'dt'=>7, 'formatter' => function($d, $row) {
                 $string = '<a href="#" class="edit-client" attr-id="'. $row[0] .'" attr-name="'. $row[1] .'" title="Edit campaign" data-toggle="modal" class="edit-button" data-target="#editClient"><i class="fa fa-pencil" aria-hidden="true"></i> </a>';
-                $string .= ' <a href="#" class="delete-client" attr-id="'. $row[0] .'" attr-name="'. $row[1] .'" title="Delete campaign"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
+//                $string .= ' <a href="#" class="delete-client" attr-id="'. $row[0] .'" attr-name="'. $row[1] .'" title="Delete campaign"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
                 return $string;
             }, 'field'=> 'id')
         );
@@ -118,7 +118,7 @@ class Controller_CLients extends Controller {
                 'state' => 'State',
                 'country' => 'Country',
                 'lead_cost' => 'Lead cost',
-                'postcodes' => 'Postcodes',
+//                'postcodes' => 'Postcodes',
                 'states_filter' => 'States filter',
                 'xero_id' => 'Xero id',
                 'xero_name' => 'Xero name',
@@ -138,14 +138,15 @@ class Controller_CLients extends Controller {
                         echo '<input class="form-control" type="password" name="'.$k.'"  > ' ;
                         echo "</div>";
                     } else if($k=="postcodes") {
-                        echo '<div class="form-group">
-                        <p>PostCodes<button type="button" style="float:right" class="btn btn-sm btn-success" data-toggle="collapse" data-target="#map">Select by radius</button></p>
-                <input type="hidden" name="coords">
-                <textarea class="form-control" placeholder="Post codes" type="text" id="postcode" name="postcodes">'. $v .'</textarea> 
-              <div id="map" class="collapse">
-              <iframe src="/app/map/map.php" id="frame" style="width:100%; height:400px">Не работает</iframe>
-              </div>
-</div>';
+                        continue;//close postcodes for edit after appear client camp
+//                        echo '<div class="form-group">
+//                        <p>PostCodes<button type="button" style="float:right" class="btn btn-sm btn-success" data-toggle="collapse" data-target="#map">Select by radius</button></p>
+//                <input type="hidden" name="coords">
+//                <textarea class="form-control" placeholder="Post codes" type="text" id="postcode" name="postcodes">'. $v .'</textarea>
+//              <div id="map" class="collapse">
+//              <iframe src="/app/map/map.php" id="frame" style="width:100%; height:400px">Не работает</iframe>
+//              </div>
+//</div>';
                     }else if($k=="weekly") {
                         echo "<div class='form-group' onclick='limits(this,event)'>";
                         echo "<label for='$k'>".$form_keys["$k"]."</label><br>";
@@ -188,7 +189,7 @@ class Controller_CLients extends Controller {
         $city = $_POST["city"];
         $state = $_POST["state"];
         $coords=$_POST['coords'];
-        $postcodes = postcodes_valid($_POST["postcodes"]);
+//        $postcodes = '';//postcodes_valid($_POST["postcodes"]);
         $country = $_POST["country"];
         $states_filter = $_POST["states_filter"];
         if($_POST['limits']=='limited') {
@@ -211,7 +212,7 @@ class Controller_CLients extends Controller {
         $sql1.= " WHERE id='$id'";
         if($con->query($sql1)) $res1 = 1;
         $sql2 = "UPDATE `clients_criteria`";
-        $sql2.= " SET weekly = $weekly, states_filter='$states_filter', coords='$coords', postcodes='$postcodes'";
+        $sql2.= " SET weekly = $weekly, states_filter='$states_filter', coords='$coords'";
         $sql2.= " WHERE id='$id'";
         if($con->query($sql2)) $res2 = 1;
         if(trim($_POST["password"]) === "") {
@@ -274,7 +275,7 @@ class Controller_CLients extends Controller {
             $city = $_POST["city"];
             $state = $_POST["state"];
             $coords=$_POST['coords'];
-            $postcodes = postcodes_valid($_POST["postcodes"]);
+            $postcodes = '';//postcodes_valid($_POST["postcodes"]);
             $country = $_POST["country"];
             $states_filter = $_POST["states_filter"];
 

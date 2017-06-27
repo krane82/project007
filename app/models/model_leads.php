@@ -129,7 +129,7 @@ class Model_Leads extends Model {
           print 'Error!';
         }
         $i++;
-        usleep(250000);
+        //usleep(250000); Chernitsov
       }
     }
     else {
@@ -140,21 +140,21 @@ class Model_Leads extends Model {
           print 'error!';
         }
         $i++;
-        usleep(250000);
+          //usleep(250000); Chernitsov
       }
     }
     print $i.' Leads done';
   }
-  public function senOneLead($client_id,$lead_id, $reroute = false)
+  public function senOneLead($client_id,$lead_id, $camp_id=0, $reroute = false)
   {
     if($client_id!=0) {
       $c = $this->getClientById($client_id);
       if($reroute) {
-      if ($x = $this->senLeadToCurrent($client_id, $lead_id, $c, $reroute = true)) print $x;
+      if ($x = $this->senLeadToCurrent($client_id, $lead_id, $c, $camp_id, $reroute = true)) print $x;
       else {            print 'Error1!';
       }
     } else {
-          if ($x = $this->senLeadToCurrent($client_id, $lead_id, $c)) print $x;
+          if ($x = $this->senLeadToCurrent($client_id, $lead_id, $c, $camp_id)) print $x;
           else {
             print 'Error2!';
           }
@@ -166,33 +166,29 @@ class Model_Leads extends Model {
       }
     }
   }
-  private function senLeadToCurrent($client_id, $lead_id, $c, $reroute = false)
+  private function senLeadToCurrent($client_id, $lead_id, $c, $camp_id=0, $reroute = false)
   {
     $receivers=$this->getLeadFromDelivered($lead_id);
     $counter = count($receivers);
     if($counter>=4) return 'This lead already sent 4 times';
     $leadInfo = $this->getLeadInfo($lead_id);
     $postcodes=explode(',',$c['postcodes']);
+    $postcodesLen = count($postcodes);
+    for ($i=0;$i<$postcodesLen;$i++){$postcodes[$i] = trim($postcodes[$i]);}
     if (!in_array($leadInfo['postcode'],$postcodes)) return 'This client is unmatched to receive this lead';
     if(in_array($client_id, $receivers )) return "This client already has this lead";
       $readyLeadInfo = prepareLeadInfo($leadInfo);
 
-      /*if($reroute) {
-          $delivery_id = $this->getLastDeliveryID() + 1;
-          $sent = $this->sendToClient($c["email"], $readyLeadInfo, $c["full_name"],$delivery_id);
-          if($sent) {
-              $this->addToDeliveredTable($client_id, $lead_id, $readyLeadInfo);
-              return "Lead sent.";
-          } else {
-              return "mail error: $sent";
-          }
-      } else {*/
-      $passedCaps = $this->checkClientsLimits($client_id);
-      if($passedCaps OR $reroute) {
+      if (!$reroute) {
+        $camp_id = $this->checkClientsLimits($client_id, $leadInfo);
+        echo $camp_id;
+      }
+
+      if($camp_id OR $reroute) {
         $delivery_id = $this->getLastDeliveryID() + 1;
         $sent = $this->sendToClient($c["email"], $readyLeadInfo, $c["full_name"],$delivery_id);
         if($sent) {
-          $this->addToDeliveredTable($client_id, $lead_id, $readyLeadInfo);
+          $this->addToDeliveredTable($client_id, $lead_id, $readyLeadInfo, $camp_id);
           return "Lead sent.";
         } else {
           return "mail error: $sent";
@@ -200,8 +196,8 @@ class Model_Leads extends Model {
       } else {
         return "Cannot send over client caps...";
       }
+    }
 
-  }
   private function senLeadToAll($lead_id)
   {
     $receivers=$this->getLeadFromDelivered($lead_id);
@@ -264,13 +260,13 @@ class Model_Leads extends Model {
         $sentTo.="User $c[full_name] already has this lead<br>";
         continue;
       }
-      $passedCaps = $this->checkClientsLimits($id);
-      if($passedCaps) {
+      $camp_id = $this->checkClientsLimits($id, $p);
+      if($camp_id) {
         $sent = $this->sendToClient($c["email"], $readyLeadInfo, $c["full_name"],$delivery_id);
         if($sent) {
           $counter++;
           $sentTo .= "Lead #$lead_id sent to $c[full_name] : $c[email]<br>\n";
-          $this->api->addToDeliveredTable($id, $lead_id, $readyLeadInfo);
+          $this->api->addToDeliveredTable($id, $lead_id, $readyLeadInfo, $camp_id);
           $delivery_id+=1;
          // return 'Lead sent and added to database';
         }
@@ -294,27 +290,41 @@ class Model_Leads extends Model {
   private function sendToClient($mail, $p, $client_name, $track_id)
   {
     if($mail) {
-      send_m($mail, $p, $client_name, $track_id);
+      send_m($mail, $p, $client_name, $track_id, '', '');
       return TRUE;
     }
     return FALSE;
   }
-  public function checkClientsLimits($id)
+  public function checkClientsLimits($id, $p)
   {
     $con = $this->db();
     $monday = strtotime("Monday this week");
-    $sql="select count(led.id), cc.weekly from `leads_delivery` as led right join clients_criteria cc on cc.id=led.client_id where cc.id = '".$id."' AND led.timedate BETWEEN '".$monday."' AND current_timestamp";
-    $res=$con->query($sql);
-    $result=$res->fetch_assoc();
-    if ($result['weekly']==null) {
-      $result["weekly"] = 999999999;
+    $dayNow = strtotime("today");
+    $quanDays = ($dayNow - $monday)/86400;
+    $sql1 = "select * from client_campaigns where postcodes like '%".$p['postcode']."%' and client_id=".$id;
+    $res=$con->query($sql1);
+    if ($res && $res->num_rows!=0)
+    {
+      while ($row=$res->fetch_assoc()) {
+        $campAr[] = $row;
+      }
+      foreach ($campAr as $camp) {
+        $sql2 = "select count(id) from leads_delivery where camp_id = ".$camp['id']." AND timedate BETWEEN '".$dayNow."' AND current_timestamp";
+        $result=$con->query($sql2);
+        if ($row=$result->fetch_assoc())
+        {
+          if($row['count(id)'] < (int)($camp['weekly']/5))
+          {
+            return $camp['id'];
+          }
+          else {echo "day limits for this company is already done";continue;} 
+        }
+      }
     }
-    $con->close();
-    if ($result["count(led.id)"] < $result["weekly"]) {
-      return true;
-    } else {
-     // echo "weekly limit of client $id is out!<br>";
-      return false;
+    else 
+    {
+      echo "this client $id has no campaigns with such postcodes";
+      return FALSE;
     }
   }
   private function getClients($post){
@@ -366,13 +376,13 @@ class Model_Leads extends Model {
 	  return $item;
   }
 
-  public function addToDeliveredTable($client_id, $lead_id, $p){
+  public function addToDeliveredTable($client_id, $lead_id, $p, $camp_id){
     $con = $this->db();
     $now = time();
-    $sql = "INSERT INTO `leads_delivery` (lead_id, client_id, timedate) VALUES ('".$lead_id."', '".$client_id."', '".$now."')";
-//    var_dump($sql);
-    $sql_r = "INSERT INTO `leads_rejection` (lead_id, client_id, date, approval) VALUES ('".$lead_id."', '".$client_id."', '".$now."', '1')";
-//    var_dump($sql_r);
+    $sql = "INSERT INTO `leads_delivery` (lead_id, client_id, timedate, camp_id) VALUES ('".$lead_id."', '".$client_id."', '".$now."', '".$camp_id."')";
+   // var_dump($sql);
+    $sql_r = "INSERT INTO `leads_rejection` (lead_id, client_id, date, approval, camp_id) VALUES ('".$lead_id."', '".$client_id."', '".$now."', '1', '".$camp_id."')";
+   // var_dump($sql_r);
     if($con->query($sql) && $con->query($sql_r)) { $delivered=1; }
     if($delivered){
       return TRUE;

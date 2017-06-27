@@ -55,7 +55,7 @@ class Controller_Reject extends Controller
                         return "<span class=\"bg-danger pdfive\">Reject not Approved</span>";
                         break;
                     case 4:
-                        return "<span class=\"bg-info pdfive\">More info required</span>";
+                        return "<span class=\"bg-warning pdfive\">More info required</span>";
                     case 5:
                         return "<span class='hidden'>5</span>";
                     default:
@@ -85,6 +85,8 @@ class Controller_Reject extends Controller
 
         $joinQuery = "FROM `{$table}` AS `a` INNER JOIN `leads_delivery` as `ld` ON (`a`.`lead_id` = `ld`.`lead_id` AND a.client_id=ld.client_id) INNER JOIN clients as c ON a.client_id=c.id";
 //        $where = "`a`.`approval` = 1 ";
+        
+
         echo json_encode(
             SSP::simple( $_POST, $sql_details, $table, $primaryKey, $columns, $joinQuery, $where )
         );

@@ -17,33 +17,54 @@ class Model_Infusionsoft extends Model
         $oldToken=$result['token'];
         return $oldToken;
     }
-    function sendLead($p)
-    {
-        session_start();
-        $_SESSION['token']=$this->gettoken();
-        $infusionsoft = new \Infusionsoft\Infusionsoft(array(
-            'clientId' => '5fdsmkxjb6h9k6g2y7nkx2tu',
-            'clientSecret' => 'jDUKwcvSg4',
-            'redirectUri' => 'http://project008/test.php',
-        ));
-            $infusionsoft->setToken(unserialize($_SESSION['token']));
-        if ($infusionsoft->getToken()) {
-            $infusionsoft->sendLead($p);
-        }
-
-    }
+//    function sendLead($p)
+//    {
+//        session_start();
+//        $_SESSION['token']=$this->gettoken();
+//        $infusionsoft = new \Infusionsoft\Infusionsoft(array(
+//            'clientId' => '5fdsmkxjb6h9k6g2y7nkx2tu',
+//            'clientSecret' => 'jDUKwcvSg4',
+//            'redirectUri' => 'http://project008/test.php',
+//        ));
+//            $infusionsoft->setToken(unserialize($_SESSION['token']));
+//        if ($infusionsoft->getToken()) {
+//            $infusionsoft->sendLead($p);
+//        }
+//
+//    }
     function sendClient($p)
     {
         session_start();
-        $_SESSION['token']=$this->gettoken();
+       // $_SESSION['token']=$this->gettoken();
         $infusionsoft = new \Infusionsoft\Infusionsoft(array(
             'clientId' => '5fdsmkxjb6h9k6g2y7nkx2tu',
             'clientSecret' => 'jDUKwcvSg4',
-            'redirectUri' => 'http://project008/test.php',
+            'redirectUri' => '',
         ));
         $infusionsoft->setToken(unserialize($_SESSION['token']));
+        //var_dump($p);die();
         if ($infusionsoft->getToken()) {
-            $infusionsoft->contacts->add(array('FirstName' => 'John', 'LastName' => 'SmithFromCRM'));
+            $infusionsoft->contacts->add(array(
+                  'Email' => $p['email'],
+                  'Phone1'=>$p['phone'],
+                  'State'=>$p['state'],
+                  '_RoofType'=>$p['roof_type'],
+                  '_HouseAge'=>$p['house_age'],
+                  '_houseType'=>$p['house_type'],
+                  '_Electricity'=>$p['electricity'],
+                  '_SystemSize'=>$p['system_size'],
+                  '_HouseType'=>$p['house_type'],
+//                  'SystemFor'=>$p['system_for'],
+                  'PostalCode'=>$p['postcode'],
+//                  '_Whatsizesystemareyouconsidering'=>$p['system'],
+
+//                'address'=>$p['address'],
+                '_Suburb'=>$p['suburb'],
+                'ContactNotes'=>$p['note'],
+                '_Source'=>$p['source'],
+                'FirstName' => $p['full_name'],
+                'LastName' => $p['full_name']
+            ));
         }
 
     }

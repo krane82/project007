@@ -89,7 +89,7 @@ $(document).ready(function () {
       "aoColumnDefs": [
         { 'bSortable': false, 'aTargets': [ 4 ] }
       ],
-      "order": [[ 3, "desc" ]],
+      "order": [[ 0, "desc" ],[ 7, "desc" ],[ 3, "desc" ]],
       "aLengthMenu": [
           [100, 200, -1],
           [100, 200, "All"]
