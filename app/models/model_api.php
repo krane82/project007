@@ -404,8 +404,8 @@ class Model_Api extends Model {
     $settings=new Model_Settings();
     $data=$settings->getSettings();
     $con = $this->db();
-    //$data['days']
-    $range = time() - (2 * 86400);
+    //
+    $range = time() - ($data['days'] * 86400);
     $sql = "SELECT le_fi.*, count(led.lead_id) as 'count', group_concat(led.client_id) as 'clients' FROM leads lea left join leads_lead_fields_rel le_fi on lea.id=le_fi.id left join leads_delivery led on lea.id=led.lead_id where lea.datetime>'" . $range . "'
     group by(le_fi.id)";
 //    var_dump($sql);die;

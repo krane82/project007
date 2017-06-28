@@ -66,24 +66,24 @@ class Controller_Client_Campaigns extends Controller {
     
     if (isset($_POST['client']))
       {
+        $result = $this->model->activate_campaign($camp_id, $client);
         $leads=$this->api->getSentLeads();
-
         $client = trim(strip_tags($_POST['client']));
         foreach ($leads as $lead) {
           $resp = $this->api->sendToClientCamp($client, $lead);
           print $resp;
         }
-        $result = $this->model->activate_campaign($camp_id, $client);
+        
       }
       else 
       {
+        $result = $this->model->activate_campaign($camp_id, $_SESSION['user_id']);
         $leads=$this->api->getSentLeads();
-//          var_dump($leads);die;
         foreach ($leads as $lead) {
           $resp = $this->api->sendToClientCamp($_SESSION['user_id'], $lead);
           print $resp;
         }
-        $result = $this->model->activate_campaign($camp_id, $_SESSION['user_id']);
+        
       }
       echo $result;
   }
