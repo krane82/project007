@@ -144,7 +144,6 @@
                         data:  { id: id, name: newName, weekly: newWeekly, newPostcodes: newPostcodes },
                         success: function (data) {
                             console.log(data);
-    //                        console.log(tr.querySelector('td[attr-codes]').innerHTML);
                             if (data)
                             {
                                 location.reload();
@@ -231,7 +230,7 @@
                     data:  { id: id},
                     success: function (data)
                     {
-                         console.log(data);
+//                         console.log(data);
                         location.reload();
                     }
                 });

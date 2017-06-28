@@ -66,26 +66,33 @@ class Controller_Client_Campaigns extends Controller {
     
     if (isset($_POST['client']))
       {
-        $result = $this->model->activate_campaign($camp_id, $client);
-        $leads=$this->api->getSentLeads();
         $client = trim(strip_tags($_POST['client']));
-        foreach ($leads as $lead) {
-          $resp = $this->api->sendToClientCamp($client, $lead);
-          print $resp;
+        $status = $this->model->getClientStatus($client);
+        if ($status) {
+            $result = $this->model->activate_campaign($camp_id, $client);
+            $leads=$this->api->getSentLeads();
+            foreach ($leads as $lead) {
+                $resp = $this->api->sendToClientCamp($client, $lead);
+                print $resp;
+            }
         }
-        
+        else print 'Sorry, can not sent lead because status of client is not active';
       }
       else 
       {
-        $result = $this->model->activate_campaign($camp_id, $_SESSION['user_id']);
-        $leads=$this->api->getSentLeads();
-        foreach ($leads as $lead) {
-          $resp = $this->api->sendToClientCamp($_SESSION['user_id'], $lead);
-          print $resp;
-        }
-        
+          $status = $this->model->getClientStatus($_SESSION['user_id']);
+          if ($status)
+          {
+            $result = $this->model->activate_campaign($camp_id, $_SESSION['user_id']);
+            $leads=$this->api->getSentLeads();
+            foreach ($leads as $lead) {
+              $resp = $this->api->sendToClientCamp($_SESSION['user_id'], $lead);
+              print $resp;
+            }
+//            echo $result;
+          }
+          else print 'Sorry, can not sent lead because your status of client is not active';
       }
-      echo $result;
   }
 
 

@@ -18,6 +18,21 @@ class Model_Client_Campaigns extends Model
         $con->close();
     }
 
+    public function getClientStatus($user_id)
+    {
+        $con = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        if ($con->connect_errno) {printf("connect failed: %s\n", $con->connect_error);exit();}
+
+        $query = "select status from `clients` where `id` = " . $user_id;
+        if ($result = $con->query($query))
+        {
+            if ($row = $result->fetch_assoc()) $status = $row['status'];
+            return $status;
+        }
+        else {die ("database access failed: " . $con->error);}
+        $con->close();
+    }
+
     public function add_new_campaign($client_id, $camp_name, $camp_weekly, $postcodes)
     {
         $con = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
