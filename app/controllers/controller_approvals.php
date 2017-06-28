@@ -37,7 +37,7 @@ class Controller_approvals extends Controller
       include 'app/models/model_reject.php';
       $model = new Model_Reject();
       $model->action_autoreroute_lead($client_id, $result['camp_id']);
-      
+
       $con->close();
     }
   }
