@@ -17,6 +17,7 @@ class Controller_Invoice extends Controller
 
     function action_index()
     {
+        $data["body_class"] = "page-header-fixed";
         session_start();
         if ($_SESSION['admin'] == md5('admin')) {
             $data = $this->leads->getAllClients();
@@ -25,6 +26,11 @@ class Controller_Invoice extends Controller
         if ($_SESSION['user'] == md5('user')) {
             $data = $this->model->getMyInvoices($_SESSION['user_id']);
             $this->view->generate('client_invoice_view.php', 'client_template_view.php', $data);
+        }
+        else
+        {
+            session_destroy();
+            $this->view->generate('danied_view.php', 'client_template_view.php', $data);
         }
     }
 

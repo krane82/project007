@@ -20,6 +20,11 @@ class Controller_Client_Campaigns extends Controller {
           $data = $this->model->getAllClients();
           $this->view->generate('client_campaigns_view.php', 'template_view.php', $data);
       }
+      else
+      {
+          session_destroy();
+          $this->view->generate('danied_view.php', 'client_template_view.php', $data);
+      }
   }
 
   function action_add_new_campaign() {
