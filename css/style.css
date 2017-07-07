@@ -1,0 +1,227 @@
+/* fix width */
+@media (min-width: 1200px){
+  .page-content.container .navbar {
+    width: 95%;
+  }
+  .container {
+    width: 95%;
+  }
+}
+
+
+.addsuccess.bg-success, .success {
+  margin: 10px 0;
+}
+.input-sm{
+  width: 150px;
+}
+#getallleads{
+  width: 40%;
+}
+
+.navbar .logo-box .logo-text {
+  line-height: 35px !important;
+  padding: 4px 15px !important;
+}
+
+.addsuccess.bg-success p, .success p{
+  padding: 12px;
+}
+.delete-campaign, .edit-campaign-fields, .edit-campaign {
+  font-size: 1.3em;
+  padding: 0 4px;
+  color: green;
+}
+.delete-campaign {
+  color: red;
+}
+.edit-campaign-fields {
+  color: blue;
+}
+
+.delete-client, .edit-client {
+  font-size: 1.3em;
+  padding: 0 4px;
+  color: green;
+}
+.delete-client {
+  color: red;
+}
+
+#embed-code {
+  width: 100%;
+  margin-top: 15px;
+}
+.dataTables_filter {
+  display: none !important;
+}
+
+.addsuccess {
+  margin: 10px 0;
+  background-color: #22BAA0;
+  color: #fff;
+  margin-bottom: 0px;
+  padding: 0px 0px 0px 5px;
+}
+
+#main-wrapper {
+  padding: 20px;
+}
+
+#approvals tr td:last-child, #approvals tr th:last-child {
+  text-align: center;
+}
+
+#approvals tr td:last-child .btn {
+  min-width: 143px;
+  margin-bottom: 3px;
+}
+
+#approvals .bg-warning {
+  padding: 5px;
+}
+
+.pdfive {
+  padding: 5px;
+}
+.pdten {
+  padding: 10px;
+  height: 75px;
+}
+.icon {
+  float: left;
+  margin-top: 12px;
+  margin-right: 10px;
+}
+
+tr.green {
+    background-color: rgba(106, 245, 81, 0.25);
+}
+tr.red {
+    background-color: rgba(243, 154, 154, 0.72);
+}
+input.searchbox {
+    width: 100%;
+    padding: 1px;
+    margin-left: -2px;
+    margin-bottom: 0px;
+}
+.dayle{
+  display: inline-block;
+  vertical-align: middle;
+}
+.daylenew{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.loader {
+  margin: 100px auto;
+  font-size: 25px;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-animation: load5 1.1s infinite ease;
+  animation: load5 1.1s infinite ease;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.table_leads thead input {
+    width: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+@-webkit-keyframes load5 {
+  0%,
+  100% {
+    box-shadow: 0em -2.6em 0em 0em #22baa0, 1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2), 2.5em 0em 0 0em rgba(34, 186, 160, 0.2), 1.75em 1.75em 0 0em rgba(34, 186, 160, 0.2), 0em 2.5em 0 0em rgba(34, 186, 160, 0.2), -1.8em 1.8em 0 0em rgba(34, 186, 160, 0.2), -2.6em 0em 0 0em rgba(34, 186, 160, 0.5), -1.8em -1.8em 0 0em rgba(255, 255, 255, 0.7);
+  }
+  12.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(255, 255, 255, 0.7), 1.8em -1.8em 0 0em #22baa0, 2.5em 0em 0 0em rgba(34, 186, 160, 0.2), 1.75em 1.75em 0 0em rgba(34, 186, 160, 0.2), 0em 2.5em 0 0em rgba(34, 186, 160, 0.2), -1.8em 1.8em 0 0em rgba(34, 186, 160, 0.2), -2.6em 0em 0 0em rgba(34, 186, 160, 0.2), -1.8em -1.8em 0 0em rgba(34, 186, 160, 0.5);
+  }
+  25% {
+    box-shadow: 0em -2.6em 0em 0em rgba(34, 186, 160, 0.5), 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.7), 2.5em 0em 0 0em #22baa0, 1.75em 1.75em 0 0em rgba(34, 186, 160, 0.2), 0em 2.5em 0 0em rgba(34, 186, 160, 0.2), -1.8em 1.8em 0 0em rgba(34, 186, 160, 0.2), -2.6em 0em 0 0em rgba(34, 186, 160, 0.2), -1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2);
+  }
+  37.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(34, 186, 160, 0.2), 1.8em -1.8em 0 0em rgba(34, 186, 160, 0.5), 2.5em 0em 0 0em rgba(255, 255, 255, 0.7), 1.75em 1.75em 0 0em #22baa0, 0em 2.5em 0 0em rgba(34, 186, 160, 0.2), -1.8em 1.8em 0 0em rgba(34, 186, 160, 0.2), -2.6em 0em 0 0em rgba(34, 186, 160, 0.2), -1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2);
+  }
+  50% {
+    box-shadow: 0em -2.6em 0em 0em rgba(34, 186, 160, 0.2), 1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2), 2.5em 0em 0 0em rgba(34, 186, 160, 0.5), 1.75em 1.75em 0 0em rgba(255, 255, 255, 0.7), 0em 2.5em 0 0em #22baa0, -1.8em 1.8em 0 0em rgba(34, 186, 160, 0.2), -2.6em 0em 0 0em rgba(34, 186, 160, 0.2), -1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2);
+  }
+  62.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(34, 186, 160, 0.2), 1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2), 2.5em 0em 0 0em rgba(34, 186, 160, 0.2), 1.75em 1.75em 0 0em rgba(34, 186, 160, 0.5), 0em 2.5em 0 0em rgba(255, 255, 255, 0.7), -1.8em 1.8em 0 0em #22baa0, -2.6em 0em 0 0em rgba(34, 186, 160, 0.2), -1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2);
+  }
+  75% {
+    box-shadow: 0em -2.6em 0em 0em rgba(34, 186, 160, 0.2), 1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2), 2.5em 0em 0 0em rgba(34, 186, 160, 0.2), 1.75em 1.75em 0 0em rgba(34, 186, 160, 0.2), 0em 2.5em 0 0em rgba(34, 186, 160, 0.5), -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.7), -2.6em 0em 0 0em #22baa0, -1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2);
+  }
+  87.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(34, 186, 160, 0.2), 1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2), 2.5em 0em 0 0em rgba(34, 186, 160, 0.2), 1.75em 1.75em 0 0em rgba(34, 186, 160, 0.2), 0em 2.5em 0 0em rgba(34, 186, 160, 0.2), -1.8em 1.8em 0 0em rgba(34, 186, 160, 0.5), -2.6em 0em 0 0em rgba(255, 255, 255, 0.7), -1.8em -1.8em 0 0em #22baa0;
+  }
+}
+@keyframes load5 {
+  0%,
+  100% {
+    box-shadow: 0em -2.6em 0em 0em #22baa0, 1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2), 2.5em 0em 0 0em rgba(34, 186, 160, 0.2), 1.75em 1.75em 0 0em rgba(34, 186, 160, 0.2), 0em 2.5em 0 0em rgba(34, 186, 160, 0.2), -1.8em 1.8em 0 0em rgba(34, 186, 160, 0.2), -2.6em 0em 0 0em rgba(34, 186, 160, 0.5), -1.8em -1.8em 0 0em rgba(255, 255, 255, 0.7);
+  }
+  12.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(255, 255, 255, 0.7), 1.8em -1.8em 0 0em #22baa0, 2.5em 0em 0 0em rgba(34, 186, 160, 0.2), 1.75em 1.75em 0 0em rgba(34, 186, 160, 0.2), 0em 2.5em 0 0em rgba(34, 186, 160, 0.2), -1.8em 1.8em 0 0em rgba(34, 186, 160, 0.2), -2.6em 0em 0 0em rgba(34, 186, 160, 0.2), -1.8em -1.8em 0 0em rgba(34, 186, 160, 0.5);
+  }
+  25% {
+    box-shadow: 0em -2.6em 0em 0em rgba(34, 186, 160, 0.5), 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.7), 2.5em 0em 0 0em #22baa0, 1.75em 1.75em 0 0em rgba(34, 186, 160, 0.2), 0em 2.5em 0 0em rgba(34, 186, 160, 0.2), -1.8em 1.8em 0 0em rgba(34, 186, 160, 0.2), -2.6em 0em 0 0em rgba(34, 186, 160, 0.2), -1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2);
+  }
+  37.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(34, 186, 160, 0.2), 1.8em -1.8em 0 0em rgba(34, 186, 160, 0.5), 2.5em 0em 0 0em rgba(255, 255, 255, 0.7), 1.75em 1.75em 0 0em #22baa0, 0em 2.5em 0 0em rgba(34, 186, 160, 0.2), -1.8em 1.8em 0 0em rgba(34, 186, 160, 0.2), -2.6em 0em 0 0em rgba(34, 186, 160, 0.2), -1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2);
+  }
+  50% {
+    box-shadow: 0em -2.6em 0em 0em rgba(34, 186, 160, 0.2), 1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2), 2.5em 0em 0 0em rgba(34, 186, 160, 0.5), 1.75em 1.75em 0 0em rgba(255, 255, 255, 0.7), 0em 2.5em 0 0em #22baa0, -1.8em 1.8em 0 0em rgba(34, 186, 160, 0.2), -2.6em 0em 0 0em rgba(34, 186, 160, 0.2), -1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2);
+  }
+  62.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(34, 186, 160, 0.2), 1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2), 2.5em 0em 0 0em rgba(34, 186, 160, 0.2), 1.75em 1.75em 0 0em rgba(34, 186, 160, 0.5), 0em 2.5em 0 0em rgba(255, 255, 255, 0.7), -1.8em 1.8em 0 0em #22baa0, -2.6em 0em 0 0em rgba(34, 186, 160, 0.2), -1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2);
+  }
+  75% {
+    box-shadow: 0em -2.6em 0em 0em rgba(34, 186, 160, 0.2), 1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2), 2.5em 0em 0 0em rgba(34, 186, 160, 0.2), 1.75em 1.75em 0 0em rgba(34, 186, 160, 0.2), 0em 2.5em 0 0em rgba(34, 186, 160, 0.5), -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.7), -2.6em 0em 0 0em #22baa0, -1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2);
+  }
+  87.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(34, 186, 160, 0.2), 1.8em -1.8em 0 0em rgba(34, 186, 160, 0.2), 2.5em 0em 0 0em rgba(34, 186, 160, 0.2), 1.75em 1.75em 0 0em rgba(34, 186, 160, 0.2), 0em 2.5em 0 0em rgba(34, 186, 160, 0.2), -1.8em 1.8em 0 0em rgba(34, 186, 160, 0.5), -2.6em 0em 0 0em rgba(255, 255, 255, 0.7), -1.8em -1.8em 0 0em #22baa0;
+  }
+}
+
+
+.fortable{
+    width:100%;
+}
+
+@media (max-width: 1000px){
+    .postable{
+        margin-top: 95%;
+    }
+}
+@media (max-width: 1000px) and (min-width: 500px){
+    .postable{
+        margin-top: 65%;
+    }
+}
+
+@media (max-width: 970px) and (min-width: 769px) {
+    .postable {
+        margin-top: 39%;
+    }
+}
+
+@media (max-width: 760px) and (min-width: 550px) {
+    .postable {
+        margin-top: 54%;
+    }
+}
+
+@media (max-width: 319px) {
+    .postable {
+        margin-top: 143%;
+    }
+}
+
+
