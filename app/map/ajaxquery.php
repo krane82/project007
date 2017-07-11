@@ -14,12 +14,22 @@ curl_setopt($cg, CURLOPT_HTTPHEADER, array(
  $ret1 = curl_exec($cg);
  $res=json_decode($ret1);
  curl_close;
+
  $arr=array();
- foreach($res->points as $item)
+ $distance=10000;
+ $nearest='';
+    foreach($res->points as $item)
  {
 	 if(!in_array($item->address->postcode,$arr)) 
 	 {$arr[]=$item->address->postcode;
 	 }
+     if($item->geo_location->distance<$distance)
+     {
+         $distance=$item->geo_location->distance;
+         $nearest=$item->address->postcode;
+     }
  }
+    //print $nearest;
     sort($arr);
+    $arr[]=$nearest;
     print implode(',',$arr);

@@ -1,6 +1,5 @@
 <?php
 class Controller_Campaigns extends Controller {
-
   function __construct() {
     $this->model = new Model_Campaigns();
     $this->view = new View();
@@ -11,7 +10,7 @@ class Controller_Campaigns extends Controller {
     session_start();
     if ( $_SESSION['admin'] == md5('admin'))
     {
-      $data["table"] = $this->model->get_data();
+      $data = $this->model->get_data();
       $this->view->generate('campaigns_view.php', 'template_view.php', $data);
     }
     else
@@ -25,10 +24,18 @@ class Controller_Campaigns extends Controller {
   }
 
   function action_planing() {
-    $data=$this->model->getPlans();
+    $data["campaigns"] = $this->model->getAllCampaigns();
+    $data['plans']=$this->model->getPlans();
     $this->view->generate('planing_view.php', 'template_view.php', $data);
   }
-
+  function action_getDashboard()
+  {
+    $id=$_POST['client'];
+    $begin=$_POST['begin'];
+    $end=$_POST['end'];
+    $data=$this->model->getDashboard($id,$begin,$end);
+    print json_encode($data);
+  }
   function action_planing_ajax()
   {
     $data = $this->model->getPlans();

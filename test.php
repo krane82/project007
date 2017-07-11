@@ -19,8 +19,6 @@ if (isset($_GET['code']) and !$infusionsoft->getToken()) {
 //var_dump($infusionsoft);die();
 if ($infusionsoft->getToken()) {
     $_SESSION['token'] = serialize($infusionsoft->getToken());
-
-    $infusionsoft->contacts->add(array('FirstName' => 'John', 'LastName' => 'SmithFromCRM'));
 }
 
 else {
