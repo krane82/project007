@@ -75,9 +75,10 @@
 			url: "<?php echo __HOST__ . '/client_campaigns/getListOfCampOneClient' ?>",
 			data:{'client':client.value},
 			success:function(res) {
-				console.log(res);
+				// console.log(res);
 				data = JSON.parse(res);
 				var strHtmlTr = '';
+				$('#tablClCamp').html('');
 				var resLen = data.length;
 				if (res)
 				{
@@ -94,7 +95,7 @@
 						"<a class='delete-campaign' title='Delete ClCampaign' onclick='deleteClCamp(event)'><i class='fa fa-trash-o' aria-hidden='true'></i></a>"+
 						"</td>"+
 						"<td attr-status='" + data[i]['camp_status'] +"'>" + (data[i]['camp_status']==1? 'Active' : 'Not active') + "</td>"+
-						(data[i]['camp_status']==1? "<td attr-but><button class='btn btn-danger clCampStopSendLeads' onclick='deactivate(event)'>Stop to send leads</button></td>" : "<td attr-but><button class='btn btn-success clCampSendLeads' onclick='activateClCamp(event)'>Start to send leads</button></td>")+
+						(data[i]['camp_status']==1? "<td attr-but><button class='btn btn-danger clCampStopSendLeads' onclick='deactivate(event)'>Stop this campaign</button></td>" : "<td attr-but><button class='btn btn-success clCampSendLeads' onclick='activateClCamp(event)'>Start to send leads</button></td>")+
 						"</tr>";
 					}
 					$('#tablClCamp').append('<table id="campaigns" class="display table responsive table-condensed table-striped table-hover table-bordered pull-left" cellspacing="0" width="100%">'+
@@ -129,13 +130,13 @@
 			var newPostcodes = $('#editClCampAd #postcodes').val();
 			var newName = $('#editClCampAd #campaign-name').val();
 			var newWeekly = $('#editClCampAd #campaign-weekly').val();
-			console.log(client.value, id, newName, newWeekly, newPostcodes);
+			// console.log(client.value, id, newName, newWeekly, newPostcodes);
 			$.ajax({
 				type: "POST",
 				url: '<?php echo __HOST__ . "/client_campaigns/"; ?>edit_campaign',
 				data:  { client: client.value, id: id, name: newName, weekly: newWeekly, newPostcodes: newPostcodes },
 				success: function (data) {
-					console.log(data);
+					// console.log(data);
 					if (data)
 					{
 						table.innerHTML='';
@@ -159,7 +160,7 @@
 			url: '<?php echo __HOST__ . "/client_campaigns/"; ?>delete_campaign',
 			data:  { client: client.value, id: id},
 			success: function (data) {
-				console.log(data);
+				// console.log(data);
 				if (data)
 				{
 					table.innerHTML='';
@@ -182,7 +183,7 @@
 			url: '<?php echo __HOST__ . "/client_campaigns/"; ?>delete_campaign',
 			data:  { client: client.value, id: id},
 			success: function (data) {
-				console.log(data);
+				// console.log(data);
 				if (data)
 				{
 					table.innerHTML='';

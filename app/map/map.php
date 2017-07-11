@@ -195,7 +195,10 @@
 <div>
     <button type="button" onclick="saveAll()">Save postcodes to profile</button>
     <button type="button" style="float:right" id="closeButton" onclick="modalRespond.style.display='none'">Close List</button></div>
-<div></div>
+<!--here is div with postcodes-->
+    <div></div>
+<!--    //here is div with nearest postcode-->
+<div style="display:none"></div>
 </div>
     <div id="floating-panel">
       <input id="address" type="textbox" placeholder="Address or ZIP">
@@ -213,6 +216,7 @@
 	  var longitude=133.77513599999997;
 	  var radius=30;
       var codes;
+      var nearest;
       var marker;
       var modalWait=document.getElementById('modalWait');
       var modalRespond=document.getElementById('modalRespond');
@@ -220,10 +224,14 @@
       {
           var coords=window.parent.document.getElementsByName('coords');
           var postcodes=window.parent.document.getElementsByName('postcodes');
+          var parentRadius=window.parent.document.getElementsByName('radius');
+          var parentNearest=window.parent.document.getElementsByName('nearest');
           for(var i=0;i<coords.length;i++)
           {
               coords[i].value=latitude+':'+longitude+':'+radius;
               postcodes[i].value=codes;
+              parentRadius[i].value=radius;
+              parentNearest[i].value=nearest;
           }
       }
 	  seek.onclick=function(){
@@ -252,10 +260,14 @@
 			url: 'ajaxquery.php',
             data:  {"ltd":latitude,"lng":longitude,"radius":radius},
             success: function (data) {
+            var near=data.slice(-4);
+            data=data.substr(0, data.length - 5);
 			modalWait.style.display="none";
 			modalRespond.children[1].innerHTML=data;
+			modalRespond.children[2].innerHTML=nearest;
 			modalRespond.style.display="block";
 			codes=data;
+			nearest=near;
 		;}
         });
 		  };

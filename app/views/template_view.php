@@ -65,7 +65,7 @@
         </a>
       </div>
       <div class="logo-box">
-        <a href="admin" class="logo-text"><span>Energy Smart</span></a>
+        <!--a href="admin" class="logo-text"><span>Energy Smart</span></a-->		        <span class="logo-text" style="color:white">Energy Smart</span>
       </div><!-- Logo Box -->
 <!--      <div class="search-button">-->
 <!--        <a href="javascript:void(0);" class="waves-effect waves-button waves-classic show-search"><i class="fa fa-search"></i></a>-->
@@ -181,8 +181,9 @@
         <div class="sidebar-profile">
           <a href="javascript:void(0);" id="profile-menu-link">
             <div class="sidebar-profile-details">
-              <span>Hello,</span>
-              <span><?php echo $_SESSION["user_name"]; ?><br><small></small></span>
+              <span>Hi 
+              <!--span><!--?php echo $_SESSION["user_name"]; ?><br><small></small></span-->
+              <?php echo strstr($_SESSION["user_name"],' ',true); ?><br><small></small></span>
             </div>
           </a>
         </div>
@@ -225,7 +226,7 @@
           </ul>
         </li>
 
-        <li><a href="<?php echo __HOST__; ?>/client_campaigns/" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-list-alt"></span><p>Client Campaigns</p></a></li>
+<!--        <li><a href="--><?php //echo __HOST__; ?><!--/client_campaigns/" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-list-alt"></span><p>Client Campaigns</p></a></li>-->
         
         <li><a href="<?php echo __HOST__; ?>/admin_reports/" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-stats"></span><p>Reports</p></a></li>
 

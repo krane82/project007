@@ -1,8 +1,10 @@
 <?php
+include_once ('app/models/model_client_campaigns.php');
 class Controller_Profile extends Controller {
 
   function __construct() {
     $this->model = new Model_Profile();
+    $this->campaigns = new Model_Client_Campaigns();
     $this->view = new View();
   }
 
@@ -13,6 +15,7 @@ class Controller_Profile extends Controller {
     {
       $id = $_SESSION["user_id"];
       $data["profile"] = $this->model->get_profile_data($id);
+      $data["campaigns"] = $this->campaigns->getMyCampaigns($id);
       $this->view->generate('profile_view.php', 'client_template_view.php', $data);
     }
     else if ( $_SESSION['user'] == md5('manager'))

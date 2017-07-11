@@ -20,7 +20,7 @@ class Model_Api extends Model {
     }
     $clients = $this->getClients($p);
     $resp =  $this->sendToClients($clients, $lead_id, $p, $counter);
-    $this->sendLeadToInfusion($p);
+   // $this->sendLeadToInfusion($p);
     return $resp;
   }
   private function phoneReject($phone)
@@ -420,7 +420,9 @@ class Model_Api extends Model {
 
   public function sendLeadToInfusion($lead)
   {
+	  session_start();
     include_once "model_infusionsoft.php";
+	  var_dump('token:'.$_SESSION);
     $infusionSoft=new Model_Infusionsoft();
     $infusionSoft->sendClient($lead);
   }

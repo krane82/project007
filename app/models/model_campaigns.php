@@ -143,4 +143,88 @@ class Model_Campaigns extends Model {
     print $sql;
     $con->query($sql);
   }
+  public function getAllCampaigns()
+  {
+    $con=$this->db();
+    $sql="SELECT id, name FROM campaigns";
+    $res=$con->query($sql);
+    if($res)
+    {
+      while($row=$res->fetch_assoc())
+      {
+        $result[] = $row;
+      }
+        return $result;
+    }
+    return false;
+  }
+  public function getDashboard($id,$begin,$end)
+  {
+    $begin=strtotime($begin);
+    $end=strtotime($end)+86400;
+
+    //reports
+    $dashboard=[
+    'totalLeadsCome'=>0,
+    'totalRejections'=>0,
+    'averageSalesPerLead'=>0,
+    'grossIncome'=>0,
+    'cost'=>0,
+    'profitOnlyAccepted'=>0,
+    'profitWithPendings'=>0];
+    //end of reports
+    //Temporary variables
+    $tempAverage;
+    $tempCost;
+    $tempAcceptedRejectionsAmount;
+    $tempPendingRejections;
+    $i=0;
+    //End of temporary variables
+
+    $con=$this->db();
+    $sql="SELECT count(id) FROM leads WHERE campaign_id='".$id."' and datetime between '".$begin."' and '".$end."'";
+    $sql1="SELECT cam.cost as 'pay_to_affiliate', le.datetime as 'time_came_from_affiliate', rej.lead_id, rej.client_id, cli.lead_cost as 'cost_to_client', rej.approval from campaigns cam right join leads le on cam.id=le.campaign_id left join leads_rejection rej on le.id=rej.lead_id left join clients cli on rej.client_id=cli.id where cam.id='".$id."' and le.datetime between '".$begin."' and '".$end."'";
+    $res=$con->query($sql);
+    if($res)
+    {
+      //$dashboard['totalLeadsCome']=$res->num_rows();
+      $row=mysqli_fetch_assoc($res);
+      $dashboard['totalLeadsCome']=$row['count(id)'];
+    }
+    $res1=$con->query($sql1);
+    //return $sql1;
+    if($res1)
+    {
+      while($row=$res1->fetch_assoc())
+      {
+        if(!$i)
+        {
+          $tempCost=$row['pay_to_affiliate'];
+          $i=1;
+        }
+      if($row['approval']=='0')
+      {
+        $dashboard['totalRejections']++;
+        $tempAcceptedRejectionsAmount+=$row['cost_to_client'];
+      }
+      if($row['approval']=='1')
+      {
+        $tempAverage++;
+        $dashboard['grossIncome']+=$row['cost_to_client'];
+      }
+      if($row['approval']=='2' || $row['approval']=='4')
+      {
+        $tempPendingRejections+=$row['cost_to_client'];
+      }
+    //return $row;
+      }
+      $dashboard['averageSalesPerLead']=$tempAverage/$dashboard['totalLeadsCome'];
+      $dashboard['cost']=$tempCost*$dashboard['totalLeadsCome'];
+      $dashboard['profitOnlyAccepted']=$dashboard['grossIncome']-$dashboard['cost']-$tempAcceptedRejectionsAmount;
+      $dashboard['profitWithPendings']=$dashboard['grossIncome']-$dashboard['cost']-$tempAcceptedRejectionsAmount-$tempPendingRejections;
+      //return $tempAcceptedRejectionsAmount;
+      return $dashboard;
+    }
+    return true;
+  }
 }

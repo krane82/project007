@@ -25,7 +25,7 @@
                             <a class='delete-campaign' title='Delete ClCampaign'><i class='fa fa-trash-o' aria-hidden='true'></i></a>
                         </td>
                         <td attr-status='".$item['camp_status']."'>" . (($item['camp_status'])? 'Active' : 'Not active') . "</td>".
-                        (($item['camp_status'])? "<td attr-but><button class='btn btn-danger clCampStopSendLeads'>Stop to send leads</button></td>" : "<td attr-but><button class='btn btn-success clCampSendLeads'>Start to send leads</button></td>").
+                        (($item['camp_status'])? "<td attr-but><button class='btn btn-danger clCampStopSendLeads'>Stop this campaign</button></td>" : "<td attr-but><button class='btn btn-success clCampSendLeads'>Start to send leads</button></td>").
                     "</tr>";
             }
         ?>
@@ -58,9 +58,9 @@
               <input type="text" class="form-control" name="weekly" id="campaign-weekly">
           </div>
           <div class="form-group">
-              <p>PostCodes<button type="button" style="float:right" class="btn btn-sm btn-success" data-toggle="collapse" data-target="#mapEditClCam">Select by radius</button></p>
+              <p>PostCodes<button type="button" style="float:right" class="btn btn-sm btn-success" data-toggle="collapse" disabled data-target="#mapEditClCam">Select by radius</button></p>
               <input type="hidden" name="coords">
-              <textarea class="form-control" placeholder="Post codes" type="text" id="postcodes" name="postcodes" ></textarea>
+              <textarea class="form-control" placeholder="Post codes" type="text" id="postcodes" name="postcodes" readonly></textarea>
               <div id="mapEditClCam" class="collapse">
                   <br>
                   <iframe src="/app/map/map.php" style="width:100%; height:400px">Не работает</iframe>
@@ -143,7 +143,7 @@
                         url: '<?php echo __HOST__ . "/client_campaigns/"; ?>edit_campaign',
                         data:  { id: id, name: newName, weekly: newWeekly, newPostcodes: newPostcodes },
                         success: function (data) {
-                            console.log(data);
+                            // console.log(data);
     //                        console.log(tr.querySelector('td[attr-codes]').innerHTML);
                             if (data)
                             {
@@ -231,7 +231,7 @@
                     data:  { id: id},
                     success: function (data)
                     {
-                         console.log(data);
+                         // console.log(data);
                         location.reload();
                     }
                 });

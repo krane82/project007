@@ -1,7 +1,10 @@
 <?php
+include_once ('app/models/model_client_campaigns.php');
 class Controller_CLients extends Controller {
+    public $campaigns;
     function __construct() {
         $this->model = new Model_Clients();
+        $this->campaigns = new Model_Client_Campaigns();
         $this->view = new View();
     }
     function action_index() {
@@ -170,6 +173,50 @@ class Controller_CLients extends Controller {
                     //           echo "'$k'" ."<br>";
 //            $table.= '<input class="form-control" type="text" name="'.$k.'" value="'.$v.'" required > ' ;
                 }
+                //here will be table with client's campaigns
+              $clientCampaigns=$this->campaigns->getMyCampaigns($id);
+echo '<h1 class="text-center">Client\'s Campaigns</h1>
+<div class="table-responsive">
+    <table id="campaigns" class="display table responsive table-condensed table-striped table-hover table-bordered pull-left" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Campaign name</th>
+            <th>Postcode- Radius</th>
+            <th>Caps</th>
+            <th>Action</th>
+            <th>Status</th>
+            <th>Send leads</th>
+        </tr>
+        </thead>
+        <tbody>';
+//        <?php
+        foreach ($clientCampaigns as $item)
+        {
+            //Here I do not understand why do we use attributes attr-name etc.
+            // Because we use here function to get current campaign and this attributes
+            //are unused. Let it be, maybe in future someone will need them.
+            // Mironenko 05.07.2017
+            echo "<tr>
+                        <td attr-id='".$item['id']."'>" . $item['id'] . "</td>
+                        <td attr-name='".$item['camp_name']."'>" . $item['camp_name'] . "</td>
+                        <td class='hidden' attr-codes=''>" .$item['postcodes']. "</td>
+                        <td attr-nearest='" .$item['nearest']. "'>" .$item['nearest']. " - " .$item['radius']. "Km</td>
+                        <td attr-weekly='".$item['weekly']."'>" . $item['weekly'] . "</td>
+                        <td>
+                            <a href='#' class='edit-campaign' data-toggle='modal' data-target='#editClCampAd' onclick='inform(".$item['id'].")' title='Edit ClCampaign'><i class='fa fa-pencil' aria-hidden='true'></i></a>
+                        </td>
+                        <td attr-status='".$item['camp_status']."'>" . (($item['camp_status'])? 'Active' : 'Not active') . "</td>".
+                (($item['camp_status'])? "<td attr-but><button class='btn btn-danger clCampStopSendLeads' onclick='stopCampaign(".$item['id'].",".$item['client_id'].")'>Stop this campaign</button></td>" : "<td attr-but><button class='btn btn-success clCampSendLeads' onclick='activateClCamp(".$item['id'].",".$item['client_id'].")'>Start to send leads</button></td>").
+                "</tr>";
+        }
+
+echo '</tbody>
+</table>
+</div>';
+                
+                //end of client's campaigns table
+                
 //            echo $table;
             }
         }
@@ -309,10 +356,12 @@ class Controller_CLients extends Controller {
                 echo "Clients not added! DB error";
                 exit;
             }
-            $start=time()-86400*7;
-            $end=time();
-            print '<br>Trying to send existing leads. . .<br>';
-            print($lead->senManyLeads($last_id, $start, $end, '',0));
+          //Here is commented function that sends many leads to new client that was just created
+//            $start=time()-86400*7;
+//            $end=time();
+//            print '<br>Trying to send existing leads. . .<br>';
+//            print($lead->senManyLeads($last_id, $start, $end, '',0));
+          //End of function for sending leads  
             $con->close();
         }
     }

@@ -10,7 +10,7 @@ class Model_Clients extends Model {
   public function getCoords()
   {
     $con = $this->db();
-    $sql="SELECT cri.coords FROM clients cli LEFT JOIN clients_criteria cri on cli.id=cri.id WHERE cli.status='1'";
+    $sql="SELECT cliCamp.coords FROM clients cli LEFT JOIN client_campaigns cliCamp on cli.id=cliCamp.client_id WHERE cli.status='1'";
     $res=$con->query($sql);
     //return $sql;
     $result=array();
@@ -30,7 +30,7 @@ class Model_Clients extends Model {
 public function getCover()
 {
   $con = $this->db();
-  $sql="SELECT cri.postcodes FROM clients cli LEFT JOIN clients_criteria cri on cli.id=cri.id WHERE cli.status='1'";
+  $sql="SELECT cliCamp.postcodes FROM clients cli LEFT JOIN client_campaigns cliCamp on cli.id=cliCamp.client_id WHERE cli.status='1'";
   $res=$con->query($sql);
   $result=array();
   $result1=array();
@@ -49,6 +49,7 @@ if($res)
   {
     $result1[$item][]=$key;
   }
+  ksort($result1);
   return $result1;
 }
   return false;

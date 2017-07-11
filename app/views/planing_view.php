@@ -1,3 +1,69 @@
+<h3>Dashboard</h3>
+<div class="row">
+<form id="dashboard">
+    <div class="form-group col-lg-4 col-sm-4 col-xs-12">
+        <label for="datepicker">Select Date Range</label>
+        <div class="input-daterange input-group" id="datepicker">
+            <input type="text" class="input-sm st form-control" name="begin" value="<?php print date('m/01/Y')?>"/>
+            <span class="input-group-addon">to</span>
+            <input type="text" class="input-sm en form-control" name="end" value="<?php print date('m/d/Y')?>"/>
+        </div>
+    </div>
+    <div class="form-group col-lg-4 col-sm-4 col-xs-12">
+        <label for="selectClient">Select Date Range</label>
+        <div>
+        <select name="client" id="selectClient" class="form-control">
+<!--            <option selected disabled></option>-->
+            <?php
+            foreach ($data["campaigns"] as $key => $value) {
+                echo "<option value='" . $value['id'] . "'>" . $value['name'] . "</option>";
+            }
+            ?>
+        </select>
+        </div>
+    </div>
+    <div class="form-group col-lg-4 col-sm-4 col-xs-12">
+        <label>Press to generate reports</label>
+        <div>
+        <input type="submit" class="btn btn-primary btn-sm" value="Generate reports">
+        </div>
+        </div>
+</form>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+    <table id="dashResult" class="display table table-condensed table-striped table-hover table-bordered clients responsive pull-left dataTable no-footer align-center" style="word-wrap:break-word; width:100%">
+        <thead>
+        <tr>
+            <th style="width: 16.6%">total leads</th>
+            <th style="width: 16.6%">total rejections</th>
+            <th style="width: 16.6%">average sales per lead</th>
+            <th style="width: 16.6%">gross income</th>
+            <th style="width: 16.6%">cost </th>
+            <th style="width: 16.6%" colspan="2">profit max/min</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td id="dashLeadsCome"></td>
+            <td id="dashRejections"></td>
+            <td id="SalesPerLead"></td>
+            <td id="grossIncome"></td>
+            <td id="cost"></td>
+            <td id="profitMax"></td>
+            <td id="profitMin"></td>
+        </tr>
+        </tbody>
+    </table>
+<!--    <div class="col-lg-2">total leads</div>-->
+<!--    <div class="col-lg-2">total rejections</div>-->
+<!--    <div class="col-lg-2">average sales per lead</div>-->
+<!--    <div class="col-lg-2">gross income</div>-->
+<!--    <div class="col-lg-2">cost</div>-->
+<!--    <div class="col-lg-2">profit</div>-->
+    </div>
+</div>
+
 <h3>Planning</h3>
 
 <form id="fact">
@@ -27,7 +93,7 @@
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($data as $item=>$key)
+    <?php foreach ($data['plans'] as $item=>$key)
 {
    print '<tr class="campaign" id="'.$key['id'].'">';
     print '<td>'.$item.'</td>';
@@ -82,4 +148,41 @@
         multidate: "true"
     });
     });
+
+    //Here is the script for dashboard jeneration
+    $('#dashboard').submit(function(e){
+        e.preventDefault();
+        $('#dashLeadsCome').html('Counting');
+        $('#dashRejections').html('Counting');
+        $('#SalesPerLead').html('Counting');
+        $('#grossIncome').html('Counting');
+        $('#cost').html('Counting');
+        $('#profitMax').html('Counting');
+        $('#profitMin').html('Counting');
+       // $('#dashResult').html('Wait please. . . generating invoice');
+        var data=$(this).serialize();
+        $.ajax(
+            {
+                type:"POST",
+                url: "<?php echo __HOST__ . '/campaigns/getDashboard' ?>",
+                data:data,
+                success:function(data){
+                    console.log(data);
+                    var respond=JSON.parse(data);
+                    var averageSalesPerLead=respond.averageSalesPerLead;
+                    var grossIncome=respond.grossIncome;
+                    var profitMax=respond.profitOnlyAccepted;
+                    var profitMin=respond.profitWithPendings;
+                    $('#dashLeadsCome').html(respond.totalLeadsCome);
+                    $('#dashRejections').html(respond.totalRejections);
+                    averageSalesPerLead?$('#SalesPerLead').html(averageSalesPerLead.toFixed(1)):$('#SalesPerLead').html(0);
+                    grossIncome?$('#grossIncome').html(grossIncome.toFixed(2)):$('#grossIncome').html(0);
+                    profitMax?$('#profitMax').html(profitMax.toFixed(2)):$('#profitMax').html(0);
+                    profitMin?$('#profitMin').html(profitMin.toFixed(2)):$('#profitMin').html(0);
+                    $('#cost').html(respond.cost);
+                }
+            }
+        )
+    })
+    //
 </script>

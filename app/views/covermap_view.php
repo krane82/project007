@@ -4,13 +4,13 @@
 <div class="row">
 <div id="map" class="col-lg-6 col-sm-12 col-xs-12" style="height:400px"></div>
 </div>
-
+<h2 class="text-center">Here is shown how many times each postcode matches with active clients</h2>
 <div class="table-responsive">
-        <table class="table" style="word-wrap:break-word; width:100%">
+        <table class="display table table-condensed table-striped table-hover table-bordered clients responsive pull-left dataTable no-footer" style="word-wrap:break-word; width:100%">
             <thead>
             <tr>
-                <td>Cover (times)</td>
-                <td>Postcodes</td>
+                <td><h3 class="text-center">Matches (times)</h3></td>
+                <td><h3 class="text-center">Postcodes</h3></td>
             </tr>
             </thead>
             <tbody>
