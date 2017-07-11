@@ -1,5 +1,0 @@
-{
-    "require": {
-        "docusign/esign-client": "^3.0"
-    }
-}
