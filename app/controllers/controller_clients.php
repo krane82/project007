@@ -207,10 +207,10 @@ echo '<h1 class="text-center">Client\'s Campaigns</h1>
                             <a href='#' class='edit-campaign' data-toggle='modal' data-target='#editClCampAd' onclick='inform(".$item['id'].")' title='Edit ClCampaign'><i class='fa fa-pencil' aria-hidden='true'></i></a>
                         </td>
                         <td attr-status='".$item['camp_status']."'>" . (($item['camp_status'])? 'Active' : 'Not active') . "</td>".
-                (($item['camp_status'])? "<td attr-but><button class='btn btn-danger clCampStopSendLeads' onclick='stopCampaign(".$item['id'].",".$item['client_id'].")'>Stop this campaign</button></td>" : "<td attr-but><button class='btn btn-success clCampSendLeads' onclick='activateClCamp(".$item['id'].",".$item['client_id'].")'>Start to send leads</button></td>").
+                (($item['camp_status'])? "<td attr-but><button type='button' class='btn btn-danger clCampStopSendLeads' onclick='stopCampaign(".$item['id'].",".$item['client_id'].")'>Stop this campaign</button></td>" : "<td attr-but><button type='button' class='btn btn-success clCampSendLeads' onclick='activateClCamp(".$item['id'].",".$item['client_id'].")'>Start to send leads</button></td>").
                 "</tr>";
         }
-
+echo '<tr><td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewClCamp">Add new campaign</button></td></tr>';
 echo '</tbody>
 </table>
 </div>';

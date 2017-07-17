@@ -399,7 +399,6 @@ WHERE 1=1 AND (`l`.`datetime` BETWEEN 1488027600 AND 1488891600)";
 
     }
 
-
     $sql="SELECT `led`.`id`, `lef`.`full_name` as 'Full name', `lef`.`email`,
      `lef`.`phone`, DATE_FORMAT(FROM_UNIXTIME(`led`.`timedate`), \"%e %b %Y %h:%i:%s\" )
       AS `Date`, `cli`.`campaign_name` as 'Client Name',  `lef`.`address`, `lef`.`suburb`,

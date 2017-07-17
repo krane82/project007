@@ -176,7 +176,7 @@
                             //                        console.log(tr.querySelector('td[attr-codes]').innerHTML);
                             if (data)
                             {
-                                location.reload();
+                                   location.reload();
                             }
                         }
                     });

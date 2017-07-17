@@ -17,20 +17,24 @@ class Model_Admin extends Model {
     $dec = strtotime('last day of ' . date( 'F Y')) + 86399;
 
 //    echo "$jan : $dec";
+//Old sql1
+//    $sql1  = 'SELECT MONTH(FROM_UNIXTIME(ld.timedate)) as month, SUM(c.lead_cost) as cost, GROUP_CONCAT(ld.id) FROM `leads_delivery` as ld';
+//    $sql1 .= ' LEFT JOIN `clients` as c ON ld.client_id = c.id LEFT JOIN `leads_rejection` as lr ON lr.lead_id = ld.lead_id AND lr.client_id = ld.client_id';
+//    $sql1 .= ' WHERE (lr.approval > 0 OR lr.approval IS NULL)';
+//    $sql1 .= " AND (ld.timedate BETWEEN $jan AND $dec)";
+//    $sql1 .= " GROUP BY month";
+    //End of old sql1
+    $sql1="SELECT MONTH(FROM_UNIXTIME(ld.date)) as month, sum(c.lead_cost) as 'cost' from leads_rejection ld left join clients c on ld.client_id=c.id where ld.approval!=0 and ld.date between $jan and $dec group by (month)";
 
-    $sql1  = 'SELECT MONTH(FROM_UNIXTIME(ld.timedate)) as month, SUM(c.lead_cost) as cost, GROUP_CONCAT(ld.id) FROM `leads_delivery` as ld';
-    $sql1 .= ' LEFT JOIN `clients` as c ON ld.client_id = c.id LEFT JOIN `leads_rejection` as lr ON lr.lead_id = ld.lead_id AND lr.client_id = ld.client_id';
-    $sql1 .= ' WHERE (lr.approval > 0 OR lr.approval IS NULL)';
-    $sql1 .= " AND (ld.timedate BETWEEN $jan AND $dec)";
-    $sql1 .= " GROUP BY month";
     //    $sql1 .= ' AND YEAR(FROM_UNIXTIME(ld.timedate)) =' .$year ;
-
-    $sql2  = 'SELECT MONTH(FROM_UNIXTIME(l.datetime)) as month, SUM(c.cost) as cost, GROUP_CONCAT(l.id) FROM `leads` as l ';
-    $sql2 .= ' INNER JOIN `campaigns` as c ON c.id = l.campaign_id ';
-    $sql2 .= " WHERE l.datetime BETWEEN $jan AND $dec";
-    $sql2 .= ' GROUP BY month';
+//old sql2
+//    $sql2  = 'SELECT MONTH(FROM_UNIXTIME(l.datetime)) as month, SUM(c.cost) as cost, GROUP_CONCAT(l.id) FROM `leads` as l ';
+//    $sql2 .= ' INNER JOIN `campaigns` as c ON c.id = l.campaign_id ';
+//    $sql2 .= " WHERE l.datetime BETWEEN $jan AND $dec";
+//    $sql2 .= ' GROUP BY month';
+    //End of old sql2
 //    $sql2 .= ' WHERE YEAR(FROM_UNIXTIME(l.datetime)) = ' . $year;
-
+    $sql2="SELECT MONTH(FROM_UNIXTIME(le.datetime)) as month, SUM(cam.cost) as cost from leads le left join campaigns cam on le.campaign_id=cam.id where le.datetime between $jan and $dec group by (month)";
     $res1 = $con->query($sql1);
     if($res1){
       while($row = $res1->fetch_assoc()){

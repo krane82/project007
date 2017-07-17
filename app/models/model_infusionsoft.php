@@ -42,7 +42,7 @@ class Model_Infusionsoft extends Model
             'redirectUri' => '',
         ));
         $infusionsoft->setToken(unserialize($_SESSION['token']));
-        //var_dump($p);die();
+        var_dump($infusionsoft->getToken());
         if ($infusionsoft->getToken()) {
             $infusionsoft->contacts->add(array(
                   'Email' => $p['email'],

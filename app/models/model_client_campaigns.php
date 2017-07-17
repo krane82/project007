@@ -1,4 +1,5 @@
 <?php
+include_once 'model_profile.php';
 class Model_Client_Campaigns extends Model
 {
 
@@ -102,18 +103,48 @@ class Model_Client_Campaigns extends Model
 
     {
 		session_start();
+        $prof=new Model_Profile();
         $con = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
         if ($con->connect_errno) {printf("connect failed: %s\n", $con->connect_error);exit();}
-
-
-
+        //Here I added the function that gets data to email sending
+        $sql="SELECT cam.postcodes , cam.camp_name, cam.weekly,
+        cam.radius, cam.nearest, cli.campaign_name FROM `client_campaigns` cam left join
+        clients cli on cam.client_id=cli.id
+        WHERE cam.id='".$camp_id."'";
+        $res=$con->query($sql);
+        if($res)
+        {
+         $row=$res->fetch_assoc();
+        }
+        //End of email sending function
         $query = "update `client_campaigns` set       
       `postcodes` ='" . $postcodes . "', `coords`='".$coords."',
        `camp_name` ='" . $camp_name . "', `weekly` ='" . $camp_weekly . "',
         `radius`='".$camp_radius."', `nearest`='".$camp_nearest."' 
         where `id` = '" . $camp_id."'";
-		if ($result = $con->query($query)) {
+		$p=[
+            'camp_nam'=>$camp_name,
+            'weekly'=>$camp_weekly,
+            'radius'=>$camp_radius,
+            'nearest'=>$camp_nearest,
+            'postcodes'=>$postcodes
+        ];
+        $before=[[
+            'camp_nam'=>$row['camp_name'],
+            'weekly'=>$row['weekly'],
+            'radius'=>$row['radius'],
+            'nearest'=>$row['nearest'],
+            'postcodes'=>$row['postcodes']
+            ],['c'=>'true','k'=>$row['campaign_name']]
+        ];
+
+        $before=serialize($before);
+        $before=urlencode($before);
+        //return var_dump($before);
+
+        if ($result = $con->query($query)) {
+            $prof->UserChangeNotif($p,$before);
 
             if ($this->getAllClCampPostcodes($client_id))  return true;
 
