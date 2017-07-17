@@ -49,7 +49,14 @@ class Controller_Client_Campaigns extends Controller {
   function action_add_new_campaign() {
 
       session_start();
-
+      if(isset($_POST['client']) && !empty($_POST['client']))
+      {
+          $client=$_POST['client'];
+      }
+      else
+      {
+          $client=$_SESSION['user_id'];
+      }
       $newPostcodes = trim(strip_tags($_POST['newPostcodes']));
 
       $camp_name = trim(strip_tags($_POST['name']));
@@ -59,7 +66,7 @@ class Controller_Client_Campaigns extends Controller {
       $camp_radius = trim(strip_tags($_POST['radius']));
       $camp_nearest = trim(strip_tags($_POST['nearest']));
 
-      $result = $this->model->add_new_campaign($_SESSION['user_id'], $camp_name, $camp_weekly, $newPostcodes, $camp_coords, $camp_radius, $camp_nearest);
+      $result = $this->model->add_new_campaign($client, $camp_name, $camp_weekly, $newPostcodes, $camp_coords, $camp_radius, $camp_nearest);
 
       echo $result;
 

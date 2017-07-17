@@ -157,6 +157,47 @@ echo $table;
   </div>
 </div>
 <!--End of campaigns editing modal-->
+<!--Modal to add new client's campaign-->
+<div class="modal fade" id="addNewClCamp"  tabindex="-1" role="dialog" aria-labelledby="addNewClCamp">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color: #CFCFD0">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">Add New Client Campaign</h4>
+      </div>
+      <form id="addNewCampaignform" action="add_campaign" method="post">
+        <div class="modal-body">
+          <input type="hidden" name="id" class="campaign-id">
+          <div class="form-group">
+            <label for="campaign-new-name" class="control-label">Campaign Name:</label>
+            <input type="text" class="form-control" name="name" id="campaign-new-name">
+          </div>
+          <div class="form-group">
+            <label for="campaign-new-weekly" class="control-label">Campaign Weekly Limit:</label>
+            <input type="text" class="form-control" name="weekly" id="campaign-new-weekly">
+          </div>
+          <div class="form-group">
+            <p>PostCodes<button type="button" style="float:right" class="btn btn-sm btn-success" data-toggle="collapse" data-target="#mapAddClCam">Select by radius</button></p>
+            <input type="hidden" name="coords" id="campaign-new-coords">
+            <input type="hidden" name="radius" id="campaign-new-radius">
+            <input type="hidden" name="nearest" id="campaign-new-nearest">
+            <textarea class="form-control" placeholder="Post codes" type="text" readonly id="campaign-new-postcodes" name="postcodes" ></textarea>
+            <div id="mapAddClCam" class="collapse">
+              <br>
+              <iframe src="/app/map/map.php" id="frame1" style="width:100%; height:400px">Не работает</iframe>
+            </div>
+          </div>
+          <div class="bg-success success"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="addNewClCampSubmit" data-dismiss="modal">Add campaign</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--End of creating modal-->
 <script>
   function addnew(){
     $('#insertdiv').toggle("slow");
@@ -431,5 +472,30 @@ echo $table;
     });
   }
 //end of functionof stopping of campaign
-
+//Function for creating new campaign
+  document.getElementById('addNewClCampSubmit').addEventListener('click', function() {
+    var client = $('#editClientForm').find('input[name=id]').val();
+    var newName = $('#campaign-new-name').val();
+    var newWeekly = $('#campaign-new-weekly').val();
+    var newPostcodes = $('#campaign-new-postcodes').val();
+    var newCoords = $('#campaign-new-coords').val();
+    var newRadius = $('#campaign-new-radius').val();
+    var newNearest = $('#campaign-new-nearest').val();
+    console.log(client);
+    $.ajax({
+      type: "POST",
+      url: '<?php echo __HOST__ . "/client_campaigns/"; ?>add_new_campaign',
+      data:  { client: client, name: newName, weekly: newWeekly, newPostcodes: newPostcodes, coords: newCoords, radius: newRadius, nearest: newNearest },
+      success: function () {
+        $.ajax({
+          type: "POST",
+          url: '<?php echo __HOST__  . "/clients/"; ?>editClient',
+          data:  { id: client },
+          success: function (data) {
+            document.querySelector('.clientsfields').innerHTML = data;
+          }
+        });
+      }
+    });
+  });
 </script>
