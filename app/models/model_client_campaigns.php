@@ -173,7 +173,7 @@ class Model_Client_Campaigns extends Model
         $query = "update `client_campaigns` set `camp_status` = '0' where `id` = " . $camp_id;
 
         if ($result = $con->query($query)) {
-
+            $this->sendCampaignStatus($camp_id);
             if ($this->getAllClCampPostcodes($client_id))  return true;
 
             else return false;
@@ -201,7 +201,7 @@ class Model_Client_Campaigns extends Model
         $query = "update `client_campaigns` set `camp_status` = '1' where `id` = " . $camp_id;
 
         if ($result = $con->query($query)) {
-
+            $this->sendCampaignStatus($camp_id);
             if ($this->getAllClCampPostcodes($client_id)) 
 
                 return true;
@@ -361,6 +361,65 @@ class Model_Client_Campaigns extends Model
         return $result;
     }
 
+    
+    private function sendCampaignStatus($campaign)
+    {
+        $con=$this->db();
+        $sql="SELECT cam.camp_name, cam.camp_status, cli.full_name FROM client_campaigns cam join clients cli on cam.client_id=cli.id where cam.id='".$campaign."'";
+        $res=$con->query($sql);
+        if($res)
+        {
+            $result=$res->fetch_assoc();
+        }
+        else
+        {
+            return false;
+        }
+        $mail = new PHPMailer;
+        //  $mail->isSendmail();
+        $mail->IsSMTP(); // telling the class to use SMTP
+        $path = $_SERVER['DOCUMENT_ROOT'];
+        $path .= "/credentials.php";
+        require_once($path);
+
+        $mail->IsSMTP(); // telling the class to use SMTP
+        $mail->SMTPAuth   = true;                  // enable SMTP authentication
+        $mail->Host       = MAIL_HOST;    // sets the SMTP server
+        $mail->Port       = MAIL_PORT;
+        $mail->Username   = MAIL_USER;    // SMTP account username
+        $mail->Password   = MAIL_PASS;        // SMTP account password
+
+        $mail->isHTML(true);
+
+        $mail->AddReplyTo("info@energysmart.com.au", "Energy Smart Notification");
+
+        $mail->SetFrom('info@energysmart.com.au', 'Energy Smart Notification');
+
+        $mail->AddAddress(ADMINEMAIL, 'Joash Boyton');
+        $mail->AddAddress('ariel@energysmart.com.au', 'Ariel');
+        $mail->AddAddress('Emma@energysmart.com.au', 'Emma Boyton');
+        $mail->AddAddress('Jarrad@energysmart.com.au', 'Jarrad van de Laarschot');
+        $mail->AddAddress('joash.boyton@energysmart.com.au', 'Joash Boyton');
+
+        $mail->Subject = 'Change campaign\'s status information';
+        if($result['camp_status']=='1')
+        {
+            $profile = '<h3 style="background-color:limegreen; padding:20px">Client ' . $result['full_name'] . ' have started campaign named "' . $result['camp_name'] . '"</h3>';
+        }
+        if($result['camp_status']=='0') {
+            $profile = '<h3 style="background-color:#f25656; padding:20px; color: white">Client ' . $result['full_name'] . ' have stopped campaign named "' . $result['camp_name'] . '"</h3>';
+        }
+            $mail->AltBody = "To view the message, please use an HTML compatible email viewer!";
+        $mail->msgHTML($profile);
+        $emailSending = "";
+
+        if (!$mail->Send()) {
+            echo $emailSending = "Mailer Error: " . $mail->ErrorInfo;
+            return FALSE;
+        } else {
+            return "Success";
+        }
+    }
 }
 
 

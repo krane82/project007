@@ -468,8 +468,8 @@ class Controller_approvals extends Controller
         $this->model->sendEmail($emailData);
         $con->close();
 
-        return $this->action_index();
-
+      //  $this->action_index();
+      header('location:'.__HOST__.'/approvals');
       }
 
     }
