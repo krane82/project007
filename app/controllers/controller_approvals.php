@@ -30,8 +30,8 @@ class Controller_approvals extends Controller
 
     if ($_SESSION['admin'] == md5('admin')) {
 
-      $data["LeadSources"] = $this->model->getLeadSources();
-
+     // $data["LeadSources"] = $this->model->getLeadSources();
+      $data['approvals']=$this->model->getApprovals();
       $this->view->generate('approvals_view.php', 'template_view.php', $data);
 
     } else {
@@ -350,7 +350,7 @@ class Controller_approvals extends Controller
 
       }, 'field'=>'client_id'),
 
-        array('db'=> '`con`.`seen`', 'dt'=> 11, 'field'=>'seen')//,
+        array('db'=> '(select seen from lead_conversations where lead_id=a.id limit 1)', 'dt'=> 11, 'field'=>'seen')//,
 
         //array('db'=> '`con`.`lead_id`', 'dt'=> 12, 'field'=>'lead_id')*/
 
@@ -374,15 +374,15 @@ class Controller_approvals extends Controller
 
 
 
-    $joinQuery = "FROM `{$table}` AS `a` INNER JOIN `leads_delivery` as `ld` ON (`a`.`lead_id` = `ld`.`lead_id` AND a.client_id=ld.client_id) INNER JOIN clients as c ON a.client_id=c.id LEFT JOIN lead_conversations con ON `a`.`id`=`con`.`lead_id`";
+    $joinQuery = "FROM `{$table}` AS `a` INNER JOIN `leads_delivery` as `ld` ON (`a`.`lead_id` = `ld`.`lead_id` AND a.client_id=ld.client_id) INNER JOIN clients as c ON a.client_id=c.id";
 
     $where = "`a`.`approval` != 1 ";
 
-    $groupBy="`a`.`id`";
+    //$groupBy="`a`.`id`";
 
     echo json_encode(
 
-      SSP::simple( $_POST, $sql_details, $table, $primaryKey, $columns, $joinQuery, $where, $groupBy )
+      SSP::simple( $_POST, $sql_details, $table, $primaryKey, $columns, $joinQuery, $where)
 
     );
 

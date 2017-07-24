@@ -90,4 +90,30 @@ public function sendEmail($data)
     return TRUE;
   }
 }
+
+  public function getApprovals()
+  {
+    $con=$this->db();
+    $sql="select `a`.`lead_id`, `c`.`campaign_name`,
+ DATE_FORMAT(FROM_UNIXTIME(`ld`.`timedate`), \"%e %m %Y %h:%i:%s %p\" ),
+ DATE_FORMAT(FROM_UNIXTIME(`a`.`date`), \"%e %m %Y %h:%i:%s %p\" ),
+  `a`.`reason`,`a`.`note`, `a`.`decline_reason`,`a`.`approval`,
+  `a`.`audiofile`, `a`.`id`,`a`.`client_id`,
+   (select seen from lead_conversations where lead_id=a.id limit 1) as seen
+    FROM `leads_rejection` AS `a` INNER JOIN `leads_delivery` as `ld` ON
+     (`a`.`id`=`ld`.`id` ) INNER JOIN clients as c ON a.client_id=c.id
+      where `a`.`approval` != 1";
+    //return($sql);
+    $res=$con->query($sql);
+    if ($res)
+    {
+      $result=array();
+      while($row=$res->fetch_array())
+      {
+        $result[]=$row;
+      }
+      return $result;
+    }
+    return false;
+  }
 }
