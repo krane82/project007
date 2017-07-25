@@ -93,25 +93,22 @@ public function sendEmail($data)
 
   public function getApprovals()
   {
-    $con=$this->db();
+    //$memcache = new Memcache;
+    //$memcache->connect(__HOST__, 11211) or die ("Не могу подключиться");
+    $con=new PDO('mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset=utf8;',DB_USER,DB_PASS);
+    $stamp=strtotime('-1 month');
     $sql="select `a`.`lead_id`, `c`.`campaign_name`,
- DATE_FORMAT(FROM_UNIXTIME(`ld`.`timedate`), \"%e %m %Y %h:%i:%s %p\" ),
- DATE_FORMAT(FROM_UNIXTIME(`a`.`date`), \"%e %m %Y %h:%i:%s %p\" ),
+ DATE_FORMAT(FROM_UNIXTIME(`ld`.`timedate`), \"%e.%m.%Y %h:%i:%s %p\" ),
+ DATE_FORMAT(FROM_UNIXTIME(`a`.`date`), \"%e.%m.%Y %h:%i:%s %p\" ),
   `a`.`reason`,`a`.`note`, `a`.`decline_reason`,`a`.`approval`,
   `a`.`audiofile`, `a`.`id`,`a`.`client_id`,
    (select seen from lead_conversations where lead_id=a.id limit 1) as seen
     FROM `leads_rejection` AS `a` INNER JOIN `leads_delivery` as `ld` ON
      (`a`.`id`=`ld`.`id` ) INNER JOIN clients as c ON a.client_id=c.id
-      where `a`.`approval` != 1";
-    //return($sql);
-    $res=$con->query($sql);
-    if ($res)
-    {
-      $result=array();
-      while($row=$res->fetch_array())
-      {
-        $result[]=$row;
-      }
+      where `a`.`approval` != 1 AND `ld`.`timedate`>'".$stamp."'";
+    $statement=$con->prepare($sql);
+    if($statement->execute()) {
+      $result = $statement->fetchAll(PDO::FETCH_NUM);
       return $result;
     }
     return false;

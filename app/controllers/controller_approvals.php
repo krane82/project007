@@ -467,9 +467,9 @@ class Controller_approvals extends Controller
         $emailData=$this->model->selectAllDataOfDeclinedLead($id, $client_id);
         $this->model->sendEmail($emailData);
         $con->close();
-
+      if($res) print 'ok';
       //  $this->action_index();
-      header('location:'.__HOST__.'/approvals');
+      //header('location:'.__HOST__.'/approvals');
       }
 
     }
