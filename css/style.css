@@ -1,10 +1,10 @@
 /* fix width */
 @media (min-width: 1200px){
   .page-content.container .navbar {
-    width: 95%;
+    width: 100%;
   }
   .container {
-    width: 95%;
+    width: 100%;
   }
 }
 
@@ -20,6 +20,11 @@
 }
 
 .navbar .logo-box .logo-text {
+  line-height: 35px !important;
+  padding: 4px 15px !important;
+}
+
+.topbar-left .logo-box .logo-text {
   line-height: 35px !important;
   padding: 4px 15px !important;
 }

@@ -20,13 +20,13 @@ print '<table class="table table-hover">
 
 				<tr>';
 
-foreach ($data as $item)
+foreach ($item as $it)
 
 {
 
-    if ($item=='.' || $item=='..')continue;
+    if ($it=='.' || $it=='..')continue;
 
-    print '<td><button name="file" class="btn btn-sm btn-link" value="'.$item.'" target="a_blank" title="Download Current">'.$item.'</button></td>';
+    print '<td><button name="file" class="btn btn-sm btn-link" value="'.$it.'" target="a_blank" title="Download Current">'.$it.'</button></td>';
 
 }
 
