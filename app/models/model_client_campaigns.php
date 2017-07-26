@@ -123,7 +123,7 @@ class Model_Client_Campaigns extends Model
        `camp_name` ='" . $camp_name . "', `weekly` ='" . $camp_weekly . "',
         `radius`='".$camp_radius."', `nearest`='".$camp_nearest."' 
         where `id` = '" . $camp_id."'";
-		$p=[
+		$p =[
             'camp_nam'=>$camp_name,
             'weekly'=>$camp_weekly,
             'radius'=>$camp_radius,
