@@ -137,7 +137,7 @@ echo $table;
             <input type="hidden" name="coords" id="campaign-coords">
             <input type="hidden" name="radius" id="campaign-radius">
             <input type="hidden" name="nearest" id="campaign-nearest">
-            <textarea class="form-control" placeholder="Post codes" type="text" id="postcodes" name="postcodes" ></textarea>
+            <textarea class="form-control" placeholder="Post codes" type="text" id="postcodes" name="postcodes" readonly></textarea>
             <div id="mapEditClCam" class="collapse">
               <br>
               <iframe src="/app/map/map.php" style="width:100%; height:400px">Не работает</iframe>
