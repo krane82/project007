@@ -20,7 +20,7 @@ class Model_Api extends Model {
     }
     $clients = $this->getClients($p);
     $resp =  $this->sendToClients($clients, $lead_id, $p, $counter);
-    $this->sendLeadToInfusion($p);
+    //$this->sendLeadToInfusion($p);
     return $resp;
   }
   private function phoneReject($phone)

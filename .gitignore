@@ -1,21 +1,13 @@
-.idea
-
-.vscode
-
 config.php
-
-tags
-
-.tags*
-
-*.DS_Store
-
-ftpsync.settings
 
 credentials.php
 
+
 landing.html
+
 index.php
+
 
 logs/*
 /vendor
+.idea

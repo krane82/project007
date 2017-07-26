@@ -66,8 +66,8 @@ $str.= '<tr><td data-order="'.$item[0].'">';
   $str.='<td>'.$item[2].'</td>';
   $str.='<td>'.$item[3].'</td>';
   $str.='<td>'.$item[4].'</td>';
-  $str.='<td>'.$item[5].'</td>';
-  $str.='<td>'.$item[6].'</td>';
+  $str.='<td style="word-break: break-word; min-width:150px">'.$item[5].'</td>';
+  $str.='<td style="word-break: break-word; min-width:150px">'.$item[6].'</td>';
   switch ($item[7]) {
     case 0:
       $str.="<td class='status'><span class=\"bg-primary pdfive\">Reject accepted</span></td>";
@@ -85,15 +85,15 @@ $str.= '<tr><td data-order="'.$item[0].'">';
   }
   $str.='<td>';
   if($item['8']) {
-    $str.="<td><form method='POST' action='". __HOST__ ." / docs / audios / download . php'>
+    $str.="<form method='POST' action='". __HOST__ ."/docs/audios/download.php'>
             <input type='hidden' name='file' value='".basename($item['8'])."'>
             <input type='hidden' name='folder' value='".$item[10]."'>
-            <input type='submit' class='btn btn - xs btn - success' value='Download file'></form><br><br>
-            <button type='button' class='btn btn - xs btn - danger' onclick='delbutfile(this)' value='".$item['8']."'>Delete file</button></td></tr>";
+            <input type='submit' class='btn btn-xs btn-success' value='Download file'></form><br><br>
+            <button type='button' class='btn btn-xs btn-danger' onclick='delbutfile(this)' value='".$item['8']."'>Delete file</button>";
   }
   $str.='</td>';
   $str.="<td><a href='#' class='viewLeadInfo btn btn-info' attr-id='$item[0]' data-toggle=\"modal\" data-target=\"#LeadInfo\">View</a></td>";
-  $str.='<td><a href="#" role="button" onclick="rejectLead('.$item[0]. ', '. $item[10] .');" class="btn btn-small btn-danger hidden-tablet hidden-phone" data-toggle="modal" data-target="#disapprove" data-original-title="">
+  $str.='<td><a href="#" role="button" onclick="rejectLead('.$item[0]. ', '. $item[10] .',this);" class="btn btn-small btn-danger hidden-tablet hidden-phone" data-toggle="modal" data-target="#disapprove" data-original-title="">
 						    Disapprove Request </a><br>
 						    <a href="#" role="button" onclick="acceptLead('.$item[0]. ', '. $item[10] .',this);" class="btn btn-small btn-success hidden-tablet hidden-phone" data-toggle="modal" data-original-title="">
 						    Approve Request</a><br>
@@ -222,7 +222,7 @@ print $str;
           <form id="disapprReason" enctype="multipart/form-data" method="POST"><div class="form-group"><textarea id="reason" name="decline" placeholder="Describe your decline reason" class="form-control"></textarea>
               <input type="hidden" name="lead_id" value="" />
               <input type="hidden" name="client_id" value="" />
-              <br><label class="btn btn-sm btn-success">Add audio attachment<input type="file" name="audiofile" accept="audio/*" style="display:none"></label>
+              <br><label class="btn btn-sm btn-success">Add audio attachment<input type="file" name="audiofile" id='fil' accept="audio/*" style="display:none"></label>
               <br><br><input class="btn" type="submit">
               </div>
             </form>
@@ -261,13 +261,13 @@ $(document).ready(function () {
 
           '<option value="">Select Status...</option>' +
 
-          '<option value="0">Request Approved</option>' +
+          '<option value="Requested to Reject">Requested to Reject</option>' +
 
-          '<option value="3">Request Disapproved</option>' +
+          '<option value="Reject not Approved">Reject not Approved</option>' +
 
-          '<option value="2">Requesting to Reject</option>' +
+          '<option value="Reject accepted">Reject accepted</option>' +
 
-          '<option value="4">Requesting details</option>' +
+          '<option value="More info required">More info required</option>' +
 
           '</select>';
         }
@@ -343,7 +343,15 @@ $(document).ready(function () {
               .column( colIdx )
               .search( isNaN(stamp) ? '' : stamp )
               .draw();
-          } else {
+          }
+          else if (colIdx == 7)
+          {
+            table
+                .column( colIdx )
+                .search(this.value)
+                .draw();
+          }
+          else {
             table
              .column( colIdx )
              .search(this.value)
@@ -422,25 +430,35 @@ function moreInfo(id, client_id,e) {
     var modalka = $('#LeadInfo');
 
 //Function when you open the modal to add rejection reason
+  var sibl;
     function rejectLead(id, client_id,context){
       $('#disapprReason').find('input[name=lead_id]').val(+Number(id));
       $('#disapprReason').find('input[name=client_id]').val(+Number(client_id));
+      sibl=context.parentNode.parentNode.children[7];
     }
 
 //Action to decline rejection
 $('#disapprReason').submit(function(e)
 {
   e.preventDefault();
-  var data=$(this).serialize();
-  console.log(data);
+ // var data=$(this).serialize();
+  //var $that = $(this),
+     var formData = new FormData($(this).get(0));
   $.ajax({
+    contentType: false, // важно - убираем форматирование данных по умолчанию
+    processData: false, // важно - убираем преобразование строк по умолчанию
     type: "POST",
     url: "<?php echo __HOST__ . "/approvals/decline/"; ?>",
-    data: data,
+    data: formData,
     success: function(respond) {
       console.log(respond);
       if(respond=='ok')
       {
+       // window.location.reload();
+      //here we change status (inner of td without reloadingpage
+        sibl.innerHTML='<span class="bg-danger pdfive">Reject not Approved</span>';
+        sibl='';
+        $('#disapprove').modal("toggle");
       }
     }
   });
