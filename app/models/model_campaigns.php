@@ -178,18 +178,19 @@ class Model_Campaigns extends Model {
     $tempCost;
     $tempAcceptedRejectionsAmount;
     $tempPendingRejections;
-    $i=0;
     //End of temporary variables
 
     $con=$this->db();
-    $sql="SELECT count(id) FROM leads WHERE campaign_id='".$id."' and datetime between '".$begin."' and '".$end."'";
-    $sql1="SELECT cam.cost as 'pay_to_affiliate', le.datetime as 'time_came_from_affiliate', rej.lead_id, rej.client_id, cli.lead_cost as 'cost_to_client', rej.approval from campaigns cam right join leads le on cam.id=le.campaign_id left join leads_rejection rej on le.id=rej.lead_id left join clients cli on rej.client_id=cli.id where cam.id='".$id."' and le.datetime between '".$begin."' and '".$end."'";
+    $sql="SELECT count(le.id), sum(cam.cost) FROM leads le left join campaigns cam on le.campaign_id=cam.id WHERE le.campaign_id='".$id."' and le.datetime between '".$begin."' and '".$end."'";
+    $sql1="SELECT cam.cost as 'pay_to_affiliate', le.datetime as 'time_came_from_affiliate', rej.lead_id, rej.client_id, cli.lead_cost as 'cost_to_client', rej.approval from campaigns cam right join leads le on cam.id=le.campaign_id left join leads_rejection rej on le.id=rej.lead_id left join leads_delivery led on rej.id=led.id left join clients cli on rej.client_id=cli.id where cam.id='".$id."' and led.timedate between '".$begin."' and '".$end."'";
     $res=$con->query($sql);
     if($res)
     {
       //$dashboard['totalLeadsCome']=$res->num_rows();
       $row=mysqli_fetch_assoc($res);
-      $dashboard['totalLeadsCome']=$row['count(id)'];
+      $dashboard['totalLeadsCome']=$row['count(le.id)'];
+      $dashboard['cost']=$row['sum(cam.cost)'];
+      //$tempCost=$row['sum(cam.cost)'];
     }
     $res1=$con->query($sql1);
     //return $sql1;
@@ -197,11 +198,6 @@ class Model_Campaigns extends Model {
     {
       while($row=$res1->fetch_assoc())
       {
-        if(!$i)
-        {
-          $tempCost=$row['pay_to_affiliate'];
-          $i=1;
-        }
       if($row['approval']=='0')
       {
         $dashboard['totalRejections']++;
@@ -219,7 +215,7 @@ class Model_Campaigns extends Model {
     //return $row;
       }
       $dashboard['averageSalesPerLead']=$tempAverage/$dashboard['totalLeadsCome'];
-      $dashboard['cost']=$tempCost*$dashboard['totalLeadsCome'];
+      //$dashboard['cost']=$tempCost*$dashboard['totalLeadsCome'];
       $dashboard['profitOnlyAccepted']=$dashboard['grossIncome']-$dashboard['cost']-$tempAcceptedRejectionsAmount;
       $dashboard['profitWithPendings']=$dashboard['grossIncome']-$dashboard['cost']-$tempAcceptedRejectionsAmount-$tempPendingRejections;
       //return $tempAcceptedRejectionsAmount;
