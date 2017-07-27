@@ -15,25 +15,15 @@ class Model_Profile extends Model {
             'states_filter' => 'States filter',
             'xero_id' => 'Xero id',
             'xero_name' => 'Xero name',
-            'weekly' => 'Weekly caps',
-            'radius' => 'Radius',
-            'nearest' => 'Nearest Postcode',
-            'camp_nam' => 'Campaign Name',
+            'weekly' => 'Weekly caps'
       );
 
   public function UserChangeNotif($p, $before=''){
      $previousData=urldecode($before);
     $previousData=unserialize($previousData);
      //var_dump($previousData);
-      if($previousData[1]['c'])
-      {
-          $profile = '<h2>Client "'.$previousData[1]['k'].'" changed campaign information</h2>';
-      }
-      else
-      {
-          $profile = '<h2>Client "' . $p["campaign_name"] . '" have changed their profile information</h2>';
-      }
-          $profile .= "<table style='width:50%'>";
+      $profile = '<h2>Client "'.$p["campaign_name"].'" have change their profile information</h2>';
+    $profile .= "<table style='width:50%'>";
     // prepeare info
     $profile .= '<tr><td><b>Field Name</b></td><td><b>Previous</b></td><td><b>Current</b></td></tr>';
     foreach ($p as $k => $v) {
@@ -88,7 +78,6 @@ class Model_Profile extends Model {
     $mail->AddAddress('ariel.w@energysmart.com.au', 'Ariel');
     $mail->AddAddress('Emma@energysmart.com.au', 'Emma Boyton');
     $mail->AddAddress('Jarrad@energysmart.com.au', 'Jarrad van de Laarschot');
-    $mail->AddAddress('joash.boyton@energysmart.com.au', 'Joash Boyton');
 
     $mail->Subject = 'Client "'.$p["campaign_name"].'" have change their profile information';
 
@@ -153,5 +142,28 @@ class Model_Profile extends Model {
     }
     return $p;
   }
+
+    public function count_notifications($id) {
+        $con = $this->db();
+        $sql = "SELECT count(*) FROM `leads_delivery` WHERE client_id = $id AND seen = 0";
+        $res = $con->query($sql);
+        if ($res) {
+            $row = $res->fetch_row();
+            $num = $row[0];
+            return $num;
+        }
+    }
+
+    public function get_new_notifications($id) {
+        $con = $this->db();
+        $sql = "SELECT leads_delivery.timedate, leads_lead_fields_rel.suburb FROM leads_delivery JOIN leads_lead_fields_rel ON leads_delivery.lead_id = leads_lead_fields_rel.id WHERE leads_delivery.client_id = $id AND seen = 0 ORDER BY leads_delivery.timedate DESC LIMIT 8";
+        $res = $con->query($sql);
+        if ($res) {
+            while ($row = $res->fetch_array(MYSQLI_ASSOC)) {
+                $array[] = $row;
+            }
+            return $array;
+        }
+    }
 }
 

@@ -16,6 +16,8 @@ class Controller_Profile extends Controller {
       $id = $_SESSION["user_id"];
       $data["profile"] = $this->model->get_profile_data($id);
       $data["campaigns"] = $this->campaigns->getMyCampaigns($id);
+      $data['notif_counter'] = $this->model->count_notifications($_SESSION['user_id']);
+      $data['notifications'] = $this->model->get_new_notifications($_SESSION['user_id']);
       $this->view->generate('profile_view.php', 'client_template_view.php', $data);
     }
     else if ( $_SESSION['user'] == md5('manager'))

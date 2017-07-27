@@ -17,15 +17,23 @@ class Controller_Invoice extends Controller
 
     function action_index()
     {
+        $data["body_class"] = "page-header-fixed";
         session_start();
         if ($_SESSION['admin'] == md5('admin')) {
             $data = $this->leads->getAllClients();
             $this->view->generate('invoice_view.php', 'template_view.php', $data);
         }
         if ($_SESSION['user'] == md5('user')) {
-            $data = $this->model->getMyInvoices($_SESSION['user_id']);
+            $data['item'] = $this->model->getMyInvoices($_SESSION['user_id']);
+            $data['notif_counter'] = $this->model->count_notifications($_SESSION['user_id']);
+            $data['notifications'] = $this->model->get_new_notifications($_SESSION['user_id']);
             $this->view->generate('client_invoice_view.php', 'client_template_view.php', $data);
         }
+        else
+      {
+          session_destroy();
+          $this->view->generate('danied_view.php', 'client_template_view.php', $data);
+      }
     }
 
     function action_generate()
