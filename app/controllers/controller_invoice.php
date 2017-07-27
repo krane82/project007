@@ -23,7 +23,7 @@ class Controller_Invoice extends Controller
             $data = $this->leads->getAllClients();
             $this->view->generate('invoice_view.php', 'template_view.php', $data);
         }
-        if ($_SESSION['user'] == md5('user')) {
+        else if ($_SESSION['user'] == md5('user')) {
             $data['item'] = $this->model->getMyInvoices($_SESSION['user_id']);
             $data['notif_counter'] = $this->model->count_notifications($_SESSION['user_id']);
             $data['notifications'] = $this->model->get_new_notifications($_SESSION['user_id']);

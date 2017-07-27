@@ -33,7 +33,7 @@ class Controller_Terms extends Controller
         $data["body_class"] = "page-header-fixed";
 
         session_start();
-
+        
         if ($_SESSION['admin'] == md5('admin')) {
 
             $data = $this->model->getAllClients();
@@ -42,7 +42,7 @@ class Controller_Terms extends Controller
 
         }
 
-        if ($_SESSION['user'] == md5('user')) {
+        else if ($_SESSION['user'] == md5('user')) {
 
             $data['item'] = $this->model->getMyTerms($_SESSION['user_id']);
 
