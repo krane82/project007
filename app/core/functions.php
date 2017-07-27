@@ -10,7 +10,7 @@ function send_m($clientEmail, $p, $name, $tracking_number, $alttext = '',$linkTo
   $mail->IsSMTP(); // telling the class to use SMTP
   $mail->SMTPAuth   = true;                  // enable SMTP authentication
   $mail->Host       = MAIL_HOST;    // sets the SMTP server
-  $mail->Port       = MAIL_PORT;                    
+  $mail->Port       = MAIL_PORT;
   $mail->Username   = MAIL_USER;    // SMTP account username
   $mail->Password   = MAIL_PASS;        // SMTP account password
 
@@ -27,419 +27,95 @@ function send_m($clientEmail, $p, $name, $tracking_number, $alttext = '',$linkTo
   $mail->AltBody = "To view the message, please use an HTML compatible email viewer!";  // optional, comment out and test
 
   $content = <<<EOD
-<style type="text/css">
-@media only screen and (max-width: 596px) {
-  .small-float-center {
-    margin: 0 auto !important; float: none !important; text-align: center !important;
-  }
-  .small-text-center {
-    text-align: center !important;
-  }
-  .small-text-left {
-    text-align: left !important;
-  }
-  .small-text-right {
-    text-align: right !important;
-  }
-  .hide-for-large {
-    display: block !important; width: auto !important; overflow: visible !important; max-height: none !important; font-size: inherit !important; line-height: inherit !important;
-  }
-  table.body table.container .hide-for-large {
-    display: table !important; width: 100% !important;
-  }
-  table.body table.container .row.hide-for-large {
-    display: table !important; width: 100% !important;
-  }
-  table.body table.container .callout-inner.hide-for-large {
-    display: table-cell !important; width: 100% !important;
-  }
-  table.body table.container .show-for-large {
-    display: none !important; width: 0; mso-hide: all; overflow: hidden;
-  }
-  table.body img {
-    width: auto; height: auto;
-  }
-  table.body center {
-    min-width: 0 !important;
-  }
-  table.body .container {
-    width: 95% !important;
-  }
-  table.body .columns {
-    height: auto !important; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; padding-left: 16px !important; padding-right: 16px !important;
-  }
-  table.body .column {
-    height: auto !important; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; padding-left: 16px !important; padding-right: 16px !important;
-  }
-  table.body .columns .column {
-    padding-left: 0 !important; padding-right: 0 !important;
-  }
-  table.body .columns .columns {
-    padding-left: 0 !important; padding-right: 0 !important;
-  }
-  table.body .column .column {
-    padding-left: 0 !important; padding-right: 0 !important;
-  }
-  table.body .column .columns {
-    padding-left: 0 !important; padding-right: 0 !important;
-  }
-  table.body .collapse .columns {
-    padding-left: 0 !important; padding-right: 0 !important;
-  }
-  table.body .collapse .column {
-    padding-left: 0 !important; padding-right: 0 !important;
-  }
-  td.small-1 {
-    display: inline-block !important; width: 8.33333% !important;
-  }
-  th.small-1 {
-    display: inline-block !important; width: 8.33333% !important;
-  }
-  td.small-2 {
-    display: inline-block !important; width: 16.66667% !important;
-  }
-  th.small-2 {
-    display: inline-block !important; width: 16.66667% !important;
-  }
-  td.small-3 {
-    display: inline-block !important; width: 25% !important;
-  }
-  th.small-3 {
-    display: inline-block !important; width: 25% !important;
-  }
-  td.small-4 {
-    display: inline-block !important; width: 33.33333% !important;
-  }
-  th.small-4 {
-    display: inline-block !important; width: 33.33333% !important;
-  }
-  td.small-5 {
-    display: inline-block !important; width: 41.66667% !important;
-  }
-  th.small-5 {
-    display: inline-block !important; width: 41.66667% !important;
-  }
-  td.small-6 {
-    display: inline-block !important; width: 50% !important;
-  }
-  th.small-6 {
-    display: inline-block !important; width: 50% !important;
-  }
-  td.small-7 {
-    display: inline-block !important; width: 58.33333% !important;
-  }
-  th.small-7 {
-    display: inline-block !important; width: 58.33333% !important;
-  }
-  td.small-8 {
-    display: inline-block !important; width: 66.66667% !important;
-  }
-  th.small-8 {
-    display: inline-block !important; width: 66.66667% !important;
-  }
-  td.small-9 {
-    display: inline-block !important; width: 75% !important;
-  }
-  th.small-9 {
-    display: inline-block !important; width: 75% !important;
-  }
-  td.small-10 {
-    display: inline-block !important; width: 83.33333% !important;
-  }
-  th.small-10 {
-    display: inline-block !important; width: 83.33333% !important;
-  }
-  td.small-11 {
-    display: inline-block !important; width: 91.66667% !important;
-  }
-  th.small-11 {
-    display: inline-block !important; width: 91.66667% !important;
-  }
-  td.small-12 {
-    display: inline-block !important; width: 100% !important;
-  }
-  th.small-12 {
-    display: inline-block !important; width: 100% !important;
-  }
-  .columns td.small-12 {
-    display: block !important; width: 100% !important;
-  }
-  .column td.small-12 {
-    display: block !important; width: 100% !important;
-  }
-  .columns th.small-12 {
-    display: block !important; width: 100% !important;
-  }
-  .column th.small-12 {
-    display: block !important; width: 100% !important;
-  }
-  table.body td.small-offset-1 {
-    margin-left: 8.33333% !important;
-  }
-  table.body th.small-offset-1 {
-    margin-left: 8.33333% !important;
-  }
-  table.body td.small-offset-2 {
-    margin-left: 16.66667% !important;
-  }
-  table.body th.small-offset-2 {
-    margin-left: 16.66667% !important;
-  }
-  table.body td.small-offset-3 {
-    margin-left: 25% !important;
-  }
-  table.body th.small-offset-3 {
-    margin-left: 25% !important;
-  }
-  table.body td.small-offset-4 {
-    margin-left: 33.33333% !important;
-  }
-  table.body th.small-offset-4 {
-    margin-left: 33.33333% !important;
-  }
-  table.body td.small-offset-5 {
-    margin-left: 41.66667% !important;
-  }
-  table.body th.small-offset-5 {
-    margin-left: 41.66667% !important;
-  }
-  table.body td.small-offset-6 {
-    margin-left: 50% !important;
-  }
-  table.body th.small-offset-6 {
-    margin-left: 50% !important;
-  }
-  table.body td.small-offset-7 {
-    margin-left: 58.33333% !important;
-  }
-  table.body th.small-offset-7 {
-    margin-left: 58.33333% !important;
-  }
-  table.body td.small-offset-8 {
-    margin-left: 66.66667% !important;
-  }
-  table.body th.small-offset-8 {
-    margin-left: 66.66667% !important;
-  }
-  table.body td.small-offset-9 {
-    margin-left: 75% !important;
-  }
-  table.body th.small-offset-9 {
-    margin-left: 75% !important;
-  }
-  table.body td.small-offset-10 {
-    margin-left: 83.33333% !important;
-  }
-  table.body th.small-offset-10 {
-    margin-left: 83.33333% !important;
-  }
-  table.body td.small-offset-11 {
-    margin-left: 91.66667% !important;
-  }
-  table.body th.small-offset-11 {
-    margin-left: 91.66667% !important;
-  }
-  table.body table.columns td.expander {
-    display: none !important;
-  }
-  table.body table.columns th.expander {
-    display: none !important;
-  }
-  table.body .right-text-pad {
-    padding-left: 10px !important;
-  }
-  table.body .text-pad-right {
-    padding-left: 10px !important;
-  }
-  table.body .left-text-pad {
-    padding-right: 10px !important;
-  }
-  table.body .text-pad-left {
-    padding-right: 10px !important;
-  }
-  table.menu {
-    width: 100% !important;
-  }
-  table.menu td {
-    width: auto !important; display: inline-block !important;
-  }
-  table.menu th {
-    width: auto !important; display: inline-block !important;
-  }
-  table.menu.vertical td {
-    display: block !important;
-  }
-  table.menu.vertical th {
-    display: block !important;
-  }
-  table.menu.small-vertical td {
-    display: block !important;
-  }
-  table.menu.small-vertical th {
-    display: block !important;
-  }
-  table.menu[align="center"] {
-    width: auto !important;
-  }
-  table.button.small-expand {
-    width: 100% !important;
-  }
-  table.button.small-expanded {
-    width: 100% !important;
-  }
-  table.button.small-expand table {
-    width: 100%;
-  }
-  table.button.small-expanded table {
-    width: 100%;
-  }
-  table.button.small-expand table a {
-    text-align: center !important; width: 100% !important; padding-left: 0 !important; padding-right: 0 !important;
-  }
-  table.button.small-expanded table a {
-    text-align: center !important; width: 100% !important; padding-left: 0 !important; padding-right: 0 !important;
-  }
-  table.button.small-expand center {
-    min-width: 0;
-  }
-  table.button.small-expanded center {
-    min-width: 0;
-  }
+  <body>
+  <style type="text/css">
+  tr: {
+    background: #f0f0f0; /* Цвет фона */
+   } 
+.ReadMsgBody { width: 100%; background-color: #ffffff; }
+.ExternalClass { width: 100%; background-color: #ffffff; }
+.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div { line-height: 100%; }
+html { width: 100%; }
+body { -webkit-text-size-adjust: none; -ms-text-size-adjust: none; margin: 0; padding: 0; font-family: 'Open Sans', Arial, Sans-serif !important; }
+table { border-spacing: 0; table-layout: fixed; margin: 0 auto; }
+table table table { table-layout: auto; }
+img { display: block !important; overflow: hidden !important; }
+.yshortcuts a { border-bottom: none !important; }
+a { color: #78d2f7; text-decoration: none; }
+img:hover { opacity: 0.9 !important; }
+.textbutton a { font-family: 'open sans', arial, sans-serif !important;}
+.btn-link-1 a { color: #FFFFFF !important; text-decoration: none !important; font-weight: bold !important; }
+.btn-link-2 a { color: #4A4A4A !important; text-decoration: none !important; font-weight: bold !important; }
+.footer-link a { color:#A9A9A9 !important;}
+
+/*Responsive*/
+@media only screen and (max-width: 640px) {
+body { width: auto !important; font-family: 'Open Sans', Arial, Sans-serif !important; }
+table[class="table-inner"] { width: 90% !important; }
+*.table-full { width: 100%!important; max-width: 100%!important; text-align: center !important; } 
+/* image */
+
+tr:nth-child(2) {
+    background: red;
 }
-a.button7 {
-  font-weight: 700;
-  color: white;
-  text-decoration: none;
-  padding: .8em 1em calc(.8em + 3px);
-  border-radius: 3px;
-  background: rgb(64,199,129);
-  box-shadow: 0 -3px rgb(53,167,110) inset;
-  transition: 0.2s;
-} 
-a.button7:hover { background: rgb(53, 167, 110); }
+img[class="img1"] { width: 100% !important; height: auto !important; }
+}
+
+@media only screen and (max-width: 479px) {
+body { width: auto !important; font-family: 'Open Sans', Arial, Sans-serif !important; }
+table[class="table-inner"] { width: 90% !important; }
+*.table-full { width: 100%!important; max-width: 100%!important; text-align: center !important; } 
+td[class="td-hide"] { height: 0px !important; }
+/* image */
+img[class="img1"] { width: 100% !important; height: auto !important; }
+img[class="img-hide"] { max-width: 0px !important; max-height: 0px !important; }
+}
+	.datagrid table { border-collapse: collapse; text-align: left; width: 100%; } .datagrid {font: background: #fff; overflow: hidden; }.datagrid table td , .datagrid table th { padding: 11px 5px; }.datagrid table tbody td { color: #595959; border-left: 2px solid #FFFFFF;font-size: 15px;font-weight: normal; }.datagrid table tbody .alt td { background: #F7F7F7; color: #595959; }.datagrid table tbody td:first-child { border-left: none; }.datagrid table tbody tr:last-child td { border-bottom: none; }
 </style>
-    <!-- <style> -->
-<table class="body body-style" data-made-with-foundation=""
-       style="background-color: #f3f3f3 !important; border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; height: 100%; width: 100%; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-weight: normal; line-height: 1.3; font-size: 16px; margin: 0; padding: 0;"
-       bgcolor="#f3f3f3 !important">
-  <tbody>
-  <tr style="vertical-align: top; text-align: left; padding: 0;" align="left">
-    <td class="float-center" align="center" valign="top"
-        style="word-wrap: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: center; float: none; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-weight: normal; line-height: 1.3; font-size: 16px; margin: 0 auto; padding: 0;">
-      <center data-parsed="" style="width: 100%; min-width: 580px;">
-        <table class="spacer float-center"
-               style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: center; width: 100%; float: none; margin: 0 auto; padding: 0;">
-          <tbody>
-          <tr style="vertical-align: top; text-align: left; padding: 0;" align="left">
-            <td height="16px"
-                style="font-size: 16px; line-height: 16px; word-wrap: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; mso-line-height-rule: exactly; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-weight: normal; margin: 0; padding: 0;"
-                align="left" valign="top">&nbsp;</td>
-          </tr>
-          </tbody>
-        </table>
-        <table align="center" class="container float-center body-ground"
-               style="background-color: rgba(241, 237, 237, 0.72) !important; border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: center; width: 580px; float: none; margin: 0 auto; padding: 0;"
-               bgcolor="rgba(241, 237, 237, 0.72) !important">
-          <tbody>
-          <tr style="vertical-align: top; text-align: left; padding: 0;" align="left">
-            <td
-              style="word-wrap: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-weight: normal; line-height: 1.3; font-size: 16px; margin: 0; padding: 0;"
-              align="left" valign="top">
-
-              <table class="row"
-                     style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: table; padding: 0;">
-                <tbody>
-                <tr style="vertical-align: top; text-align: left; padding: 0;" align="left">
-                  <th class="small-12 large-12 columns first last body-wrapper"
-                      style="width: 564px; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-weight: normal; text-align: left; line-height: 1.3; font-size: 16px; margin: 0 auto; padding: 0 0px 16px;"
-                      align="left">
-                    <table
-                      style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;">
-                      <tbody>
-                      <tr style="vertical-align: top; text-align: left; padding: 0;" align="left">
-                        <th
-                          style="color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-weight: normal; text-align: left; line-height: 1.3; font-size: 16px; margin: 0; padding: 0;"
-                          align="left">
-                          <table align="center" class="row rowfor-header"
-                                 style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: table; background: #636365; padding: 0;"
-                                 bgcolor="#636365">
-                            <tbody>
-                            <tr>
-                              <th class="small-12 large-12 columns text-center first last"
-                                  style="width: 100%; text-align: center; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-weight: normal; line-height: 1.3; font-size: 16px; margin: 0 auto; padding: 0 0 16px;"
-                                  align="center">
-                                <img src="http://www.energysmart.com.au/edm-quote/images/uploads/logo1.png" alt=""
-                                     align="center" class="float-center"
-                                     style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; clear: both; display: block; float: none; text-align: center; margin: 0 auto;">
-                              </th>
-
-                            </tr>
-                            </tbody>
-                          </table>
-                          <table class="row rowfor-header"
-                                 style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: table; background: #636365; padding: 0;"
-                                 bgcolor="#636365">
-                            <tbody>
-                            <tr>
-                              <th class="small-12 large-12 columns first last title-text"
-                                  style="width: 100%; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-weight: normal; text-align: left; line-height: 1.3; font-size: 16px; margin: 0 auto; padding: 10px 0 0px;"
-                                  align="left">
-                                <p class="text-center title-words"
-                                   style="color: #fff !important; font-weight: bold; text-align: center; font-family: Helvetica, Arial, sans-serif; line-height: 1.3; font-size: 16px; margin: 0 0 10px; padding: 0;"
-                                   align="center">New Qualified Lead in your area</p>
-                              </th>
-                            </tr>
-                            </tbody>
-                          </table>
-                          <table class="row"
-                                 style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: table; padding: 0;">
-                            <tbody>
-                            <tr>
-                              <th class="small-12 large-12 columns first last"
-                                  style="width: 100%; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-weight: normal; text-align: left; line-height: 1.3; font-size: 16px; margin: 0 auto; padding: 0 0 16px;"
-                                  align="left">
-                                <p class="introduction top-introduction"
-                                   style="color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-weight: normal; text-align: left; line-height: 1.3; font-size: 16px; margin: 0 0 0px; padding: 15px 16px 0;"
-                                   align="left">Hi, $name </p>
-                              </th>
-                            </tr>
-                            </tbody>
-                          </table>
-                          <table class="row"
-                                 style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: table; padding: 0;">
-                            <tbody>
-                            <tr>
-                              <th class="small-12 large-12 columns first last"
-                                  style="width: 100%; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-weight: normal; text-align: left; line-height: 1.3; font-size: 16px; margin: 0 auto; padding: 0 0 16px;"
-                                  align="left">
-                                <p class="introduction"
-                                   style="color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-weight: normal; text-align: left; line-height: 1.3; font-size: 16px; margin: 0 0 0px; padding: 0 16px;"
-                                   align="left">We have a new qualified lead in your area. Please see below and contact
-                                  ASAP:</p>
-                              </th>
-                            </tr>
-                            </tbody>
-                          </table>
-                          <table class="spacer"
-                                 style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;">
-                            <tbody>
-                            <tr style="vertical-align: top; text-align: left; padding: 0;" align="left">
-                              <td height="16px"
-                                  style="font-size: 16px; line-height: 16px; word-wrap: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; mso-line-height-rule: exactly; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-weight: normal; margin: 0; padding: 0;"
-                                  align="left" valign="top">&nbsp;</td>
-                            </tr>
-                            </tbody>
-                          </table>
-                          <table class="callout"
-                                 style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; margin-bottom: 16px; padding: 0;">
-                            <tbody>
-                            <tr style="vertical-align: top; text-align: left; padding: 0;" align="left">
-                              <th class="callout-inner secondary"
-                                  style="color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-weight: normal; text-align: left; line-height: 1.3; font-size: 16px; width: 100%; margin: 0; padding: 10px;"
-                                  align="left">
+<body>  					 					  				 	 	 	 	 	 	 	 	 	 	
+    <table data-module="1-1-panel-1" data-bgcolor="Main BG" bgcolor="#F8F8F8" align="center" width="100%" border="0" cellspacing="0" cellpadding="0">
+ 		<tr>
+ 		   <td height="25"></td>
+ 		</tr>
+ 		<tr>
+			<td align="center">
+ 				<table data-bgcolor="Boxed" bgcolor="#FFFFFF" style="max-width: 650px;" align="center" class="table-full" width="650" border="0" cellspacing="0" cellpadding="0">
+ 					<!--img-->
+  					<tr>
+ 						<td align="center" style="line-height: 0px;">
+ 							<img data-crop="false" src="http://energysmart.com.au/email/new-lead/head.jpg" alt="img" width="650" height="175" class="img1" style="display:block; line-height:0px; font-size:0px; border:0px;">
+ 						</td>
+ 					</tr>
+ 					<!--end img-->
+  					<tr>
+ 						<td data-border-left-color="Border" data-border-right-color="Border" data-border-bottom-color="Border" align="center" style="border-left:1px solid #ECECEC;border-right:1px solid #ECECEC;border-bottom:1px solid #ECECEC; border-bottom-right-radius:5px; border-bottom-left-radius:5px;">
+ 							<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+ 								<tr>
+ 									<td align="center">
+ 										<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+ 											<tr>
+ 												<td height="20"></td>
+ 											</tr>
+ 											<!--title-->
+  											<tr>
+ 												<td data-link-style="text-decoration:none; color:#4A4A4A;" data-link-color="Title Link" data-size="Title" data-color="Title" style="font-family: 'Century Gothic', Arial, sans-serif; color:#4A4A4A; font-size:20px;font-weight: bold;">
+ 													<singleline>Hi $name </singleline>
+ 												</td>
+ 											</tr>
+ 											<!--end title-->
+  											<tr>
+ 												<td height="10"></td>
+ 											</tr>
+ 											<!--content-->
+  											<tr>
+											    <td data-link-style="text-decoration:none; color:#FF6363;" data-link-color="Content Link" data-size="Content" data-color="Content" style="font-family: 'Open Sans', Arial, sans-serif; color: rgb(61, 61, 61); font-size: 15px; font-weight: 400; line-height: 25.5px;" spellcheck="false" data-gramm_id="3ed6e441-9a5e-1b75-b8e6-1787df104970" data-gramm="true" data-gramm_editor="true">
+													<p> <multiline>We have a new qualified lead in your area! Please see their information below, and contact them as soon as possible.</multiline></p>
 EOD;
-  foreach ($p as $v) {
-    $content .= '
+
+    $content.='<div class="datagrid"><table style="width:100%;"><tbody>';
+    $i = true;
+    foreach ($p as $v) {
+    /* $content .= '
 
                                 <table class="row tables-borders cell2"
                                        style="border-collapse: collapse !important; border-spacing: 0 !important; display: table !important; position: relative !important; vertical-align: top; text-align: left; width: 100%; padding: 0; border: 1px ridge #636365;">
@@ -461,54 +137,64 @@ EOD;
                                     </th>
                                   </tr>
                                   </tbody>
-                                </table>';
-  }
+                                </table>';*/
+    if($i) {
+        $content .= '
+             <tr class="alt" ><td style="width:50%;"><strong>' . $v["field_name"] . '</strong></td><td style="width:50%;">' . $v["val"] . '</td></tr>';
+    }
+    else {
+        $content .= ' <tr class="alt" style=" background-color:#F7F7F7;" ><td style="width:50%;"><strong>' . $v["field_name"] . '</strong></td><td style="width:50%;">' . $v["val"] . '</td></tr>';
+    }
+    $i = !$i;
+    }
+    $content.='</tbody></table></div>';
+    $tracker = 'http://' . $_SERVER['HTTP_HOST'] . '/api/record?log=true&deliveryn=' . $tracking_number;
+    $content .= '<img alt="" src="'.$tracker.'" width="1" height="1" border="0" />';
 
-  $tracker = 'http://' . $_SERVER['HTTP_HOST'] . '/api/record?log=true&deliveryn=' . $tracking_number;
-  $content .= '<img alt="" src="'.$tracker.'" width="1" height="1" border="0" />';
-
-$content .= <<<EOD
-                              </th>
-                              <th class="expander"
-                                  style="visibility: hidden; width: 0; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-weight: normal; text-align: left; line-height: 1.3; font-size: 16px; margin: 0; padding: 0;"
-                                  align="left"></th>
-                            </tr>
-                            </tbody>
-                          </table>
-                          <hr>
-                          <p class="introduction"
-                             style="color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-weight: normal; text-align: left; line-height: 1.3; font-size: 16px; margin: 0 0 0px; padding: 0 16px;"
-                             align="left">Please contact this lead immediately, the consumer is waiting to hear from
-                            you. Please keep working this lead until contact is made. If you need to request a return of
-                            this lead, please do so via your Portal (leadpoint.energysmart.com.au) within the returns
-                            period. Failure to adhere to this timescale will result in the enquiry being chargeable at
-                            the full rate. We are unable to process returns via email or telephone - they must be
-                            entered through the portal.</p>
-                            <a href="$linkToReject" style="font-weight: 700;
-  color: white;
-  text-decoration: none;
-  padding: .8em 1em calc(.8em + 3px);
-  border-radius: 3px;
-  background: rgb(64,199,129);
-  box-shadow: 0 -3px rgb(53,167,110) inset;
-  transition: 0.2s; float:right">Or you also can reject the current lead</a>
-                        </th>
-                      </tr>
-                      </tbody>
-                    </table>
-                  </th>
-                </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </center>
-    </td>
+    $content .= <<<EOD
+           <p>Please contact this lead immediately, as this customer is waiting to hear from you! If you can't get onto them, don't worry! Please attempt to call this customer at different times of the day (morning, day, and evening), as most people get home from work at 5:30-6pm! Be sure to make every effort to contact them.</p>
+			    <p>If you feel as though this lead requires rejection, please do so via the Energy Smart Portal within the time frame by clicking the button below. </p>
+				<p>Please make sure you reject this lead within the time frame, otherwise it will be automatically billable. </p>
+				<p>The only way to reject a lead is though our <a href="http://leadpoint.energysmart.com.au/"><strong>Energy Smart portal</strong></a>. We're unable to reject leads for you.</p>
+				<p>Good luck!</p></td>
+										  </tr>
+ 										  <!--button-->
+  										  <tr>
+											  <td align="center">
+&nbsp;<table data-bgcolor="Button" bgcolor="#2991d6" border="0" align="center" cellpadding="0" cellspacing="0" style="border-radius:2px;">
+<tr>
+ 																		<td data-link-style="text-decoration:none; color:#ffffff;" data-link-color="Button Link" data-size="Button" height="42" align="center" style="font-family: 'Open Sans', Arial, sans-serif; color:#FFFFFF; font-size:14px;font-weight: bold;letter-spacing: 1px;padding-left: 25px;padding-right: 25px;">
+																			<a href="http://leadpoint.energysmart.com.au"  style="text-decoration:none; color:#ffffff" data-color="Button Link">
+</a>
+ 																			<singleline>
+ 																			<a href="http://leadpoint.energysmart.com.au" style="text-decoration:none; color:#ffffff"> 	THIS  VIEW	LEAD IN YOUR PORTAL
+ 				</a>																	</singleline>
+ 																		</td>
+ 																	</tr>
+ 																</table>
+																 																	<p>&nbsp;</p>
+															</td>
+ 														</tr>
+ 														<!--end button-->
+									  </table>
+								  </td>
+ 											</tr>
+ 										</table>
+					  </td>
+				  </tr>
+			  </table>
+		  </td>
   </tr>
-  </tbody>
-</table>
+ 				</table>
+ 			</td>
+ 		</tr>
+ 	</table>
+  			 		 	  			 		 	  			 		 	  			 		 	  			 		 	  			 		 	  			 		 	  			 		 	  			 		 	  <table data-thumb="http://www.stampready.net/dashboard/editor/user_uploads/zip_uploads/2017/07/25/LOAgERkSsqja14X8vtK7hpHe/StampReady/thumbnails/footer.jpg" data-module="footer" data-bgcolor="Main BG" align="center" width="100%" bgcolor="#F8F8F8" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+       <td height="25">
+</td>
+     </tr>
+  </body>          
 EOD;
 
   $mail->msgHTML($content);
