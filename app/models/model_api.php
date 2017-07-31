@@ -142,12 +142,22 @@ class Model_Api extends Model {
         $result=$con->query($sql2);
         if ($row=$result->fetch_assoc())
         {
-          if($row['count(id)'] < (int)($camp['weekly']/5))
+          if($row['count(id)'] < (int)($camp['weekly']))
           {
-//              echo $camp['id'];
-            return $camp['id'];
-          }
-          else {echo "day limits for this company is already done";continue;} 
+			 if($row['count_id']/$camp['weekly']>=0.3 && ($row['count_id']-1)/$camp['weekly']<0.3)
+			 {
+				 $respond['thirtyPercentDone'] = true;
+			 }
+			else
+			{
+			    echo {"day limits for this company is already done";continue;}
+
+			}
+				// echo $camp['id'];
+			    // return $camp['id'];
+
+         // }
+         // else {echo "day limits for this company is already done";continue;}
         }
       }
     }
