@@ -142,7 +142,7 @@ EOD;
                                                         <tr>
  															<td data-link-style="text-decoration:none; color:#ffffff;" data-link-color="Button Link" data-size="Button" height="42" align="center" style="font-family: 'Open Sans', Arial, sans-serif; color:#FFFFFF; font-size:14px;font-weight: bold;letter-spacing: 1px;padding-left: 25px;padding-right: 25px;">
 																<a href="http://leadpoint.energysmart.com.au"  style="text-decoration:none; color:#ffffff" data-color="Button Link"></a>
- 																    <singleline><a href="http://leadpoint.energysmart.com.au" style="text-decoration:none; color:#ffffff"> 	THIS  VIEW	LEAD IN YOUR PORTAL</a>																	</singleline>
+ 																    <singleline><a href="http://leadpoint.energysmart.com.au" style="text-decoration:none; color:#ffffff"> 	VIEW THIS LEAD IN YOUR PORTAL</a>																	</singleline>
  															</td>
  														</tr>
  												   </table>
@@ -151,7 +151,7 @@ EOD;
  										  </tr>
  														<!--end button-->
 									  </table>
-								  </td>
+</td>
  											</tr>
  										</table>
 					  </td>
@@ -168,7 +168,7 @@ EOD;
        <td height="25">
 </td>
      </tr>
-  </body>          
+  </body>
 EOD;
 
     $mail->msgHTML($content);
