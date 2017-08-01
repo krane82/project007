@@ -104,7 +104,7 @@ class Model_Client_Leads extends Model
 
         $mail->AltBody = "To view the message, please use an HTML compatible email viewer!";  // optional, comment out and test
 
-        $content  ='client .$name. rejected more than 30% leads  </p>';
+        $content  ='client '.$name.' rejected more than 30% leads  </p>';
 
         $mail->msgHTML($content);
         $emailSending = "";

@@ -119,7 +119,9 @@ class Controller_client_leads extends Controller
     $twoWeeks=strtotime('-2 week');
     $sql = "UPDATE `leads_rejection` SET approval='2', reason='$reason', note='$notes', date='$now' WHERE client_id=$client_id AND lead_id=$lead_id";
 
-    //var_dump($sql);die();print $sql;
+
+    //var_dump($sql);
+    //die();print $sql;
 
     if($con->query($sql)){
 
@@ -132,21 +134,26 @@ class Controller_client_leads extends Controller
       return;
 
     }
-    $sql1="SELECT 'approval' from leads_rejection where client_id='".$client_id."' AND timedate>'".$twoWeeks."'";
+    $sql1="SELECT approval from leads_rejection where client_id='".$client_id."' AND date>'".$twoWeeks."'";
     $res=$con->query($sql1);
-    $total=0;
-    $rejected=0;
+   // var_dump($res);
+    $total = 0;
+    $rejected = 0;
     if($res)
     {
       while($row=$res->fetch_assoc())
       {
         $total++;
-        if($row['approval']=='0')
+        //var_dump($row);
+        if($row['approval']=='0' || $row['approval']=='2' || $row['approval']=='4')
         {
           $rejected++;
         }
       }
       $rejPercent=$rejected*100/$total;
+      //var_dump('regected: '.$rejected);
+     // var_dump('total: '.$total);
+      //var_dump($rejPercent);
       if($rejPercent>30)
       {
         $this->model->rejectedMoreThan30($_SESSION['user_name']);
