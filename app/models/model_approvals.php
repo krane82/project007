@@ -190,7 +190,7 @@ img[class="img-hide"] { max-width: 0px !important; max-height: 0px !important; }
 												<td align="center">&nbsp;
 													<table data-bgcolor="Button" bgcolor="#2991d6" border="0" align="center" cellpadding="0" cellspacing="0" style="border-radius:2px; cellpadding:0; cellspacing:0; border:0; ">
 														<tr \'Open Sans\', Arial, sans-serif; color:#FFFFFF; font-size:14px;font-weight: bold;letter-spacing: 1px;padding-left: 25px;padding-right: 25px;">
-																 <singleline>	<a href="http://leadpoint.energysmart.com.au" style="text-decoration:none; color:#ffffff; padding:10px; height:20px; display:block;">VIEW	THIS	LEAD IN YOUR PORTAL</a></singleline>
+																 <singleline>	<a href="http://leadpoint.energysmart.com.au" style="text-decoration:none; color:#ffffff; padding:10px; height:20px; display:block;">VIEW THIS LEAD IN YOUR PORTAL</a></singleline>
 															</td>
  														</tr>
  													</table>

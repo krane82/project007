@@ -142,7 +142,7 @@ class Model_Api extends Model {
         $result=$con->query($sql2);
         if ($row=$result->fetch_assoc())
         {
-          if($row['count(id)'] < (int)($camp['weekly']/5))
+          if($row['count(id)'] < (int)($camp['weekly']))
           {
 //              echo $camp['id'];
             return $camp['id'];

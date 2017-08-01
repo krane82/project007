@@ -55,7 +55,7 @@ class Controller_client_leads extends Controller
 
 
 
-  function action_reject_Lead(){
+ /*function action_reject_Lead(){
 
     session_start();
 
@@ -93,7 +93,68 @@ class Controller_client_leads extends Controller
 
     }
 
+  }*/
+
+  function action_reject_Lead(){
+
+    session_start();
+
+    $lead_id = $_POST["lead_id"];
+
+    $client_id = $_SESSION["user_id"];
+
+    $reason = $_POST["reject_reason"];
+
+    $notes = $_POST["notes"];
+
+    $notes=trim($notes);
+
+    $notes=htmlspecialchars($notes);
+
+    $notes=addslashes($notes);
+
+    $con = $this->db();
+
+    $now = time();
+    $twoWeeks=strtotime('-2 week');
+    $sql = "UPDATE `leads_rejection` SET approval='2', reason='$reason', note='$notes', date='$now' WHERE client_id=$client_id AND lead_id=$lead_id";
+
+    //var_dump($sql);die();print $sql;
+
+    if($con->query($sql)){
+
+      echo "Success";
+
+    } else {
+
+      echo "sql error";//$sql;
+
+      return;
+
+    }
+    $sql1="SELECT 'approval' from leads_rejection where client_id='".$client_id."' AND timedate>'".$twoWeeks."'";
+    $res=$con->query($sql1);
+    $total=0;
+    $rejected=0;
+    if($res)
+    {
+      while($row=$res->fetch_assoc())
+      {
+        $total++;
+        if($row['approval']=='0')
+        {
+          $rejected++;
+        }
+      }
+      $rejPercent=$rejected*100/$total;
+      if($rejPercent>30)
+      {
+        $this->model->rejectedMoreThan30($_SESSION['user_name']);
+      }
+    }
+    
   }
+
 
   function action_downloadleads()
 
@@ -128,7 +189,6 @@ class Controller_client_leads extends Controller
     }
 
   }
-
 
 
   function action_getLeads(){

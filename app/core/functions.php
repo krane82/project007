@@ -151,7 +151,7 @@ EOD;
  										  </tr>
  														<!--end button-->
 									  </table>
-								  </td>
+</td>
  											</tr>
  										</table>
 					  </td>
@@ -168,7 +168,7 @@ EOD;
        <td height="25">
 </td>
      </tr>
-  </body>          
+  </body>
 EOD;
 
     $mail->msgHTML($content);
