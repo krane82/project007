@@ -1,8 +1,11 @@
 .page-content {
-    background: #34425A;
 }
 
 .navbar .logo-box {
+    background: #22baa0;
+}
+
+.topbar-left .logo-box {
     background: #22baa0;
 }
 

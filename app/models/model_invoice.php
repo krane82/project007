@@ -330,4 +330,27 @@ E-mail: support@energysmart.com.au', '','L');
     return 'File not exsist';
         }
 
+    public function count_notifications($id) {
+        $con = $this->db();
+        $sql = "SELECT count(*) FROM `leads_delivery` WHERE client_id = $id AND seen = 0";
+        $res = $con->query($sql);
+        if ($res) {
+            $row = $res->fetch_row();
+            $num = $row[0];
+            return $num;
+        }
+    }
+
+    public function get_new_notifications($id) {
+        $con = $this->db();
+        $sql = "SELECT leads_delivery.timedate, leads_lead_fields_rel.suburb FROM leads_delivery JOIN leads_lead_fields_rel ON leads_delivery.lead_id = leads_lead_fields_rel.id WHERE leads_delivery.client_id = $id AND seen = 0 ORDER BY leads_delivery.timedate DESC LIMIT 8";
+        $res = $con->query($sql);
+        if ($res) {
+            while ($row = $res->fetch_array(MYSQLI_ASSOC)) {
+                $array[] = $row;
+            }
+            return $array;
+        }
+    }
+
 }

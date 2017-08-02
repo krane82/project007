@@ -42,9 +42,13 @@ class Controller_Terms extends Controller
 
         }
 
-        if ($_SESSION['user'] == md5('user')) {
+        else if ($_SESSION['user'] == md5('user')) {
 
-            $data = $this->model->getMyTerms($_SESSION['user_id']);
+            $data['item'] = $this->model->getMyTerms($_SESSION['user_id']);
+
+            $data['notif_counter'] = $this->model->count_notifications($_SESSION['user_id']);
+
+            $data['notifications'] = $this->model->get_new_notifications($_SESSION['user_id']);
 
             $this->view->generate('client_terms_view.php', 'client_template_view.php', $data);
 

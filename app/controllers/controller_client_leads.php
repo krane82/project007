@@ -28,6 +28,11 @@ class Controller_client_leads extends Controller
 
     if ( $_SESSION['user'] ==  md5('user')) {
 
+      $data['notif_counter'] = $this->model->count_notifications($_SESSION['user_id']);
+      $data['notifications'] = $this->model->get_new_notifications($_SESSION['user_id']);
+
+      $this->model->update_notifications($_SESSION['user_id']);
+
       $this->view->generate('client_leads_view.php', 'client_template_view.php', $data);
 
     } else if ( $_SESSION['user'] ==  md5('manager')) {

@@ -20,7 +20,7 @@ class Model_Api extends Model {
     }
     $clients = $this->getClients($p);
     $resp =  $this->sendToClients($clients, $lead_id, $p, $counter);
-    $this->sendLeadToInfusion($p);
+    //$this->sendLeadToInfusion($p);
     return $resp;
   }
   private function phoneReject($phone)
@@ -302,8 +302,9 @@ class Model_Api extends Model {
 			if ($k=="phone") {
 				$p["phone"] = phone_valid($v);
 			} else if($k=="postcode"){
-				$p["postcode"] = postcodes_valid($v);
-				if(!$p["postcode"]) return;
+                $p["postcode"] = $v;
+				//$p["postcode"] = postcodes_valid($v);
+				//if(!$p["postcode"]) return;
 			} else {
 				$p["$k"] = trim($v);
 			}
