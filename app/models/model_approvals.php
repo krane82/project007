@@ -164,21 +164,23 @@ img[class="img-hide"] { max-width: 0px !important; max-height: 0px !important; }
 																</tr>
 																<tr >
 																	<td style = "width: 21%;"><strong>Declining reason</strong></td>
-																	<td style = "width: 79%;">' . $data['reason'] . '</td>
+																	<td style = "width: 79%;">  ' . $data['note'] . ' </td>
 																</tr>
 																<tr class="alt" style = "background-color:#F7F7F7;">
 																	<td style = "width: 21%;"><strong>Details of rejection <u></u><u></u></strong></td>
-																	<td style = "width: 79%;">This is the second one we have received from this guy. I tried to reject last time as he lives in a caravan in a really bogan caravan park but had to pay as he \'was interested in solar and stated will purchase within six months\'. I\'ll have a $50 bet that we will inspect his CARAVAN in one year and he will still not have solar :-)</td>
+																	<td style = "width: 79%;">' . $data['reason'] . '</td>
 																</tr>
 																<tr >
-																	<td><strong>Rejection disapproval reason</strong></td>
-																	<td><p><strong>Date and time:</strong> 21/7/17, 11:18 AM. </p>
+																	<td><strong>  Rejection disapproval reason</strong></td>
+																	<td>   ' . $data['decline_reason'] . '    </td>
+																<!--<td><p><strong>Date and time:</strong> 21/7/17, 11:18 AM. </p>
 																	<p><strong>What happened? </strong>Customer advised they are not in a caravan park but a home park, they all my details and i want a quote. </p>
 																	<p><strong>Why is this?</strong> Customer wants to find out his facts first</p>
 																	<p><strong>Interested in the next 6 months?</strong> Yes</p>
 																	<p><strong>Interested in an installer calling you?:</strong> yes. </p>
 																	<p><strong>If yes, what time of day is best for a call?:</strong> Customer could say a specific time.</p>
-																	<p><strong>If no, why?:</strong> Yes</p></td></tr>
+																	<p><strong>If no, why?:</strong> Yes</p></td>-->
+																	</tr>
 															</tbody>
 														</table>
 													</div>
