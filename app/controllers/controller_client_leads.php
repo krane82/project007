@@ -116,7 +116,16 @@ class Controller_client_leads extends Controller
     $con = $this->db();
 
     $now = time();
-    $twoWeeks=strtotime('-2 week');
+
+    $currentday = date("j");
+
+    if($currentday < 15) {
+       $twoWeeks = strtotime('first day of this month');
+       //var_dump( $twoWeeks);
+    }
+    else {
+       $twoWeeks = strtotime(date('Y-m-15'));
+    }
     $sql = "UPDATE `leads_rejection` SET approval='2', reason='$reason', note='$notes', date='$now' WHERE client_id=$client_id AND lead_id=$lead_id";
 
 
@@ -134,6 +143,10 @@ class Controller_client_leads extends Controller
       return;
 
     }
+
+
+
+
     $sql1="SELECT approval from leads_rejection where client_id='".$client_id."' AND date>'".$twoWeeks."'";
     $res=$con->query($sql1);
    // var_dump($res);
@@ -151,12 +164,14 @@ class Controller_client_leads extends Controller
         }
       }
       $rejPercent=$rejected*100/$total;
+      $rejPercenBeforet=($rejected-1)*100/$total;
       //var_dump('regected: '.$rejected);
      // var_dump('total: '.$total);
       //var_dump($rejPercent);
-      if($rejPercent>30)
+
+      if($rejPercent>=30 && $rejPercenBeforet<30)
       {
-        $this->model->rejectedMoreThan30($_SESSION['user_name']);
+         $this->model->rejectedMoreThan30($_SESSION['user_name']);
       }
     }
     
