@@ -3,13 +3,34 @@ class Model_Api extends Model {
 	public $debug_api = FALSE;
 	public function proccess_lead($post, $counter=0, $addToTable=true, $leadId=0) {
 		$p = $this->checkdata($post);
-		if($p["phone"])
+		//var_dump($phone);
+
+
+
+		if(!empty($p["phone"]))
 		{
+			if ( strlen($p["phone"]) < 10 ) {
+				return 'The number must be at least 10 numbers';
+			}
 			if($this->phoneReject($p["phone"]))
 			{
 				return 'This phone has been already sent in this week';
 			}
+
 		}
+
+		else
+		{
+			return 'There is no phone entered';
+		}
+
+
+
+		/*if($this->checkPhone())
+		{
+			return 'The number must be at least 10 numbers';
+		}*/
+
 		if ($addToTable) {
 			$lead_id = $this->addleadtotable($p);
 		} else {
@@ -22,8 +43,9 @@ class Model_Api extends Model {
 		//$this->sendLeadToInfusion($p);
 		return $resp;
 	}
+
 	private function phoneReject($phone)
-	{
+	{  // var_dump($phone);
 		$con = $this->db();
 		$stop=time()-86400*7;
 		$sql="SELECT ler.id from leads_lead_fields_rel as ler left join leads le on ler.id=le.id WHERE ler.phone='".$phone."' AND le.datetime>'".$stop."'";
@@ -32,6 +54,18 @@ class Model_Api extends Model {
 		if($res->fetch_assoc()) return true;
 		return false;
 	}
+
+/*	private function checkPhone($p["phone"])
+	{
+
+		if ( strlen($p["phone"]) < 10 ) {
+			return true;
+		}
+		return false;
+	}*/
+
+
+
 	public function sendToClients($clients, $lead_id ,$p, $counter){
 		$sended = '';
 		foreach ($clients as $c ) {
@@ -132,7 +166,7 @@ class Model_Api extends Model {
 				$result=$con->query($sql2);
 				if ($row=$result->fetch_assoc())
 				{
-					if($row['count(id)'] < (int)($camp['weekly']/5))
+					if($row['count(id)'] < (int)($camp['weekly']))
 					{
 //              echo $camp['id'];
 						return $camp['id'];

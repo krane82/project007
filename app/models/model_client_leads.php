@@ -98,9 +98,9 @@ class Model_Client_Leads extends Model
 
         $mail->SetFrom('leads@energysmart.com.au', 'New Qualified Lead');
 
-        $mail->AddAddress('joash.boyton@energysmart.com.au', 'Joash Boyton');
-        $mail->AddAddress('jarrad@energysmart.com.au', 'Jarrad');
-        $mail->AddAddress('ariel.w@energysmart.com.au', 'Ariel');
+        $mail->AddAddress('Oleg.Okhrymenko@gmail.com', 'Oleg');
+       // $mail->AddAddress('jarrad@energysmart.com.au', 'Jarrad');
+       // $mail->AddAddress('ariel.w@energysmart.com.au', 'Ariel');
 
         $mail->Subject = "New Qualified Lead - Please contact ASAP";
 
