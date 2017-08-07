@@ -94,7 +94,7 @@ class Controller_approvals extends Controller
 
       $con = $this->db();
 
-      $sql = "UPDATE `leads_rejection` SET approval=3 WHERE lead_id=$id AND client_id=$client_id";
+      $sql = "UPDATE `leads_rejection` SET approval=1 WHERE lead_id=$id AND client_id=$client_id";
 
       $con->query($sql);
 
