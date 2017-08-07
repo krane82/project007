@@ -150,7 +150,6 @@
 
 <script type="text/javascript">
   function sendtheLeads() {
-
     var start = document.querySelector('input[name=start]').value;
     var end = document.querySelector('input[name=end]').value;
     var client = document.querySelector('select[name=client]').value;
@@ -165,13 +164,13 @@
     }
     console.log(start, end, client);
     $.ajax({
-        type: "POST",
-        url: '<?php echo __HOST__ . '/leads/sendLead/' ?>',
-        data: { start: start, end: end, client: client, state: state, source: source},
-        success: function (data) {
-          console.log(data);
-          infoblock.innerHTML = data;
-        }
+      type: "POST",
+      url: '<?php echo __HOST__ . '/leads/sendLead/' ?>',
+      data: { start: start, end: end, client: client, state: state, source: source},
+      success: function (data) {
+        console.log(data);
+        infoblock.innerHTML = data;
+      }
     });
   }
   var loader = $('<div class="loader">Loading...</div>');
@@ -307,6 +306,5 @@
     $('.input-daterange').datepicker({
       multidate: "true"
     });
-
   });
 </script>
