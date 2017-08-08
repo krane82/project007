@@ -167,7 +167,7 @@ class Model_Leads extends Model {
   {
     $receivers=$this->getLeadFromDelivered($lead_id);
     $counter = count($receivers);
-    if($counter>=4) return 'This lead already sent 4 times';
+    if($counter>=4) return "$lead_id lead already sent 4 times";
     $leadInfo = $this->getLeadInfo($lead_id);
     $postcodes=explode(',',$c['postcodes']);
     $postcodesLen = count($postcodes);
@@ -199,7 +199,7 @@ class Model_Leads extends Model {
   {
     $receivers=$this->getLeadFromDelivered($lead_id);
     $counter = count($receivers);
-    if($counter>=4) return 'This lead already sent 4 times';
+    if($counter>=4) return "$lead_id lead already sent 4 times";
     $leadInfo = $this->getLeadInfo($lead_id);
     $state=$leadInfo['state'];
     if(!$clients = $this->api->getClients($leadInfo)) return "No clients matches for this lead, or they are inactive";
@@ -243,7 +243,7 @@ class Model_Leads extends Model {
     $counter = count($receivers);
     if($counter>=4)
     {
-      return 'This lead already sent 4 times';
+      return "$lead_id lead already sent 4 times";
     }
     $readyLeadInfo = prepareLeadInfo($p);
     $delivery_id = $this->getLastDeliveryID();

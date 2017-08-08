@@ -4,9 +4,6 @@ class Model_Api extends Model {
 	public function proccess_lead($post, $counter=0, $addToTable=true, $leadId=0) {
 		$p = $this->checkdata($post);
 		//var_dump($phone);
-
-
-
 		if(!empty($p["phone"]))
 		{
 			if ( strlen($p["phone"]) < 10 ) {
@@ -16,21 +13,15 @@ class Model_Api extends Model {
 			{
 				return 'This phone has been already sent in this week';
 			}
-
 		}
-
 		else
 		{
 			return 'There is no phone entered';
 		}
-
-
-
 		/*if($this->checkPhone())
 		{
 			return 'The number must be at least 10 numbers';
 		}*/
-
 		if ($addToTable) {
 			$lead_id = $this->addleadtotable($p);
 		} else {
@@ -43,7 +34,6 @@ class Model_Api extends Model {
 		//$this->sendLeadToInfusion($p);
 		return $resp;
 	}
-
 	private function phoneReject($phone)
 	{  // var_dump($phone);
 		$con = $this->db();
@@ -54,18 +44,13 @@ class Model_Api extends Model {
 		if($res->fetch_assoc()) return true;
 		return false;
 	}
-
-/*	private function checkPhone($p["phone"])
-	{
-
-		if ( strlen($p["phone"]) < 10 ) {
-			return true;
-		}
-		return false;
-	}*/
-
-
-
+	/*	private function checkPhone($p["phone"])
+        {
+            if ( strlen($p["phone"]) < 10 ) {
+                return true;
+            }
+            return false;
+        }*/
 	public function sendToClients($clients, $lead_id ,$p, $counter){
 		$sended = '';
 		foreach ($clients as $c ) {
