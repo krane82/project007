@@ -172,8 +172,8 @@ class Model_Leads extends Model {
     $postcodes=explode(',',$c['postcodes']);
     $postcodesLen = count($postcodes);
     for ($i=0;$i<$postcodesLen;$i++){$postcodes[$i] = trim($postcodes[$i]);}
-    if (!in_array($leadInfo['postcode'],$postcodes)) return 'This client is unmatched to receive this lead';
-    if(in_array($client_id, $receivers )) return "This client already has this lead";
+    if (!in_array($leadInfo['postcode'],$postcodes)) return "This client is unmatched to receive $lead_id lead";
+    if(in_array($client_id, $receivers )) return "This client already has $lead_id lead";
 
       $readyLeadInfo = prepareLeadInfo($leadInfo);
 

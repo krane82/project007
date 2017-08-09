@@ -398,7 +398,7 @@ class Model_Client_Campaigns extends Model
         $mail->AddAddress(ADMINEMAIL, 'Joash Boyton');
         $mail->AddAddress('ariel.w@energysmart.com.au', 'Ariel');
         $mail->AddAddress('Emma@energysmart.com.au', 'Emma Boyton');
-        $mail->AddAddress('Jarrad@energysmart.com.au', 'Jarrad van de Laarschot');
+      //  $mail->AddAddress('Jarrad@energysmart.com.au', 'Jarrad van de Laarschot');
         $mail->AddAddress('joash.boyton@energysmart.com.au', 'Joash Boyton');
 
         $mail->Subject = 'Change campaign\'s status information';
