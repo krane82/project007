@@ -65,10 +65,11 @@ class Controller_Admin_Reports extends Controller
     $filename =  'Leads_Distributed_' . date("Y_m_d", $now);
 
     $data = $this->model->getDistributed();
+print '<pre>';
+	var_dump($data);
+    //header('Content-type: text/csv; charset=utf-8');
 
-    header('Content-type: text/csv; charset=utf-8');
-
-    header('Content-Disposition: attachment; filename=' . $filename .'.csv');
+    //header('Content-Disposition: attachment; filename=' . $filename .'.csv');
 
     $fp = fopen('php://output', 'w');
 

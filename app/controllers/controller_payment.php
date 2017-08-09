@@ -10,7 +10,9 @@ class Controller_Payment extends Controller
 {
 public function action_index()
 {
-    $data["body_class"] = "page-header-fixed";
+    session_start();
+    $user=$_SESSION['user_id'];
+    $data=$this->model->isPayer($user);
     $this->view->generate('payment_view.php','client_template_view.php',$data);
 }
 }
