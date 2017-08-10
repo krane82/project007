@@ -94,15 +94,16 @@ class Model_Client_Leads extends Model
 
         $mail->isHTML(true);
 
-        $mail->AddReplyTo("leads@energysmart.com.au", "New Qualified Lead");
+        $mail->AddReplyTo("leads@energysmart.com.au", "$name");
 
-        $mail->SetFrom('leads@energysmart.com.au', "New Qualified Lead");
+        $mail->SetFrom('leads@energysmart.com.au', "$name");
 
-        $mail->AddAddress('joash.boyton@energysmart.com.au', 'Joash Boyton');
+        $mail->AddAddress(ADMINEMAIL, 'Joash Boyton');
+       // $mail->AddAddress('ariel.w@energysmart.com.au', 'Ariel');
        // $mail->AddAddress('jarrad@energysmart.com.au', 'Jarrad');
-        //$mail->AddAddress('ariel.w@energysmart.com.au', 'Ariel');
+       // $mail->AddAddress('ariel.w@energysmart.com.au', 'Ariel');
 
-        $mail->Subject = "New Qualified Lead - Please contact ASAP";
+        $mail->Subject = "$name - Please contact ASAP";
 
         $mail->AltBody = "To view the message, please use an HTML compatible email viewer!";  // optional, comment out and test
 
