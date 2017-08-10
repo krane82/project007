@@ -150,10 +150,11 @@ class Controller_CLients extends Controller {
 //              <iframe src="/app/map/map.php" id="frame" style="width:100%; height:400px">Не работает</iframe>
 //              </div>
 //</div>';
-                    }else if($k=="weekly") {
+                    }
+                    else if($k=="weekly") {
                         echo "<div class='form-group' onclick='limits(this,event)'>";
-                        echo "<label for='$k'>".$form_keys["$k"]."</label><br>";
-                        if($v || $v==='0') {
+                       // echo "<label for='$k'>".$form_keys["$k"]."</label><br>";
+                       /* if($v || $v==='0') {
                             echo "<p><label><input type='radio' name='limits' value='limited' checked><b> LIMITED </b>";
                             echo "<label><input type='radio' name='limits' value='unlimited'><b> UNLIMITED </b></p>";
                             echo '<input class="form-control" type="text" name="'.$k.'" value="'.$v.'"  > ' ;
@@ -162,7 +163,7 @@ class Controller_CLients extends Controller {
                             echo "<p><label><input type='radio' name='limits' value='limited'><b> LIMITED </b>";
                             echo "<label><input type='radio' name='limits' value='unlimited' checked><b> UNLIMITED </b></p>";
                             echo '<input class="form-control" type="text" name="'.$k.'" value="'.$v.'"  disabled> ' ;
-                        }
+                        }*/
                         echo "</div>";
                     } else {
                         echo "<div class='form-group'>";
