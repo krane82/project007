@@ -12,8 +12,7 @@ function send_m($clientEmail, $p, $name, $tracking_number, $alttext = '', $linkT
     $mail->Host = MAIL_HOST;    // sets the SMTP server
     $mail->Port = MAIL_PORT;
     $mail->Username = MAIL_USER;    // SMTP account username
-    $mail->Password = MAIL_PASS;        // SMTP account password
-
+    $mail->Password = MAIL_PASS;        // SMTP account password`
     $mail->isHTML(true);
 
     $mail->AddReplyTo("leads@energysmart.com.au", "New Qualified Lead");
@@ -112,7 +111,7 @@ img[class="img-hide"] { max-width: 0px !important; max-height: 0px !important; }
 													<p> <multiline>We have a new qualified lead in your area! Please see their information below, and contact them as soon as possible.</multiline></p>
 EOD;
 
-    $content .= '<div class="datagrid"><table style="width:100%;"><tbody>';
+    $content .= '<div class="datagrid"><table style="width:100%; border-spacing: 0px;"><tbody>';
     $i = true;
     foreach ($p as $v) {
 
@@ -132,7 +131,7 @@ EOD;
            <p>Please contact this lead immediately, as this customer is waiting to hear from you! If you can't get onto them, don't worry! Please attempt to call this customer at different times of the day (morning, day, and evening), as most people get home from work at 5:30-6pm! Be sure to make every effort to contact them.</p>
 			    <p>If you feel as though this lead requires rejection, please do so via the Energy Smart Portal within the time frame by clicking the button below. </p>
 				<p>Please make sure you reject this lead within the time frame, otherwise it will be automatically billable. </p>
-				<p>The only way to reject a lead is through our <a href="http://leadpoint.energysmart.com.au/"><strong>Energy Smart Portal</strong></a>. We're unable to reject leads for you.</p>
+				<p>The only way to reject a lead is through our <a href="http://leadpoint.energysmart.com.au/" style="color: #78d2f8; text-decoration: none;"><strong>Energy Smart Portal</strong></a>. We're unable to reject leads for you.</p>
 				<p>Good luck!</p></td>
 										  </tr>
  										  <!--button-->

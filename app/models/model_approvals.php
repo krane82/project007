@@ -144,7 +144,7 @@ img[class="img-hide"] { max-width: 0px !important; max-height: 0px !important; }
 											  <td data-link-style="text-decoration:none; color:#FF6363;" data-link-color="Content Link" data-size="Content" data-color="Content" style="font-family: \'Open Sans\', Arial, sans-serif; color: rgb(61, 61, 61); font-size: 15px; font-weight: 400; line-height: 25.5px;" spellcheck="false" data-gramm_id="3ed6e441-9a5e-1b75-b8e6-1787df104970" data-gramm="true" data-gramm_editor="true">
 													<p> <multiline>We had to decline your rejection request. We\'ve spoken with the customer and here is the information they have provided us with.</multiline></p>
 													<div class="datagrid">
-													    <table>
+													    <table style="border-spacing: 0px;">
 															<tbody>
 																<tr style = "height:40px;">
 																	<td style = "width: 21%; height:30px;"><strong>Address</strong></td>
@@ -173,14 +173,13 @@ img[class="img-hide"] { max-width: 0px !important; max-height: 0px !important; }
 																<tr >
 																	<td><strong>  Rejection disapproval reason</strong></td>
 																	<td>   ' . $data['decline_reason'] . '    </td>
-																<!--<td><p><strong>Date and time:</strong> 21/7/17, 11:18 AM. </p>
+																    <!--<td><p><strong>Date and time:</strong> 21/7/17, 11:18 AM. </p>
 																	<p><strong>What happened? </strong>Customer advised they are not in a caravan park but a home park, they all my details and i want a quote. </p>
 																	<p><strong>Why is this?</strong> Customer wants to find out his facts first</p>
-																	<p><strong>Interested in the next 6 months?</strong> Yes</p>
-																	<p><strong>Interested in an installer calling you?:</strong> yes. </p>
+																	<p><strong>Interested within 6 months?</strong> Yes</p>
+																	<p><strong>Interested in installer calling you?:</strong> yes. </p>
 																	<p><strong>If yes, what time of day is best for a call?:</strong> Customer could say a specific time.</p>
-																	<p><strong>If no, why?:</strong> Yes</p></td>-->
-																	</tr>
+																	</tr>-->
 															</tbody>
 														</table>
 													</div>
