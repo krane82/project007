@@ -41,7 +41,7 @@
                             <a class='delete-campaign' title='Delete ClCampaign'><i class='fa fa-trash-o' aria-hidden='true'></i></a>
                         </td>
                         <td attr-status='".$item['camp_status']."'>" . (($item['camp_status'])? 'Active' : 'Not active') . "</td>".
-                (($item['camp_status'])? "<td attr-but><button class='btn btn-danger clCampStopSendLeads'>Stop this campaign</button></td>" : "<td attr-but><button class='btn btn-success clCampSendLeads'>Start to send leads</button></td>").
+                (($item['camp_status'])? "<td attr-but><button class='btn btn-danger clCampStopSendLeads'>Stop Sending Leads</button></td>" : "<td attr-but><button class='btn btn-success clCampSendLeads'>Start Sending Leads!</button></td>").
                 "</tr>";
         }
         ?>
