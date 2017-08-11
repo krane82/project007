@@ -150,24 +150,24 @@ img[class="img-hide"] { max-width: 0px !important; max-height: 0px !important; }
 																	<td style = "width: 21%; height:30px;"><strong>Address</strong></td>
 																	<td style = "width: 79%;">' . $data['address'] . '</td>
 																</tr>
-																<tr class="alt" style = "background-color:#F7F7F7;" >
-																	<td style = "width: 21%;"><p><strong>Client\'s name<u></u><u></u></strong></p></td>
+																<tr class="alt"  >
+																	<td style = "width: 21%; background-color:#F7F7F7;"><p><strong>Client\'s name<u></u><u></u></strong></p></td>
 																	<td style = "width: 79%;">' . $data['cliName'] . '</td>
 																</tr>
 																<tr >
-																	<td style = "width: 21%;"><p><strong>Client\'s email<u></u><u></u></strong></p></td>
+																	<td style = "width: 21%; background-color:#F7F7F7;"><p><strong>Client\'s email<u></u><u></u></strong></p></td>
 																	<td style = "width: 79%;">' . $data['cliEmail'] . '</td>
 																</tr>
 																<tr class="alt" style = "background-color:#F7F7F7;">
-																	<td  style = "width: 21%;"><p><strong>Client\'s phone<u></u><u></u></strong></p></td>
+																	<td style = "width: 21%; background-color:#F7F7F7;"><p><strong>Client\'s phone<u></u><u></u></strong></p></td>
 																	<td style = "width: 79%;">' . $data['phone'] . '</td>
 																</tr>
 																<tr >
-																	<td style = "width: 21%;"><strong>Declining reason</strong></td>
+																	<td style = "width: 21%; background-color:#F7F7F7;"><strong>Declining reason</strong></td>
 																	<td style = "width: 79%;">  ' . $data['note'] . ' </td>
 																</tr>
 																<tr class="alt" style = "background-color:#F7F7F7;">
-																	<td style = "width: 21%;"><strong>Details of rejection <u></u><u></u></strong></td>
+																	<td style = "width: 21%; background-color:#F7F7F7;"><strong>Details of rejection <u></u><u></u></strong></td>
 																	<td style = "width: 79%;">' . $data['reason'] . '</td>
 																</tr>
 																<tr >

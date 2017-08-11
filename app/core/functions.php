@@ -118,9 +118,9 @@ EOD;
 
         if ($i) {
             $content .= '
-             <tr class="alt" ><td style="width:50%;"><strong>' . $v["field_name"] . '</strong></td><td style="width:50%;">' . $v["val"] . '</td></tr>';
+             <tr class="alt" ><td style="width:50%;  background-color:#F7F7F7;"><strong>' . $v["field_name"] . '</strong></td><td style="width:50%;">' . $v["val"] . '</td></tr>';
         } else {
-            $content .= ' <tr class="alt" style=" background-color:#F7F7F7;" ><td style="width:50%;"><strong>' . $v["field_name"] . '</strong></td><td style="width:50%;">' . $v["val"] . '</td></tr>';
+            $content .= ' <tr class="alt"  ><td style="width:50%; background-color:#F7F7F7;"><strong>' . $v["field_name"] . '</strong></td><td style="width:50%;">' . $v["val"] . '</td></tr>';
         }
         $i = !$i;
     }
@@ -132,7 +132,7 @@ EOD;
            <p>Please contact this lead immediately, as this customer is waiting to hear from you! If you can't get onto them, don't worry! Please attempt to call this customer at different times of the day (morning, day, and evening), as most people get home from work at 5:30-6pm! Be sure to make every effort to contact them.</p>
 			    <p>If you feel as though this lead requires rejection, please do so via the Energy Smart Portal within the time frame by clicking the button below. </p>
 				<p>Please make sure you reject this lead within the time frame, otherwise it will be automatically billable. </p>
-				<p>The only way to reject a lead is though our <a href="http://leadpoint.energysmart.com.au/"><strong>Energy Smart portal</strong></a>. We're unable to reject leads for you.</p>
+				<p>The only way to reject a lead is through our <a href="http://leadpoint.energysmart.com.au/"><strong>Energy Smart Portal</strong></a>. We're unable to reject leads for you.</p>
 				<p>Good luck!</p></td>
 										  </tr>
  										  <!--button-->
