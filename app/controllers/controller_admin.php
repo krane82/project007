@@ -7,12 +7,6 @@ class Controller_Admin extends Controller
     $this->model = new Model_Admin();
     $this->view = new View();
 //      var_dump($_COOKIE);
-      ini_set('session.gc_maxlifetime', 15);
-
-      // each client should remember their session id for EXACTLY 1 hour
-      session_set_cookie_params(15);
-
-      session_start();
   }
   function action_index() {
 

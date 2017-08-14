@@ -15,9 +15,9 @@ class Controller_Login extends Controller {
 
         // }
 
-        /*if(isset($_COOKIE['hash_sys'])){
-            //$res = $this->model->rem_in_sys();
-            //if($res != 'error'){
+        if(isset($_COOKIE['hash_sys'])){
+            $res = $this->model->rem_in_sys();
+            if($res != 'error'){
 
                 if($res["level"]==="1"){
                     $_SESSION['admin'] = md5('admin');
@@ -31,14 +31,8 @@ class Controller_Login extends Controller {
                 }else{
                     $data["login_status"] = "access_denied";
                 }
-            //}
-        }*/
-        ini_set('session.gc_maxlifetime', 15);
-
-        // each client should remember their session id for EXACTLY 1 hour
-        session_set_cookie_params(15);
-
-		session_start();
+            }
+        }
 		if(isset($_POST['login']) && isset($_POST['password']))
 		{
 			$login = $_POST['login'];
