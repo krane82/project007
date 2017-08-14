@@ -181,7 +181,7 @@
                             </button>
                         </li>
                         <li class="hide-phone list-inline-item app-search">
-                            <h3 class="page-title custom-page-title">Dashboard</h3>
+                            <h3 class="page-title custom-page-title">Dashboard </h3>
                         </li>
                     </ul>
 
