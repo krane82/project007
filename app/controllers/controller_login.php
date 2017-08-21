@@ -21,7 +21,7 @@ class Controller_Login extends Controller {
 
                 if($res["level"]==="1"){
                     $_SESSION['admin'] = md5('admin');
-                    //header('Location:/admin/dashboard');
+                    header('Location:/admin/dashboard');
                 }else if($res["level"]==="3"){
                     $_SESSION['user'] =  md5('user');
                     header('Location:/client_leads');
