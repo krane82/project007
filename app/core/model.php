@@ -9,6 +9,7 @@ class Model
   }
   public function db() {
     $db = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+   
     if ($db->connect_errno) {
       printf("Connect failed: %s\n", $con->connect_error);
       exit();

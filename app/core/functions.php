@@ -3,7 +3,7 @@ function send_m($clientEmail, $p, $name, $tracking_number, $alttext = '', $linkT
 {
     $mail = new PHPMailer;
     //  $mail->isSendmail();
-    $mail->IsSMTP(); // telling the class to use SMTP
+  //  $mail->IsSMTP(); // telling the class to use SMTP
     $path = $_SERVER['DOCUMENT_ROOT'];
     $path .= "/credentials.php";
     require_once($path);

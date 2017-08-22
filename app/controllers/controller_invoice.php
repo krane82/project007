@@ -49,4 +49,13 @@ class Controller_Invoice extends Controller
     {
         $this->model->deleteFile();
     }
+    function action_getPayment()
+    {   //var_dump($_POST);
+        $client=$_POST['client'];
+        $this->model->getPayment($client);
+
+    }
+
+
+
 }

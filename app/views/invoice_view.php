@@ -3,15 +3,15 @@
     <form id="invoices">
       <h4 class="text-center">Generate Invoice for previous 2 weeks to</h4>
         <div class="form-group">
-Select Date Range
+  <!--      Select Date Range
             <div class="input-daterange input-group" id="datepicker">
                 <input type="text" class="input-sm st form-control" name="start" required/>
                 <span class="input-group-addon">to</span>
                 <input type="text" class="input-sm en form-control" name="end" required/>
-            </div>
+            </div> -->
 Select Client
           <span id="infospan" class="label label-primary" style="float:right"></span>
-          <select name="client" class="form-control" id="client">
+         <select name="client" class="form-control" id="client">
           <option selected disabled></option>
           <?php
           foreach ($data as $key => $value) {
@@ -67,7 +67,7 @@ Select Client
             url: "<?php echo __HOST__ . '/invoice/generate' ?>",
             data:data,
             success:function(data){
-                console.log(data)
+                console.log(data);
             infospan.innerHTML="Invoice created!";
             inform();
             }
@@ -77,12 +77,12 @@ Select Client
 
     listOfInvoices.addEventListener('click',delbut);
     function delbut(event) {
-        if (event.target.type == 'button') {
+
+            if ( event.target.className == 'btn btn-xs btn-danger badge delbut') {
+
             var conf = confirm('Do you really want to delete this file?');
             if (conf) {
                 var data = {'client': client.value, 'file': event.target.value};
-
-
                 $.ajax(
                     {
                         type: "POST",
@@ -96,11 +96,36 @@ Select Client
                 )
             }
         }
-    }
-    $(document).ready(function () {
+            if ( event.target.className == 'btn btn-success paybut'){
+                    var conf = confirm('Do you really want to pay?');
+                    if (conf) {
+                        var data = {'client': client.value, 'file': event.target.value};
+                        $.ajax(
+                            {
+                                type: "POST",
+                                url: "<?php echo __HOST__ . '/invoice/getPayment' ?>",
+                                data: data,
+                                success: function (data) {
+                                    console.log(data);
+                                   // event.target.parentNode.parentNode.removeChild(event.target.parentNode);
+                                }
+                            }
+                        )
+                    }
+                }
+
+            }
+
+
+
+
+
+
+  /*  $(document).ready(function () {
         $('.input-daterange').datepicker({
            // multidate: "true", format: 'dd-mm-yyyy' }
-            multidate: "true"}
+            multidate: "true"
+            }
         );
-    });
+    });*/
 </script>

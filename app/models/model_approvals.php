@@ -132,7 +132,7 @@ img[class="img-hide"] { max-width: 0px !important; max-height: 0px !important; }
  											<!--title-->
   											<tr>
  												<td data-link-style="text-decoration:none; color:#4A4A4A;" data-link-color="Title Link" data-size="Title" data-color="Title" style="font-family: \'Century Gothic\', Arial, sans-serif; color:#4A4A4A; font-size:20px;font-weight: bold;">
- 													<singleline>Hi John.</singleline>
+ 													<singleline>Hi  '.$data['cliName'].' </singleline>
  												</td>
  											</tr>
  											<!--end title-->
