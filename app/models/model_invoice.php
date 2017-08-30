@@ -359,14 +359,14 @@ E-mail: support@energysmart.com.au', '', 'L');
         $result.='<li class="list-group-item">';
         if($isPayer)
             {
-                $result.=' <button type="button" class="btn btn-success paybut" id = "pay"> Pay !</button>';
+                $result.='<button type="button" class="btn btn-success btn-xs paybut" id = "pay"> Pay !</button>';
             }
             else
             {
-                $result.='<span><i>Unregistered payer</i></span>';
+                $result.='<button type="button" class="btn btn-warning btn-xs paybut" id = "pay" title="This user must register in EziDebit in his dashboard" disabled> Pay !</button>';
             }
 
-            $result.='    <a href="'.$dir.$item.'" target="_blank" style="margin-left:250px;">'.$item.'</a>   <button type="button" value="'.$item.'" class="btn btn-xs btn-danger badge delbut" id="delete">Delete</button></li>';
+            $result.='    <a href="'.$dir.$item.'" target="_blank">'.$item.'</a>   <button type="button" value="'.$item.'" class="btn btn-xs btn-danger badge delbut" id="delete">Delete</button></li>';
         }
         $result.='</ul>';
         return $result;
@@ -406,10 +406,6 @@ E-mail: support@energysmart.com.au', '', 'L');
     }
 
     public function getPayment($id) {
-        //var_dump($id);
-        $payer = new Model_Payment();
-        $cref = $payer->isPayer();
-        var_dump($cref);
         $currentday = date("j");
         if($currentday > 8 && $currentday < 23)
         {
@@ -422,40 +418,47 @@ E-mail: support@energysmart.com.au', '', 'L');
             $start = strtotime(date('Y-m-1'));
             $end = strtotime(date('Y-m-15'));
         }
-
         $con = $this->db();
         $sql ="SELECT sum(cli.lead_cost) from clients cli left join leads_delivery led on cli.id=led.client_id left join leads_rejection rej on led.id=rej.id left join leads_lead_fields_rel ler on led.lead_id=ler.id where (led.timedate between $start and $end ) and (rej.approval=1 or rej.approval=3)and cli.id = $id";
-        //var_dump($sql);
         $res = $con->query($sql);
-       // var_dump($res);
         if ($res) {
-            $row = $res->fetch_row();
-            $num = $row[0];
+            $row = $res->fetch_array();
+            $sum = $row[0] * 0.1;
+        }
+            $PaymentReference='Pay for leads from '.date('d/m/Y',$start).' to '.date('d/m/Y',$end);
 
-            $sum = $num * 0.1 + $num;
-            var_dump($sum);
-            // return $sum;
-        //}
+            //!!!Here is the method to send leads to EziDebit!!!
+                //OldUrl
+            //$url = 'https://api.demo.ezidebit.com.au/v3-5/nonpci?wsdl';
+            //NewUrl
 
-            $url = 'https://api.demo.ezidebit.com.au/v3-5/nonpci?wsdl';
+        //Here is the block of variables to SOAP client
+            $digitalKey='67B4468B-8D7F-4463-AF71-DDFE213BB615';
+            $EziDebitCustomerID=$this->isPayer($id);
+            $debitDate=date('Y-m-d');
+            $PaymentAmountInCents=int($sum*100);
+            $url = 'https://api.ezidebit.com.au/v3-5/nonpci?wsdl';
+      //EndOfBlock
+
             $soap = new SoapClient($url);
-            print '<pre>';
-            var_dump($soap->__getFunctions());
+       //     print '<pre>';
+            //var_dump($soap->__getFunctions());
 
             $addPayment = array(
-                'DigitalKey' => '0CCBD0C4-087D-4F12-1044-2980706769F1',
-                'EziDebitCustomerID' => '503361', //Тут ставится cref
-                'DebitDate' =>  '2017-08-20', //Тут текущая дата
-                'PaymentAmountInCents' => $sum, //Тут сумма на оплату
-                'PaymentReference' => 'TestSoap'
+                //OldEzi
+                //'DigitalKey' => $digitalKey,
+                //NewEzi
+                'DigitalKey' => $digitalKey,
+                'EziDebitCustomerID' => $EziDebitCustomerID, //Тут ставится cref
+                'DebitDate' =>  $debitDate, //Тут текущая дата
+                'PaymentAmountInCents' => $PaymentAmountInCents, //Тут сумма на оплату
+                'PaymentReference' => $PaymentReference
             );
 
             if ($x = $soap->AddPayment($addPayment)) {
                 print 'ok';
             } else print 'neud';
             var_dump($x);
-
-        }
     }
 
     public function isPayer($client)

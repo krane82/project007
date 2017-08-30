@@ -1,7 +1,28 @@
 <div class=""row">
 <div class="col-md-4">
     <form id="invoices">
-      <h4 class="text-center">Generate Invoice for previous 2 weeks to</h4>
+<!--      <h4 class="text-center">Generate Invoice for previous 2 weeks to</h4>-->
+        <div class="controls">
+            <input type="submit" class="btn btn-success" value="Generate Invoice">
+        </div>
+        <div class="form-group">
+            <?php
+            $currentday = date("j");
+            if($currentday > 8 && $currentday < 23)
+            {
+                $startdate = strtotime("first day of previous month");
+                $start = strtotime("+15 days", $startdate);
+                $end = strtotime('last day of previous month');
+            }
+            else
+            {
+                $start = strtotime(date('Y-m-1'));
+                $end = strtotime(date('Y-m-15'));
+            }
+            ?>
+       Presing of this button will generate invoices for previous payment period.
+            Now it is<span class="alert-info text-center"><h3>from: <?php print date('m/d/Y', $start)?> to: <?php print date('d/m/Y', $end)?></h3></span>
+        </div>
         <div class="form-group">
   <!--      Select Date Range
             <div class="input-daterange input-group" id="datepicker">
@@ -20,9 +41,7 @@ Select Client
           ?>
 </select>
 </div>
-<div class="controls">
-    <input type="submit" class="btn btn-success" value="Generate Invoice">
-</div>
+
 <hr>
 </form>
 </div>

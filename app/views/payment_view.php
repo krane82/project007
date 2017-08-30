@@ -1,7 +1,10 @@
 <?php
 if($data['cref'])
 {
-print '<iframe src="https://widget.demo.ezidebit.com.au/account/edit?dk=0CCBD0C4-087D-4F12-1044-2980706769F1&er='.$data['cref'].'" style="width:330px;height:774px"></iframe>';
+    //Old Ezi
+//print '<iframe src="https://widget.demo.ezidebit.com.au/account/edit?dk=0CCBD0C4-087D-4F12-1044-2980706769F1&er='.$data['cref'].'" style="width:330px;height:774px"></iframe>';
+    //New Ezi
+    print '<iframe src="https://widget.ezidebit.com.au/account/edit?dk=67B4468B-8D7F-4463-AF71-DDFE213BB615&er='.$data['cref'].'" style="width:330px;height:774px"></iframe>';
 }
 else
 {
