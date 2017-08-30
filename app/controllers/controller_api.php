@@ -10,7 +10,12 @@ class Controller_Api extends Controller {
   public function action_index() {
     echo "access denied!";
   }
-
+  public function action_ezi()
+  {
+    $client=$_POST['uref'];
+    $cref=$_POST['cref'];
+    $this->model->saveEzidebitCref($client,$cref);
+  }
 
   public function action_in()
   {

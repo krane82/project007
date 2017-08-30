@@ -111,7 +111,9 @@
                         <li>
                             <a href="<?php echo __HOST__; ?>/terms/" class="waves-effect"><i class="mdi mdi-format-list-bulleted-type"></i><span> Terms </span></a>
                         </li>
-
+                        <li>
+                            <a href="<?php echo __HOST__; ?>/payment/" class="waves-effect"><i class="mdi mdi-format-list-bulleted-type"></i><span> Payments </span></a>
+                        </li>
                     </ul>
                 </div>
                 <div class="clearfix"></div>

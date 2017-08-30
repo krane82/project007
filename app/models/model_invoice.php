@@ -31,13 +31,13 @@ class Model_Invoice extends Model
     $start=strtotime($_POST['start']);
     $end=strtotime($_POST['end']);
     $client=$_POST['client'];
-    $sql="SELECT ler.full_name, led.lead_id, cli.lead_cost, cli.campaign_name, cli.email, cli.phone from clients cli left join leads_delivery led on cli.id=led.client_id left join leads_lead_fields_rel ler on led.lead_id=ler.id where cli.id='".$client."'";
-    $sql.="and led.timedate between '".$start."' AND '".$end."'";
+    $sql="SELECT ler.full_name, led.lead_id, cli.lead_cost, cli.campaign_name, cli.email, cli.phone, cli.id from clients cli left join leads_delivery led on cli.id=led.client_id left join leads_lead_fields_rel ler on led.lead_id=ler.id";
+    $sql.=" where led.timedate between '".$start."' AND '".$end."'";
     $res=$con->query($sql);
     if($res) {
         while($row=$res->fetch_array(MYSQLI_NUM))
         {
-           $result[]=$row;
+           $result[$row[6]][]=$row;
         }
         return $result;
     }
@@ -46,6 +46,7 @@ class Model_Invoice extends Model
     public function generate()
     {
         $data=$this->getData();
+        return var_dump($data);
         $userId=$_POST['client'];
         $today=date('d_m_Y');
         $company_name=$data[0][3];
