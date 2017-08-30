@@ -150,10 +150,11 @@ class Controller_CLients extends Controller {
 //              <iframe src="/app/map/map.php" id="frame" style="width:100%; height:400px">Не работает</iframe>
 //              </div>
 //</div>';
-                    }else if($k=="weekly") {
+                    }
+                    else if($k=="weekly") {
                         echo "<div class='form-group' onclick='limits(this,event)'>";
-                        echo "<label for='$k'>".$form_keys["$k"]."</label><br>";
-                        if($v || $v==='0') {
+                       // echo "<label for='$k'>".$form_keys["$k"]."</label><br>";
+                       /* if($v || $v==='0') {
                             echo "<p><label><input type='radio' name='limits' value='limited' checked><b> LIMITED </b>";
                             echo "<label><input type='radio' name='limits' value='unlimited'><b> UNLIMITED </b></p>";
                             echo '<input class="form-control" type="text" name="'.$k.'" value="'.$v.'"  > ' ;
@@ -162,7 +163,7 @@ class Controller_CLients extends Controller {
                             echo "<p><label><input type='radio' name='limits' value='limited'><b> LIMITED </b>";
                             echo "<label><input type='radio' name='limits' value='unlimited' checked><b> UNLIMITED </b></p>";
                             echo '<input class="form-control" type="text" name="'.$k.'" value="'.$v.'"  disabled> ' ;
-                        }
+                        }*/
                         echo "</div>";
                     } else {
                         echo "<div class='form-group'>";
@@ -207,7 +208,7 @@ echo '<h1 class="text-center">Client\'s Campaigns</h1>
                             <a href='#' class='edit-campaign' data-toggle='modal' data-target='#editClCampAd' onclick='inform(".$item['id'].")' title='Edit ClCampaign'><i class='fa fa-pencil' aria-hidden='true'></i></a>
                         </td>
                         <td attr-status='".$item['camp_status']."'>" . (($item['camp_status'])? 'Active' : 'Not active') . "</td>".
-                (($item['camp_status'])? "<td attr-but><button type='button' class='btn btn-danger clCampStopSendLeads' onclick='stopCampaign(".$item['id'].",".$item['client_id'].")'>Stop this campaign</button></td>" : "<td attr-but><button type='button' class='btn btn-success clCampSendLeads' onclick='activateClCamp(".$item['id'].",".$item['client_id'].")'>Start to send leads</button></td>").
+                (($item['camp_status'])? "<td attr-but><button type='button' class='btn btn-danger clCampStopSendLeads' onclick='stopCampaign(".$item['id'].",".$item['client_id'].")'>Stop Sending Leads</button></td>" : "<td attr-but><button type='button' class='btn btn-success clCampSendLeads' onclick='activateClCamp(".$item['id'].",".$item['client_id'].")'>Start Sending Leads!</button></td>").
                 "</tr>";
         }
 echo '<tr><td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewClCamp">Add new campaign</button></td></tr>';

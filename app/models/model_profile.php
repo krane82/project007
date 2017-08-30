@@ -14,8 +14,8 @@ class Model_Profile extends Model {
             'postcodes' => 'Postcodes matches',
             'states_filter' => 'States filter',
             'xero_id' => 'Xero id',
-            'xero_name' => 'Xero name',
-            'weekly' => 'Weekly caps'
+            'xero_name' => 'Xero name'
+          //  'weekly' => 'Weekly caps'
       );
 
   public function UserChangeNotif($p, $before=''){
@@ -75,9 +75,9 @@ class Model_Profile extends Model {
     $mail->SetFrom('info@energysmart.com.au', 'Energy Smart Notification');
 
     $mail->AddAddress(ADMINEMAIL, 'Joash Boyton');
-    $mail->AddAddress('ariel.w@energysmart.com.au', 'Ariel');
-    $mail->AddAddress('Emma@energysmart.com.au', 'Emma Boyton');
-    $mail->AddAddress('Jarrad@energysmart.com.au', 'Jarrad van de Laarschot');
+    //$mail->AddAddress('ariel.w@energysmart.com.au', 'Ariel');
+   // $mail->AddAddress('Emma@energysmart.com.au', 'Emma Boyton');
+   // $mail->AddAddress('Jarrad@energysmart.com.au', 'Jarrad van de Laarschot');
 
     $mail->Subject = 'Client "'.$p["campaign_name"].'" have change their profile information';
 
@@ -94,7 +94,8 @@ class Model_Profile extends Model {
   }
 
   public function get_profile_data($id) {
-      $sql = ' SELECT clients.id, clients.email, clients.campaign_name, clients.full_name, clients.phone, clients.city, clients.state, clients.country, clients.lead_cost, clients_criteria.postcodes, clients_criteria.states_filter, clients_billing.xero_id, clients_billing.xero_name, clients_criteria.weekly';
+     // $sql = ' SELECT clients.id, clients.email, clients.campaign_name, clients.full_name, clients.phone, clients.city, clients.state, clients.country, clients.lead_cost, clients_criteria.postcodes, clients_criteria.states_filter, clients_billing.xero_id, clients_billing.xero_name, clients_criteria.weekly';
+      $sql = ' SELECT clients.id, clients.email, clients.campaign_name, clients.full_name, clients.phone, clients.city, clients.state, clients.country, clients.lead_cost, clients_criteria.postcodes, clients_criteria.states_filter, clients_billing.xero_id, clients_billing.xero_name';
       $sql.= ' FROM `clients`';
       $sql.= ' LEFT JOIN `clients_billing` ON clients.id = clients_billing.id';
       $sql.= ' LEFT JOIN `clients_criteria` ON clients.id = clients_criteria.id';

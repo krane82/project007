@@ -132,7 +132,7 @@ img[class="img-hide"] { max-width: 0px !important; max-height: 0px !important; }
  											<!--title-->
   											<tr>
  												<td data-link-style="text-decoration:none; color:#4A4A4A;" data-link-color="Title Link" data-size="Title" data-color="Title" style="font-family: \'Century Gothic\', Arial, sans-serif; color:#4A4A4A; font-size:20px;font-weight: bold;">
- 													<singleline>Hi John.</singleline>
+ 													<singleline> Hi  '.$data['cliName'].' ! </singleline>
  												</td>
  											</tr>
  											<!--end title-->
@@ -144,43 +144,42 @@ img[class="img-hide"] { max-width: 0px !important; max-height: 0px !important; }
 											  <td data-link-style="text-decoration:none; color:#FF6363;" data-link-color="Content Link" data-size="Content" data-color="Content" style="font-family: \'Open Sans\', Arial, sans-serif; color: rgb(61, 61, 61); font-size: 15px; font-weight: 400; line-height: 25.5px;" spellcheck="false" data-gramm_id="3ed6e441-9a5e-1b75-b8e6-1787df104970" data-gramm="true" data-gramm_editor="true">
 													<p> <multiline>We had to decline your rejection request. We\'ve spoken with the customer and here is the information they have provided us with.</multiline></p>
 													<div class="datagrid">
-													    <table>
+													    <table style="border-spacing: 0px;">
 															<tbody>
 																<tr style = "height:40px;">
 																	<td style = "width: 21%; height:30px;"><strong>Address</strong></td>
 																	<td style = "width: 79%;">' . $data['address'] . '</td>
 																</tr>
-																<tr class="alt" style = "background-color:#F7F7F7;" >
-																	<td style = "width: 21%;"><p><strong>Client\'s name<u></u><u></u></strong></p></td>
+																<tr class="alt"  >
+																	<td style = "width: 21%; background-color:#F7F7F7;"><p><strong>Client\'s name<u></u><u></u></strong></p></td>
 																	<td style = "width: 79%;">' . $data['cliName'] . '</td>
 																</tr>
 																<tr >
-																	<td style = "width: 21%;"><p><strong>Client\'s email<u></u><u></u></strong></p></td>
+																	<td style = "width: 21%; background-color:#F7F7F7;"><p><strong>Client\'s email<u></u><u></u></strong></p></td>
 																	<td style = "width: 79%;">' . $data['cliEmail'] . '</td>
 																</tr>
 																<tr class="alt" style = "background-color:#F7F7F7;">
-																	<td  style = "width: 21%;"><p><strong>Client\'s phone<u></u><u></u></strong></p></td>
+																	<td style = "width: 21%; background-color:#F7F7F7;"><p><strong>Client\'s phone<u></u><u></u></strong></p></td>
 																	<td style = "width: 79%;">' . $data['phone'] . '</td>
 																</tr>
 																<tr >
-																	<td style = "width: 21%;"><strong>Declining reason</strong></td>
+																	<td style = "width: 21%; background-color:#F7F7F7;"><strong>Declining reason</strong></td>
 																	<td style = "width: 79%;">  ' . $data['note'] . ' </td>
 																</tr>
 																<tr class="alt" style = "background-color:#F7F7F7;">
-																	<td style = "width: 21%;"><strong>Details of rejection <u></u><u></u></strong></td>
+																	<td style = "width: 21%; background-color:#F7F7F7;"><strong>Details of rejection <u></u><u></u></strong></td>
 																	<td style = "width: 79%;">' . $data['reason'] . '</td>
 																</tr>
 																<tr >
 																	<td><strong>  Rejection disapproval reason</strong></td>
 																	<td>   ' . $data['decline_reason'] . '    </td>
-																<!--<td><p><strong>Date and time:</strong> 21/7/17, 11:18 AM. </p>
+																    <!--<td><p><strong>Date and time:</strong> 21/7/17, 11:18 AM. </p>
 																	<p><strong>What happened? </strong>Customer advised they are not in a caravan park but a home park, they all my details and i want a quote. </p>
 																	<p><strong>Why is this?</strong> Customer wants to find out his facts first</p>
-																	<p><strong>Interested in the next 6 months?</strong> Yes</p>
-																	<p><strong>Interested in an installer calling you?:</strong> yes. </p>
+																	<p><strong>Interested within 6 months?</strong> Yes</p>
+																	<p><strong>Interested in installer calling you?:</strong> yes. </p>
 																	<p><strong>If yes, what time of day is best for a call?:</strong> Customer could say a specific time.</p>
-																	<p><strong>If no, why?:</strong> Yes</p></td>-->
-																	</tr>
+																	</tr>-->
 															</tbody>
 														</table>
 													</div>

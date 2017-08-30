@@ -15,13 +15,13 @@ class Controller_Login extends Controller {
 
         // }
 
-        if(isset($_COOKIE['hash_sys'])){
+    /*    if(isset($_COOKIE['hash_sys'])){
             $res = $this->model->rem_in_sys();
             if($res != 'error'){
-            session_start();
+
                 if($res["level"]==="1"){
                     $_SESSION['admin'] = md5('admin');
-                    header('Location:/admin/dashboard');
+                    //header('Location:/admin/dashboard');
                 }else if($res["level"]==="3"){
                     $_SESSION['user'] =  md5('user');
                     header('Location:/client_leads');
@@ -32,10 +32,7 @@ class Controller_Login extends Controller {
                     $data["login_status"] = "access_denied";
                 }
             }
-        }
-//
-
-		session_start();
+        }*/
 		if(isset($_POST['login']) && isset($_POST['password']))
 		{
 			$login = $_POST['login'];
@@ -43,6 +40,7 @@ class Controller_Login extends Controller {
 			$login = $this->model->check_data($login, $password);
 
 			if($login){
+				session_start();
 				if($login["level"] === "1") {
 					$_SESSION['admin'] = md5('admin');
 					header('Location:/admin/dashboard');

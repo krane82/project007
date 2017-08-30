@@ -8,11 +8,19 @@
  */
 class Controller_Payment extends Controller
 {
-public function action_index()
+
+    function __construct()
+{
+        $this->model = new Model_Payment();
+        $this->view = new View();
+}
+
+    public function action_index()
 {
     session_start();
-    $user=$_SESSION['user_id'];
-    $data=$this->model->isPayer($user);
+    $user=md5('leadpoint'.$_SESSION['user_id'].'leadpoint');
+    $data['client']=$user;
+    $data['cref']=$this->model->isPayer($user);
     $this->view->generate('payment_view.php','client_template_view.php',$data);
 }
 }

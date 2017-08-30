@@ -59,6 +59,32 @@ class Controller_leads extends Controller
       echo $this->model->senOneLead($client_id,$lead_id);
       }
   }
+  function action_downloadCSV()
+  {
+    $now = time();
+    $filename =  'Reason of not sending _Leads_' . date("Y_m_d", $now).'.csv';
+    header('Content-type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename=' . $filename);
+    $array = explode("<br>", $_POST['text']);
+    $str='';
+    foreach($array as $item)
+    {
+      $str.=$item."\r\n";
+    }
+    $fp = fopen("php://output", "w");
+    fwrite($fp,$str);
+    fclose($fp);
+    }
+
+
+
+    
+    
+    
+    
+
+  
+  
   function action_csvUpload()
   {
         $this->view->generate('csvuploader_view.php', 'template_view.php', $data);
