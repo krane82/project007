@@ -345,7 +345,7 @@ E-mail: support@energysmart.com.au', '', 'L');
                 mkdir($dir, 0777);
             }
                    // $pdf->output($dir . "/" . $today . ".pdf", "F");
-                  $pdf->output($dir . "/".$start." - ".$end." - ".$company_name.".pdf", "F");
+                  $pdf->output($dir . "/".$start."-".$end."-".$company_name.".pdf", "F");
         }
     }
     public function getListOfCurrent($id)
@@ -354,21 +354,22 @@ E-mail: support@energysmart.com.au', '', 'L');
         $data=$this->getMyInvoices($id);
         $dir=__HOST__.'/docs/invoices/'.$id.'/';
         $result='<ul class="list-group">';
-        var_dump($id);
+        $isPayer = $this->isPayer(md5('leadpoint'.$id.'leadpoint'));
+ //  return var_dump($isPayer);
         foreach ($data as $item)
         {
             if ($item=='.' || $item=='..')continue;
-            $payer = new Model_Payment();
+        $result.='<li class="list-group-item">';
+        if($isPayer)
+            {
+                $result.=' <button type="button" class="btn btn-success paybut" id = "pay"> Pay !</button>';
+            }
+            else
+            {
+                $result.='<span><i>Unregistered payer</i></span>';
+            }
 
-            //$user = md5('leadpoint'.$id.'leadpoint');
-            $user = '629edbb128931cec41f24c3882ea5a24';
-            //var_dump($user);
-            $res = $payer->isPayer($user);
-           // var_dump($res);
-         if($res) {$result.='<li class="list-group-item"> <button type="button" class="btn btn-success paybut" id = "pay"> Pay !</button><a href="'.$dir.$item.'" target="_blank" style="margin-left:250px;">'.$item.'</a>   <button type="button" value="'.$item.'" class="btn btn-xs btn-danger badge delbut" id="delete">Delete</button></li>';}
-         
-         else { echo "This user isn't registered in EziDebit"; }
-            
+            $result.='    <a href="'.$dir.$item.'" target="_blank" style="margin-left:250px;">'.$item.'</a>   <button type="button" value="'.$item.'" class="btn btn-xs btn-danger badge delbut" id="delete">Delete</button></li>';
         }
         $result.='</ul>';
         return $result;
@@ -458,13 +459,20 @@ E-mail: support@energysmart.com.au', '', 'L');
             var_dump($x);
 
         }
+    }
 
-
-
-
-
-
-
+    public function isPayer($client)
+    {    //var_dump($client);
+        $con=$this->db();
+        $sql="SELECT cref from ezidebit_cref WHERE client_id='$client'";
+        $res=$con->query($sql);
+        $con->close();
+        if($res)
+        {
+            $result=$res->fetch_assoc();
+            return $result['cref'];
+        }
+        return false;
     }
 
 }

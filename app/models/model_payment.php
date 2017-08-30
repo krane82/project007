@@ -17,7 +17,6 @@ class Model_Payment extends model
         if($res)
         {
             $result=$res->fetch_assoc();
-            var_dump($result);
             return $result['cref'];
         }
         return false;
