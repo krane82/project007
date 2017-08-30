@@ -144,12 +144,11 @@ class Controller_client_leads extends Controller
 
     }
 
-
-
-
     $sql1="SELECT approval from leads_rejection where client_id='".$client_id."' AND date>'".$twoWeeks."'";
+    //$sqll="SELECT sum(weekly) FROM client_campaigns WHERE client_id = '".$client_id."' AND date>'".$twoWeeks."'";
+   
     $res=$con->query($sql1);
-   // var_dump($res);
+    // var_dump($res);
     $total = 0;
     $rejected = 0;
     if($res)
@@ -161,13 +160,14 @@ class Controller_client_leads extends Controller
         if($row['approval']=='0' || $row['approval']=='2' || $row['approval']=='4')
         {
           $rejected++;
+        //  var_dump($rejected);
         }
       }
       $rejPercent=$rejected*100/$total;
       $rejPercenBeforet=($rejected-1)*100/$total;
-      //var_dump('regected: '.$rejected);
-     // var_dump('total: '.$total);
-      //var_dump($rejPercent);
+      //var_dump('rejected: '.$rejected);
+     //var_dump('total: '.$total);
+     // var_dump($rejPercent);
 
       if($rejPercent>=30 && $rejPercenBeforet<30)
       {

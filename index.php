@@ -9,3 +9,4 @@ error_reporting(E_ERROR);
 // ini_set('xdebug.var_display_max_data', 1024);
 require_once 'config.php';
 require_once 'app/bootstrap.php';
+

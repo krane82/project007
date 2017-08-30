@@ -1,4 +1,5 @@
 <?php
+
 class Model_Api extends Model {
 	public $debug_api = FALSE;
 	public function proccess_lead($post, $counter=0, $addToTable=true, $leadId=0) {
@@ -46,9 +47,10 @@ class Model_Api extends Model {
 
 	public function saveEzidebitCref($client,$cref)
 	{
-	$con=$this->db();
-	$sql="INSERT INTO ezidebit_cref (client_id, cref) VALUES ('$client','$cref')";
-	$con->query($sql);	
+
+		$con=$this->db();
+		$sql="INSERT INTO ezidebit_cref (client_id, cref) VALUES ('$client','$cref')";
+		$con->query($sql);
 	}
 
 	private function phoneReject($phone)
@@ -62,14 +64,14 @@ class Model_Api extends Model {
 		return false;
 	}
 
-/*	private function checkPhone($p["phone"])
-	{
-
-		if ( strlen($p["phone"]) < 10 ) {
-			return true;
-		}
-		return false;
-	}*/
+	/*	private function checkPhone($p["phone"])
+        {
+    
+            if ( strlen($p["phone"]) < 10 ) {
+                return true;
+            }
+            return false;
+        }*/
 
 
 

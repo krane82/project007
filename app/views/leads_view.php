@@ -156,8 +156,9 @@
     var state = document.querySelector('select[name=state]').value;
     var source = document.querySelector('select[name=source]').value;
     var loader = '<div class="loader">Loading...</div>';
-    var infoblock=document.querySelector('#sendLeadsToClients');
+    var infoblock = document.querySelector('#sendLeadsToClients');
     infoblock.innerHTML=loader;
+
     if(!(start && end)) {
       alert('Please select Date range');
       return;
@@ -169,7 +170,10 @@
       data: { start: start, end: end, client: client, state: state, source: source},
       success: function (data) {
         console.log(data);
-        infoblock.innerHTML = data;
+        infoblock.innerHTML = '<div id = "data">'+data+'</div>';
+        var div = document.createElement('div');
+        div.innerHTML = '<form action="/leads/downloadCSV/" method="post"> <input type = "text" name = "text" value="'+data+'" style = "display:none " > <input type="submit" class="btn btn-primary" value="download report"></form>';
+        sendLeadsToClients.insertBefore(div, sendLeadsToClients.children[0]);
       }
     });
   }

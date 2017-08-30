@@ -135,16 +135,20 @@
                             <a href="<?php echo __HOST__; ?>/admin_reports/" class="waves-effect"><i class="mdi mdi-clipboard-outline"></i><span> Reports </span></a>
                         </li>
 
-                       <li>
+                        <li>
                             <a href="<?php echo __HOST__; ?>/invoice/" class="waves-effect"><i class="mdi mdi-chart-line"></i><span> Invoices </span></a>
                         </li> 
 
                         <li>
                             <a href="<?php echo __HOST__; ?>/terms/" class="waves-effect"><i class="mdi mdi-format-list-bulleted-type"></i><span> Terms </span></a>
-                        </li>
+
+                        </li> 
 
                         <li>
                             <a href="<?php echo __HOST__; ?>/settings/" class="waves-effect"><i class="mdi mdi-google-maps"></i><span> Settings </span></a>
+                        </li>
+                        <li>
+                            <a href="<?php echo __HOST__; ?>/payment/" class="waves-effect"><i class="mdi mdi-google-maps"></i><span> Payments </span></a>
                         </li>
 
                     </ul>
@@ -181,7 +185,7 @@
                             </button>
                         </li>
                         <li class="hide-phone list-inline-item app-search">
-                            <h3 class="page-title custom-page-title">Dashboard</h3>
+                            <h3 class="page-title custom-page-title">Dashboard </h3>
                         </li>
                     </ul>
 

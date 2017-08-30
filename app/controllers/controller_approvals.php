@@ -455,7 +455,9 @@ class Controller_approvals extends Controller
         }
 
         //
-
+        $order   = array('\r\n', '\n', '\r');
+        $replace = '<br>';
+        $decline = str_replace($order, $replace, $decline);
         $sql = "UPDATE `leads_rejection` SET approval=3, decline_reason='$decline'";
 
         if($httpPath) $sql.=", audiofile='$destination'";

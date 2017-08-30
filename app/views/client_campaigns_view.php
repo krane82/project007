@@ -95,7 +95,7 @@
 						"<a class='delete-campaign' title='Delete ClCampaign' onclick='deleteClCamp(event)'><i class='fa fa-trash-o' aria-hidden='true'></i></a>"+
 						"</td>"+
 						"<td attr-status='" + data[i]['camp_status'] +"'>" + (data[i]['camp_status']==1? 'Active' : 'Not active') + "</td>"+
-						(data[i]['camp_status']==1? "<td attr-but><button class='btn btn-danger clCampStopSendLeads' onclick='deactivate(event)'>Stop this campaign</button></td>" : "<td attr-but><button class='btn btn-success clCampSendLeads' onclick='activateClCamp(event)'>Start to send leads</button></td>")+
+						(data[i]['camp_status']==1? "<td attr-but><button class='btn btn-danger clCampStopSendLeads' onclick='deactivate(event)'>Stop Sending Leads</button></td>" : "<td attr-but><button class='btn btn-success clCampSendLeads' onclick='activateClCamp(event)'>Start Sending Leads! </button></td>")+
 						"</tr>";
 					}
 					$('#tablClCamp').append('<table id="campaigns" class="display table responsive table-condensed table-striped table-hover table-bordered pull-left" cellspacing="0" width="100%">'+
